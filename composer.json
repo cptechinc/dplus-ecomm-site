@@ -1,0 +1,23 @@
+{
+	"minimum-stability": "dev",
+	"authors": [
+		{
+			"name": "Paul Gomez",
+			"email": "paul@cptechinc.com",
+			"homepage": "https://www.cptechinc.com",
+			"role": "Developer"
+		}
+	],
+	"repositories": [
+		{
+			"type": "git",
+			"url": "https://github.com/cptechinc/purl.git"
+		}
+	],
+	"require": {
+		"jwage/purl": "dev-cptechinc"
+	},
+	"autoload": {
+		"files": ["wire/core/ProcessWire.php"]
+	}
+}
