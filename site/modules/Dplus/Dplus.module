@@ -1,0 +1,26 @@
+<?php namespace ProcessWire;
+
+include_once(__DIR__.'/vendor/autoload.php');
+
+/**
+ * Dplus
+ * Module for Autoloading Dplus classes
+ */
+class Dplus extends WireData implements Module {
+	public function init() {
+		
+	}
+
+	public static function getModuleInfo() {
+		$infoArray = array(
+			'title' => __('Dplus'),
+			'version' => 115,
+			'summary' => __("Autoloads Dplus"),
+			'autoload' => true,
+			'singular' => true,
+			'author' => 'pauldro',
+			'icon' => 'database'
+		);
+		return $infoArray;
+	}
+}
