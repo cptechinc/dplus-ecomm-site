@@ -1,0 +1,10 @@
+{
+	"autoload": {
+		"psr-4": {
+			"Pauldro\\Twig\\": "src/"
+		}
+	},
+	"require": {
+		"twig/twig": "2.x-dev#0da153eb3b843d1117e52c882df6f40aefb954ab"
+	}
+}
