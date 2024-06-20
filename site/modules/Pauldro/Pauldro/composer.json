@@ -1,0 +1,10 @@
+{
+	"autoload": {
+		"psr-4": {
+			"Pauldro\\": "src/"
+		}
+	},
+	"require": {
+		"jenssegers/agent": "^2.6"
+	}
+}

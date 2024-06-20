@@ -9,6 +9,7 @@ site/config.php
 /vendor
 test.php
 .env
+site/modules/Pauldro/Pauldro/vendor/
 
 # VS Code files
 .vscode

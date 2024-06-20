@@ -1,0 +1,37 @@
+<?php namespace ProcessWire;
+
+include_once(__DIR__.'/vendor/autoload.php');
+
+use Jenssegers\Agent\Agent;
+
+
+/**
+ * Pauldro
+ * Module for Autoloading Pauldro classes
+ */
+class Pauldro extends WireData implements Module {
+	/**
+	 * Return Agent for Browser Detection
+	 * @return Agent
+	 */
+	public function getAgent() {
+		return new Agent();
+	}
+
+	public function init() {
+		$this->wire('browseragent', $this->getAgent());
+	}
+
+	public static function getModuleInfo() {
+		$infoArray = array(
+			'title' => __('Pauldro'),
+			'version' => 115,
+			'summary' => __("Autoloads Pauldro Libraries"),
+			'autoload' => true,
+			'singular' => true,
+			'author' => 'pauldro',
+			'icon' => 'database'
+		);
+		return $infoArray;
+	}
+}
