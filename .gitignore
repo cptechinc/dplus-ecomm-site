@@ -1,0 +1,19 @@
+# Processwire Directories
+wire
+site/assets
+site/modules/InputfieldCKEditor
+site/modules/README.txt
+
+# Project Configurations
+site/config.php
+/vendor
+test.php
+.env
+
+# VS Code files
+.vscode
+
+# Atom files
+.ftpconfig
+.ftpignore
+project.cson
