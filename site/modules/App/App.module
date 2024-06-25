@@ -1,0 +1,33 @@
+<?php namespace ProcessWire;
+
+include_once(__DIR__.'/vendor/autoload.php');
+
+use App\Pw\Hooks;
+
+use App\TableFormatters\Database\Table;
+
+/**
+ * App
+ * Module for Autoloading App classes
+ */
+class App extends WireData implements Module {
+	public function init() {
+		Hooks\ApiUrls::instance()->addHooks();
+		Hooks\WireInput::instance()->addHooks();
+		Hooks\Sanitizer::instance()->addHooks();
+		Hooks\User::instance()->addHooks();
+	}
+
+	public static function getModuleInfo() {
+		$infoArray = array(
+			'title' => __('App'),
+			'version' => 115,
+			'summary' => __("Autoloads App Specific Classes, add Hooks"),
+			'autoload' => true,
+			'singular' => true,
+			'author' => 'pauldro',
+			'icon' => 'plug'
+		);
+		return $infoArray;
+	}
+}

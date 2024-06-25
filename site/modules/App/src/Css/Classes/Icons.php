@@ -1,0 +1,73 @@
+<?php namespace App\Css\Classes;
+
+/**
+ * Icons
+ * 
+ * Handles Lookup of CSS icon classes
+ */
+class Icons extends AbstractCssLookup {
+	const MAP = [
+		'add'		=> 'fa fa-plus',
+		'arrow-left'  => 'fa fa-chevron-left',
+		'arrow-right' => 'fa fa-chevron-right',
+		'box'	    => 'bi bi-box-seam',
+		'calendar'	=> 'fa fa-calendar',
+		'cart'		=> 'fa fa-shopping-cart',
+		'close' 	=> 'fa fa-times',
+		'confirm'	=> 'fa fa-check',
+		'edit'		=> 'fa fa-pencil',
+		'email' 	=> 'bi bi-envelope-at',
+		'error' 	=> 'fa fa-warning',
+		'exit'		=> 'fa fa-times',
+		'delete'	=> 'fa fa-trash',
+		'document'	=> 'fa fa-file-text',
+		'download'	=> 'fa fa-cloud-download',
+		'facebook'	=> 'bi bi-facebook',
+		'file'		=> 'fa fa-file-o',
+		'filter'	=> 'fa fa-filter',
+		'follow-link' => 'fa fa-sign-in',
+		'function'	=> 'fa fa-microchip',
+		'home'   => 'fa fa-home',
+		'hotkey'   => 'bi bi-command',
+		'info'     => 'bi bi-info-circle',
+		'inventory' => 'fa fa-cubes',
+		'keyboard' => 'fa fa-keyboard-o',
+		'list'		=> 'fa fa-list',	
+		'list-dropdown' => 'fa fa-caret-down',
+		'lock'		=> 'fa fa-lock',
+		'logout'	=> 'fa fa-sign-out',
+		'lookup'    => 'bi bi-question-lg',
+		'mail-alt'	=> 'icon-mail',
+		'menu'		=> 'fa fa-bars',
+		'menu-list'		=> 'fa fa-list',
+		'modal-alt' => 'icon-interface-windows',
+		'nav-back'	=> 'fa fa-undo',
+		'nav-menu'	=> 'fa fa-align-justify',
+		'next'      => 'bi bi-skip-end-fill',
+		'note'	    => 'fa fa-sticky-note',
+		'phone' 	=> 'bi bi-telephone-fill',
+		'print' 	=> 'fa fa-print',
+		'question'   => 'bi bi-question-lg',
+		'refresh'	 => 'fa fa-refresh',
+		'save'		 => 'fa fa-floppy-o',
+		'search'	 => 'fa fa-search',
+		'send'	     => 'bi bi-send',
+		'set-to-max' => 'bi bi-chevron-bar-up',
+		'show'		 => 'fa fa-eye',
+		'sign-in'	  => 'fa fa-sign-in',
+		'sign-out'	  => 'bi bi-door-open-fill',
+		'sort-alpha-asc'  => 'bi bi-sort-alpha-down',
+		'sort-alpha-desc' => 'bi bi-sort-alpha-down-alt',
+		'sort-numeric-asc'  => 'bi bi-sort-numeric-down',
+		'sort-numeric-desc' => 'bi bi-sort-numeric-down-alt',
+		'table' 	 => 'fa fa-table', 
+		'twitter'    => 'bi bi-twitter', 
+		'undo'		 => 'fa fa-undo',
+		'upload'     => 'fa fa-cloud-upload',
+		'use'		 => 'fa fa-pencil',
+		'user-account' => 'bi bi-person-lines-fill',
+		'warning'	=> 'fa fa-warning',
+	];
+
+	protected static $instance;
+}
