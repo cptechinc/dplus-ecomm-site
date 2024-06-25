@@ -13,7 +13,6 @@ use App\Ecomm\Database\Login as LoginTable;
  * @property LoginTable $table
  */
 class Login extends AbstractEcommCrudService {
-
 	protected static $instance;
 
 /* =============================================================
@@ -27,6 +26,36 @@ class Login extends AbstractEcommCrudService {
 /* =============================================================
 	CRUD Reads
 ============================================================= */
+	/**
+	 * Parse Login Record into Session
+	 * @return bool
+	 */
+	public function parseLoginIntoSession() {
+		$loginRecord = $this->table->findOne($this->sessionID);
+		if (empty($loginRecord)) {
+			return false;
+		}
+		$data = new Login\Data\SessionUser();
+		$data->setFromLogin($loginRecord);
+		$this->session->set('ecuser', $data);
+		return true;
+	}
+
+/* =============================================================
+	CRUD Reads
+============================================================= */
+	/**
+	 * Return if Session has a record
+	 * @return bool
+	 */
+	public function exists() {
+		return $this->table->exists($this->sessionID);
+	}
+
+	/**
+	 * Return if Session is Logged In
+	 * @return bool
+	 */
 	public function isLoggedIn() {
 		return $this->table->isLoggedIn($this->sessionID);
 	}
