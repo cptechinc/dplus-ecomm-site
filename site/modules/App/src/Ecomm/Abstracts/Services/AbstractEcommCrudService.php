@@ -48,7 +48,7 @@ abstract class AbstractEcommCrudService extends AbstractCrudManager {
 	 */
 	protected function updateDplus() {
 		$config = $this->wire('config');
-		return CgiRequest::send($config->cgis['ecomm'], $this->sessionID);
+		return CgiRequest::send($config->cgis->ecomm, $this->sessionID);
 	}
 
 	/**
