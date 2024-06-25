@@ -91,6 +91,7 @@ abstract class AbstractCrudManager extends WireData {
 	/**
 	 * Process Data, Update Database
 	 * @param  Wire $input Input Data
+	 * @return bool
 	 */
 	public function process(Wire $data = null) {
 		if (empty($data)) {
@@ -100,14 +101,14 @@ abstract class AbstractCrudManager extends WireData {
 		switch (get_class($data)) {
 			case 'ProcessWire\\WireData';
 				$input = $this->parseWireData($data);
-				$this->processInput($input);
+				return $this->processInput($input);
 				break;
 			case 'ProcessWire\\WireInput';
 				$input = $this->parseWireInput($data);
-				$this->processInput($input);
+				return $this->processInput($input);
 				break;
 			case 'ProcessWire\\WireInputData';
-				$this->processInput($data);
+				return $this->processInput($data);
 				break;
 			default:
 				throw new WireException("Invalid input object", 500);
@@ -140,7 +141,7 @@ abstract class AbstractCrudManager extends WireData {
 	/**
 	 * Process Request
 	 * @param  WireInputData $input
-	 * @return void
+	 * @return bool
 	 */
 	abstract protected function processInput(WireInputData $input);
 }
