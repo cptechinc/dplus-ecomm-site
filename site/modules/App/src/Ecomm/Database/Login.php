@@ -37,8 +37,18 @@ class Login extends AbstractQueryWrapper {
 	Reads
 ============================================================= */
 	/**
+	 * Return if Login Record Exists
+	 * @param  string $sessionID
+	 * @return bool
+	 */
+	public function exists($sessionID = '') {
+		$q = $this->querySession($sessionID);
+		return boolval($q->count());
+	} 
+	
+	/**
 	 * Return Login Record for this Session
-	 * @return Login|false
+	 * @return Record|false
 	 */
 	public function findOne($sessionID = '') {
 		$q = $this->querySession($sessionID);
