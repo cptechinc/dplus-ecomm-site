@@ -1,22 +1,23 @@
 <?php namespace App\Pw\Hooks;
 // ProcessWire
-use ProcessWire\User as PwUser;
+use ProcessWire\Session as PwSession;
 use ProcessWire\WireData;
 // App
 use App\Ecomm\Services\Login as LoginService;
 
 /**
- * User
- * Add hooks for User
+ * Session
+ * Add hooks for Session
  * 
  * @static self $instance
  */
-class User extends WireData {
+class Session extends WireData {
 	private static $instance;
 
 /* =============================================================
 	Constructors / Inits
 ============================================================= */
+	/** @return self */
 	public static function instance() {
 		if (empty(self::$instance)) {
 			self::$instance = new self();
@@ -32,8 +33,8 @@ class User extends WireData {
 	 * @return void
 	 */
 	public function addHooks() {
-		$this->addHook("User::isLoggedInEcomm", function($event) {
-			/** @var PwUser */
+		$this->addHook("Session::isLoggedInEcomm", function($event) {
+			/** @var PwSession */
 			$user = $event->object;
 			$event->return = LoginService::instance()->isLoggedIn();
 		});
