@@ -12,17 +12,17 @@ use Controllers\Abstracts\AbstractController;
  */
 class Account extends AbstractController {
 	const SESSION_NS = 'account';
+	const REQUIRE_LOGIN = true;
 
 /* =============================================================
 	1. Indexes
 ============================================================= */
 	public static function index(WireData $data) {
+		if (self::init() === false) {
+			return false;
+		}
 		$fields = ['action|text', 'logout|bool'];
 		self::sanitizeParametersShort($data, $fields);
-
-		if (LoginService::instance()->isLoggedIn() === false) {
-			self::pw('session')->redirect(Login::url(), $http301=false);
-		}
 	}
 
 /* =============================================================

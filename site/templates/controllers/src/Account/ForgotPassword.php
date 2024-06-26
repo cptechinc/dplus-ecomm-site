@@ -18,6 +18,9 @@ class ForgotPassword extends AbstractController {
 	1. Indexes
 ============================================================= */
 	public static function index(WireData $data) {
+		if (self::init() === false) {
+			return false;
+		}
 		$fields = ['action|text', 'logout|bool'];
 		self::sanitizeParametersShort($data, $fields);
 

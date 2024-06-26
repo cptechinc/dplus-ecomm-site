@@ -21,13 +21,11 @@ class FirstLogin extends AbstractController {
 	1. Indexes
 ============================================================= */
 	public static function index(WireData $data) {
-		$fields = ['action|text', 'logout|bool'];
-		self::sanitizeParametersShort($data, $fields);
-
-		if (Service::instance()->isLoggedIn() === false) {
-			self::pw('session')->redirect(LoginController::url(), $http301=false);
+		if (self::init() === false) {
 			return false;
 		}
+		$fields = ['action|text', 'logout|bool'];
+		self::sanitizeParametersShort($data, $fields);
 
 		if ($data->logout || $data->action) {
 			return self::process($data);
