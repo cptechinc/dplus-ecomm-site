@@ -31,6 +31,9 @@ class Password extends LoginService {
 			case 'change-password':
 				return $this->processChangePassword($input);
 				break;
+			case 'forgot-password':
+				return $this->processForgotPassword($input);
+				break;
 		}
 	}
 
@@ -70,6 +73,24 @@ class Password extends LoginService {
 		return $this->table->isLoggedIn($this->sessionID);
 	}
 
+	/**
+	 * Parse Login, send Request
+	 * @param  WireInputData $input
+	 * @return bool
+	 */
+	private function processForgotPassword(WireInputData $input) {
+		if ($this->isLoggedIn() || $this->isFirstLogin()) {
+			return false;
+		}
+		$data = new WireData();
+		$data->email	   = $input->email('email');
+		$data->securityAnswer1 = $input->text('securityAnswer1');
+		$data->securityAnswer2 = $input->text('securityAnswer2');
+		$this->requestForgotPassword($data);
+		return $this->table->isLoggedIn($this->sessionID);
+	}
+
+
 /* =============================================================
 	Dplus Requests
 ============================================================= */
@@ -99,6 +120,21 @@ class Password extends LoginService {
 			"EMAIL=$data->email",
 			"PASS=$data->password", "NPASS=$data->passwordNew",
 		];
+		return $this->writeRqstUpdateDplus($rqst);
+	}
+
+	/**
+	 * Request Forgot password
+	 * @param  WireData $data
+	 * @return bool
+	 */
+	private function requestForgotPassword(WireData $data) {
+		$rqst = [
+			'FORGOT PASS',
+			"EMAIL=$data->email",
+			"MMN=$data->securityAnswer1", "CBI=$data->securityAnswer2"
+		];
+		echo implode('<br>', $rqst);
 		return $this->writeRqstUpdateDplus($rqst);
 	}
 }
