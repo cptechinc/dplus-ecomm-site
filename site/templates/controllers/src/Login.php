@@ -46,11 +46,12 @@ class Login extends AbstractController {
 
 		$service = Service::instance();
 
-		// if ($data->logout) {
-		// 	$service->logout();
-		// 	self::pw('session')->removeFor('login', 'attempts');
-		// 	self::pw('session')->redirect(self::pw('pages')->get('template=login')->url, $http301=false);
-		// }
+		if ($data->logout) {
+			$service->logout();
+			self::deleteSessionVar('attempts');
+			self::pw('session')->redirect(self::url(), $http301=false);
+			return true;
+		}
 		$success = $service->process($data);
 
 		if ($data->action != 'login') {
@@ -60,6 +61,11 @@ class Login extends AbstractController {
 		self::handleLogin($data);
 	}
 
+	/**
+	 * Process Login Results
+	 * @param  WireData $data
+	 * @return bool
+	 */
 	private static function handleLogin(WireData $data) {
 		$service = Service::instance();
 
@@ -69,6 +75,11 @@ class Login extends AbstractController {
 		return self::handleLoginSuccess($data);
 	}
 
+	/**
+	 * Process / Handle Login Error
+	 * @param  WireData $data
+	 * @return bool
+	 */
 	private static function handleLoginError(WireData $data) {
 		$service = Service::instance();
 
@@ -82,6 +93,11 @@ class Login extends AbstractController {
 		return true;
 	}
 
+	/**
+	 * Process / Handle Login Success
+	 * @param  WireData $data
+	 * @return bool
+	 */
 	private static function handleLoginSuccess(WireData $data) {
 		self::deleteSessionVar('attempts');
 		self::deleteSessionVar('no-response');

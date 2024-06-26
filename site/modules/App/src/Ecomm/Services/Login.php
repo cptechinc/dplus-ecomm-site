@@ -24,7 +24,7 @@ class Login extends AbstractEcommCrudService {
 	}
 
 /* =============================================================
-	CRUD Reads
+	Public
 ============================================================= */
 	/**
 	 * Parse Login Record into Session
@@ -38,6 +38,31 @@ class Login extends AbstractEcommCrudService {
 		$data = new Login\Data\SessionUser();
 		$data->setFromLogin($loginRecord);
 		$this->session->set('ecuser', $data);
+		return true;
+	}
+
+	/**
+	 * Logout user
+	 * @return bool
+	 */
+	public function logout() {
+		if ($this->isLoggedIn() === false) {
+			$this->removeLoginFromSession();
+			return true;
+		}
+		if ($this->processLogout() === false) {
+			return false;
+		}
+		$this->removeLoginFromSession();
+		return true;
+	}
+
+	/**
+	 * Remove Login User Data from Session
+	 * @return bool
+	 */
+	private function removeLoginFromSession() {
+		$this->session->remove('ecuser');
 		return true;
 	}
 
@@ -73,6 +98,8 @@ class Login extends AbstractEcommCrudService {
 			case 'login':
 				return $this->processLogin($input);
 				break;
+			case 'logout':
+				return $this->processLogout($input);
 		}
 	}
 
@@ -83,10 +110,21 @@ class Login extends AbstractEcommCrudService {
 	 */
 	protected function processLogin(WireInputData $input) {
 		$data = new WireData();
-		$data->email    = $input->email('email');
+		$data->email	= $input->email('email');
 		$data->password = $input->text('password');
 		$this->requestLogin($data);
 		return $this->table->isLoggedIn($this->sessionID);
+	}
+
+	/**
+	 * Send Logout Request
+	 * @param  WireInputData $input
+	 * @return bool
+	 */
+	protected function processLogout(WireInputData $input = null) {
+		$data = new WireData();
+		$this->requestLogout($data);
+		return $this->table->isLoggedIn($this->sessionID) === false;
 	}
 
 /* =============================================================
@@ -100,5 +138,14 @@ class Login extends AbstractEcommCrudService {
 	private function requestLogin(WireData $data) {
 		$rqst = ["LOGIN=$data->email", "PSWD=$data->password"];
 		return $this->writeRqstUpdateDplus($rqst);
+	}
+
+	/**
+	 * Write Logout Request File
+	 * @param  WireData $data
+	 * @return bool
+	 */
+	private function requestLogout(WireData $data) {
+		return $this->writeRqstUpdateDplus(['LOGOUT']);
 	}
 }
