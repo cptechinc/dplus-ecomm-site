@@ -34,7 +34,6 @@ class FirstLogin extends AbstractController {
 		}
 	}
 
-	
 	/**
 	 * Handle Login / Logout
 	 * @param  WireData $data
