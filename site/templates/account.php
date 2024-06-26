@@ -6,6 +6,10 @@ $routes = [
 	'first-login' => [
 		['GET',  '', Account\FirstLogin::class, 'index'],
 		['POST', '', Account\FirstLogin::class, 'process'],
+	],
+	'change-password' => [
+		['GET',  '', Account\ChangePassword::class, 'index'],
+		['POST', '', Account\ChangePassword::class, 'process'],
 	]
 ];
 $router = new Mvc\Routers\Router();
