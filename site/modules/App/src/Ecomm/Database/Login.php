@@ -69,7 +69,7 @@ class Login extends AbstractQueryWrapper {
 	 * Return if Session Record is for First Login
 	 * @return bool
 	 */
-	public function isFirstLogin($sessionID) {
+	public function isFirstLogin($sessionID = '') {
 		$q = $this->querySession($sessionID);
 		$q->filterByValidlogin(self::YN_TRUE);
 		$q->filterByErmes(self::ERMES_FIRST_LOGIN);
