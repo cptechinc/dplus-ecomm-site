@@ -38,7 +38,7 @@ class Password extends LoginService {
 	}
 
 	/**
-	 * Parse Login, send Request
+	 * Parse First Change Password, send request
 	 * @param  WireInputData $input
 	 * @return bool
 	 */
@@ -57,7 +57,7 @@ class Password extends LoginService {
 	}
 
 	/**
-	 * Parse Login, send Request
+	 * Parse Change Password, send request
 	 * @param  WireInputData $input
 	 * @return bool
 	 */
@@ -74,7 +74,7 @@ class Password extends LoginService {
 	}
 
 	/**
-	 * Parse Login, send Request
+	 * Parse Forgot Password, send request
 	 * @param  WireInputData $input
 	 * @return bool
 	 */
@@ -134,7 +134,6 @@ class Password extends LoginService {
 			"EMAIL=$data->email",
 			"MMN=$data->securityAnswer1", "CBI=$data->securityAnswer2"
 		];
-		echo implode('<br>', $rqst);
 		return $this->writeRqstUpdateDplus($rqst);
 	}
 }
