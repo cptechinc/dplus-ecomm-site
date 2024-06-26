@@ -19,6 +19,6 @@ class Account extends AbstractPageBuilder {
 			'title'    => 'Your Account',
 			'template' => 'account',
 			'parentSelector'   => '/',
-		]
+		],
 	];
 }
