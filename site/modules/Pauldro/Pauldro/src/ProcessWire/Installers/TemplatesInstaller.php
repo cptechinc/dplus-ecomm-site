@@ -1,4 +1,4 @@
-<?php namespace App\Ecomm\Pages;
+<?php namespace Pauldro\ProcessWire\Installers;
 // ProcessWire
 use ProcessWire\WireData;
 
