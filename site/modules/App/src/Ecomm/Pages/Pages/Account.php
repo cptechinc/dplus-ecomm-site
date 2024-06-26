@@ -13,6 +13,12 @@ class Account extends AbstractPageBuilder {
 			'title'    => 'Login',
 			'template' => 'login',
 			'parentSelector'   => '/',
+		],
+		'account' => [
+			'name'     => 'account',
+			'title'    => 'Your Account',
+			'template' => 'account',
+			'parentSelector'   => '/',
 		]
 	];
 }
