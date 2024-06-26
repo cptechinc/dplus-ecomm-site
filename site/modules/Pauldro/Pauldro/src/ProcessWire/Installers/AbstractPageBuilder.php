@@ -32,7 +32,6 @@ abstract class AbstractPageBuilder extends AbstractStaticPwInstaller {
 		// ]
 	];
 
-
 /* =============================================================
 	Page fields
 ============================================================= */
