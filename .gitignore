@@ -13,6 +13,7 @@ site/modules/Dplus/vendor/
 site/modules/Pauldro/Mvc/vendor/
 site/modules/Pauldro/Pauldro/vendor/
 site/modules/Pauldro/Twig/vendor/
+site/templates/controllers/vendor/
 
 
 # VS Code files
