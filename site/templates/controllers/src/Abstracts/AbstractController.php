@@ -1,14 +1,21 @@
 <?php namespace Controllers\Abstracts;
 // Base PHP
 use ReflectionClass;
+// ProcessWire
+use ProcessWire\WireData;
+// App
+use App\Ecomm\Services\Login as LoginService;
 // Mvc Controllers
 use Mvc\Controllers\AbstractController as ParentController;
+// Controllers
+use Controllers\Login as LoginController;
 
 /**
  * AbstractController
  */
 abstract class AbstractController extends ParentController {
 	const SESSION_NS = '';
+	const REQUIRE_LOGIN = false;
 
 /* =============================================================
 	1. Indexes
@@ -17,6 +24,34 @@ abstract class AbstractController extends ParentController {
 /* =============================================================
 	2. Validations / Permissions / Initializations
 ============================================================= */
+	/**
+	 * Return if Login is required for this Controller
+	 * @param  WireData|null $data
+	 * @return bool
+	 */
+	public static function isLoginRequired(WireData $data = null) {
+		return static::REQUIRE_LOGIN;
+	}
+
+	/**
+	 * Init
+	 * @return bool
+	 */
+	protected static function init(WireData $data = null) {
+		return static::initLogin($data);
+	}
+
+	/**
+	 * Check if Login is required, if so redirect to login page
+	 * @return bool
+	 */
+	protected static function initLogin(WireData $data = null) {
+		if (static::isLoginRequired() === false) {
+			return true;
+		}
+		LoginController::setSessionVar('redirectUrl', self::pw('input')->url(['withQueryString' => true]));
+		self::pw('session')->redirect(LoginController::url(), $http301=false);
+	}
 
 /* =============================================================
 	3. Data Fetching / Requests / Retrieval
@@ -116,5 +151,17 @@ abstract class AbstractController extends ParentController {
 	 */
 	public static function deleteSessionVar($key = '') {
 		return self::pw('session')->removeFor(static::SESSION_NS, $key);
+	}
+
+/* =============================================================
+	11.Redirects
+============================================================= */
+	/**
+	 * Redirect to Login Page
+	 * @return bool
+	 */
+	protected static function redirectToLogin() {
+		self::pw('session')->redirect(LoginController::url(), $http301=false);
+		return true;
 	}
 }
