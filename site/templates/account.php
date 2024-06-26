@@ -3,6 +3,7 @@ use Controllers\Account;
 
 $routes = [
 	['GET',  '', Account::class, 'index'],
+	['GET',  'dashboard', Account\Dashboard::class, 'index'],
 	'first-login' => [
 		['GET',  '', Account\FirstLogin::class, 'index'],
 		['POST', '', Account\FirstLogin::class, 'process'],
