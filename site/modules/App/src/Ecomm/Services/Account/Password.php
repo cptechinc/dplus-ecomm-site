@@ -28,6 +28,9 @@ class Password extends LoginService {
 			case 'first-change-password':
 				return $this->processFirstChangePassword($input);
 				break;
+			case 'change-password':
+				return $this->processChangePassword($input);
+				break;
 		}
 	}
 
@@ -36,7 +39,7 @@ class Password extends LoginService {
 	 * @param  WireInputData $input
 	 * @return bool
 	 */
-	protected function processFirstChangePassword(WireInputData $input) {
+	private function processFirstChangePassword(WireInputData $input) {
 		if ($this->isLoggedIn() === false || $this->isFirstLogin() === false) {
 			return false;
 		}
@@ -47,6 +50,23 @@ class Password extends LoginService {
 		$data->securityAnswer1 = $input->text('securityAnswer1');
 		$data->securityAnswer2 = $input->text('securityAnswer2');
 		$this->requestFirstChangePassword($data);
+		return $this->table->isLoggedIn($this->sessionID);
+	}
+
+	/**
+	 * Parse Login, send Request
+	 * @param  WireInputData $input
+	 * @return bool
+	 */
+	private function processChangePassword(WireInputData $input) {
+		if ($this->isLoggedIn() === false || $this->isFirstLogin()) {
+			return false;
+		}
+		$data = new WireData();
+		$data->email	   = $input->email('email');
+		$data->password    = $input->text('password');
+		$data->passwordNew = $input->text('passwordNew');
+		$this->requestChangePassword($data);
 		return $this->table->isLoggedIn($this->sessionID);
 	}
 
@@ -62,8 +82,22 @@ class Password extends LoginService {
 		$rqst = [
 			'FIRST CHANGE PASS',
 			"EMAIL=$data->email",
-			"PSWD=$data->password", "NPASS=$data->passwordNew",
+			"PASS=$data->password", "NPASS=$data->passwordNew",
 			"MMN=$data->securityAnswer1", "CBI=$data->securityAnswer2"
+		];
+		return $this->writeRqstUpdateDplus($rqst);
+	}
+
+	/**
+	 * Request password change
+	 * @param  WireData $data
+	 * @return bool
+	 */
+	private function requestChangePassword(WireData $data) {
+		$rqst = [
+			'CHANGE PASS',
+			"EMAIL=$data->email",
+			"PASS=$data->password", "NPASS=$data->passwordNew",
 		];
 		return $this->writeRqstUpdateDplus($rqst);
 	}
