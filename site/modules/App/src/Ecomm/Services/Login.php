@@ -85,6 +85,14 @@ class Login extends AbstractEcommCrudService {
 		return $this->table->isLoggedIn($this->sessionID);
 	}
 
+	/**
+	 * Return if this the first Login of this Account
+	 * @return bool
+	 */
+	public function isFirstLogin() {
+		return $this->table->isFirstLogin($this->sessionID);
+	}
+
 /* =============================================================
 	CRUD Processing
 ============================================================= */
@@ -108,7 +116,7 @@ class Login extends AbstractEcommCrudService {
 	 * @param  WireInputData $input
 	 * @return bool
 	 */
-	protected function processLogin(WireInputData $input) {
+	private function processLogin(WireInputData $input) {
 		$data = new WireData();
 		$data->email	= $input->email('email');
 		$data->password = $input->text('password');
@@ -121,7 +129,7 @@ class Login extends AbstractEcommCrudService {
 	 * @param  WireInputData $input
 	 * @return bool
 	 */
-	protected function processLogout(WireInputData $input = null) {
+	private function processLogout(WireInputData $input = null) {
 		$data = new WireData();
 		$this->requestLogout($data);
 		return $this->table->isLoggedIn($this->sessionID) === false;
