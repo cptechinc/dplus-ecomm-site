@@ -77,7 +77,7 @@ abstract class AbstractTemplate extends AbstractStaticPwInstaller {
 	 * @return bool
 	 */
 	public static function exists() {
-		return boolval(self::pw('templates')->count(static::NAME));
+		return empty(self::templateFromDatabase()) === false;
 	}
 
 /* =============================================================
