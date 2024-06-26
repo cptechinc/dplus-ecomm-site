@@ -103,6 +103,11 @@ class Login extends AbstractController {
 		self::deleteSessionVar('no-response');
 		$service = Service::instance();
 
+		if ($service->isFirstLogin()) {
+			self::pw('session')->redirect(Account\FirstLogin::url(), $http301=false);
+			return true;
+		}
+
 		if ($service->parseLoginIntoSession() === false) {
 			$attempts = intval(self::getSessionVar('attempts'));
 			$attempts++;
