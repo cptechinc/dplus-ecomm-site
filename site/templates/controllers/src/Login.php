@@ -142,7 +142,6 @@ class Login extends AbstractController {
 /* =============================================================
 	6. HTML Rendering
 ============================================================= */
-	
 	private static function render(WireData $data) {
 		return self::getTwig()->render('login/page.twig');
 	}
