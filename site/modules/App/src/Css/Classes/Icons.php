@@ -16,7 +16,7 @@ class Icons extends AbstractCssLookup {
 		'close' 	=> 'fa fa-times',
 		'confirm'	=> 'fa fa-check',
 		'edit'		=> 'fa fa-pencil',
-		'email' 	=> 'bi bi-envelope-at',
+		'email' 	=> 'fa fa-envelope',
 		'error' 	=> 'fa fa-warning',
 		'exit'		=> 'fa fa-times',
 		'delete'	=> 'fa fa-trash',
@@ -45,10 +45,11 @@ class Icons extends AbstractCssLookup {
 		'nav-menu'	=> 'fa fa-align-justify',
 		'next'      => 'bi bi-skip-end-fill',
 		'note'	    => 'fa fa-sticky-note',
-		'phone' 	=> 'bi bi-telephone-fill',
+		'phone' 	=> 'fa fa-phone',
 		'print' 	=> 'fa fa-print',
 		'question'   => 'bi bi-question-lg',
 		'refresh'	 => 'fa fa-refresh',
+		'register'	 => 'fa fa-user',
 		'save'		 => 'fa fa-floppy-o',
 		'search'	 => 'fa fa-search',
 		'send'	     => 'bi bi-send',
@@ -67,6 +68,10 @@ class Icons extends AbstractCssLookup {
 		'use'		 => 'fa fa-pencil',
 		'user-account' => 'bi bi-person-lines-fill',
 		'warning'	=> 'fa fa-warning',
+
+		// Social
+		'facebook'	=> 'fa fa-facebook',
+		'twitter'	=> 'fa fa-twitter',
 	];
 
 	protected static $instance;
