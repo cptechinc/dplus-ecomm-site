@@ -1,0 +1,41 @@
+{% macro iconType(data) %}
+	{% if CSS.icons.hasClass(data.type) %}
+		<i class="{{ CSS.icons.getClass(data.type) }} {{ data.addclasses|join(' ') }}" aria-hidden="true"></i>
+	{% endif %}
+{% endmacro %}
+
+{% macro iconTypeSort(data) %}
+	{% set icon = {
+		'type': [data.type, data.direction|lower]|join('-'),
+		'addclasses': data.addclasses
+	} %}
+	{{ _self.iconType(icon) }}
+{% endmacro %}
+
+{% macro alert(data) %}
+	<div class="card mb-0" role="alert">
+		<div class="card-header p-2 bg-{{ data.type }} {{ data.type == 'warning' ? '' : 'text-white' }} {{ data.addclasses|join(' ')}}">
+			{{ _self.iconType(data.icon) }}
+			<span class="h5">{{ data.title }}</span>
+		</div>
+		<div class="card-body p-2">
+			{{ data.message }}
+			{{ data.html|raw }}
+		</div>
+	</div>
+{% endmacro %}
+
+{% macro span(data) %}
+	<span class="{{ data.addclasses|join(' ') }}">{{ data.text }}{{ data.rawtext|raw }}</span>
+{% endmacro %}
+
+{% macro badge(data) %}
+	<span class="badge badge-{{ data.type }} {{ data.addclasses|join(' ') }}">
+		<span class="{{ data.textclasses ? data.textclasses|join(' ') }}">{{ data.text }}{{ data.rawtext|raw }}</span>
+	</span>
+{% endmacro %}
+
+{% macro hyperlink(data) %}
+	<a href="{{ data.href }}" class="link {{ data.textclasses ? data.textclasses|join(' ') }}">{{ data.text }}</a>
+{% endmacro %}
+
