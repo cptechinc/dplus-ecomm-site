@@ -1,0 +1,36 @@
+{% import "util/macros/html.twig" as html %}
+
+<div class="top-bar">
+	<div class="container">
+		<div class="row d-flex align-items-center">
+			<div class="col-md-6 d-md-block d-none">
+				<p>Contact us on +420 777 555 333 or hello@universal.com.</p>
+			</div>
+			<div class="col-md-6">
+				<div class="d-flex justify-content-md-end justify-content-between">
+					<ul class="list-inline contact-info d-block d-md-none">
+						<li class="list-inline-item">
+							<a href="#">{{ html.iconType({'type': 'phone'}) }}</a>
+						</li>
+						<li class="list-inline-item">
+							<a href="#">{{ html.iconType({'type': 'email'}) }}</a>
+						</li>
+					</ul>
+					<div class="login">
+						<a href="{{ pages.get('template=login') }}"class="login-btn">
+							{{ html.iconType({'type': 'sign-in'}) }}<span class="d-none d-md-inline-block">Sign In</span>
+						</a>
+						<a href="customer-register.html" class="signup-btn">
+							{{ html.iconType({'type': 'register'}) }}<span class="d-none d-md-inline-block">Sign Up</span>
+						</a>
+					</div>
+					<ul class="social-custom list-inline">
+						<li class="list-inline-item"><a href="#">{{ html.iconType({'type': 'facebook'}) }}</a></li>
+						<li class="list-inline-item"><a href="#">{{ html.iconType({'type': 'twitter'}) }}</a></li>
+						<li class="list-inline-item"><a href="#">{{ html.iconType({'type': 'email'}) }}</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
