@@ -1,5 +1,5 @@
 	<footer class="main-footer">
-		<div class="container">
+		<div class="container-fluid">
 			<div class="row">
 			<div class="col-lg-3">
 				<h4 class="h6">About Us</h4>
@@ -58,7 +58,7 @@
 			</div>
 		</div>
 		<div class="copyrights">
-			<div class="container">
+			<div class="container-fluid">
 			<div class="row">
 				<div class="col-lg-4 text-center-md">
 				<p>&copy; 2020. Your company / name goes here</p>
@@ -69,6 +69,5 @@
 			</div>
 		</div>
 	</footer>
-	
 </div>
 <?php include ('./_foot-blank.php'); ?>
