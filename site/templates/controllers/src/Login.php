@@ -31,7 +31,7 @@ class Login extends AbstractController {
 		// 	} 
 		// 	self::pw('session')->redirect($url, $http301=false);
 		// }
-		// return self::render();
+		return self::display($data);
 	}
 
 	
@@ -135,10 +135,17 @@ class Login extends AbstractController {
 /* =============================================================
 	5. Displays
 ============================================================= */
+	private static function display(WireData $data) {
+		return self::render($data);
+	}
 
 /* =============================================================
 	6. HTML Rendering
 ============================================================= */
+	
+	private static function render(WireData $data) {
+		return self::getTwig()->render('login/page.twig');
+	}
 
 /* =============================================================
 	7. Class / Module Getters

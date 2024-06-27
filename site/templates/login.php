@@ -8,6 +8,6 @@ $routes = [
 $router = new Mvc\Routers\Router();
 $router->setRoutes($routes);
 $router->setRoutePrefix($page->url);
-$page->body = $router->route();
+$page->html = $router->route();
 
-include __DIR__ . "/basic-blank-page.php";
+include __DIR__ . "/basic-page.php";
