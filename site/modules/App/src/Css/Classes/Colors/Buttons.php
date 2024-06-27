@@ -11,6 +11,7 @@ class Buttons extends AbstractCssLookup {
 		'lookup' => 'btn-hotpink',
 		'save'   => 'btn-success',
 		'submit' => 'btn-success',
+		'link'   => 'btn-template-outlined',
 	];
 
 	protected static $instance;
