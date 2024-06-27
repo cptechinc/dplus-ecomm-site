@@ -1,0 +1,17 @@
+{% import "util/macros/html.twig" as html %}
+
+<div class="offset-sm-3 col-sm-6 px-0">
+	<section class="bar pt-4">
+		<div class="heading">
+			<h2>Register for an Account</h2>
+		</div>
+
+		{% if session.getFor('register', 'emailsent') %}
+			<div class="mb-3">
+				{{ html.alert({'type': 'success', 'icon': {'type': 'warning'}, 'title': 'Email Sent', 'message': 'Email was sent to ' ~ session.getFor('register', 'emailsent')}) }}
+			</div>
+		{% else %}
+			{% include 'account/register/form.twig' %}
+		{% endif %}
+	</section>
+</div>

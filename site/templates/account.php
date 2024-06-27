@@ -16,6 +16,10 @@ $routes = [
 		['GET',  '', Account\ForgotPassword::class, 'index'],
 		['POST', '', Account\ForgotPassword::class, 'process'],
 	],
+	'register' => [
+		['GET',  '', Account\Register::class, 'index'],
+		['POST', '', Account\Register::class, 'process'],
+	],
 ];
 $router = new Mvc\Routers\Router();
 $router->setRoutes($routes);
