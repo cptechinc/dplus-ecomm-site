@@ -53,4 +53,6 @@ if ($input->get->offsetExists('action') === false && $page->template->name != 'j
 
 	$site    = $pages->get('template=site-config');
 	$homepage = $pages->get('/');
+
+	Controllers\Login::initPagesHooks();
 }
