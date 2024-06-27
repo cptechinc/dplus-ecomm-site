@@ -5,6 +5,7 @@ use ProcessWire\WireData;
 use App\Ecomm\Services\Login as Service;
 // Controllers
 use Controllers\Abstracts\AbstractController;
+use Controllers\Account as AccountController;
 
 /**
  * Login
@@ -12,6 +13,7 @@ use Controllers\Abstracts\AbstractController;
  */
 class Login extends AbstractController {
 	const SESSION_NS = 'login';
+	const TEMPLATE = 'login';
 
 /* =============================================================
 	1. Indexes
@@ -31,6 +33,7 @@ class Login extends AbstractController {
 		//	} 
 		//	self::pw('session')->redirect($url, $http301=false);
 		// }
+		self::initPageHooks();
 		return self::display($data);
 	}
 
@@ -169,12 +172,11 @@ class Login extends AbstractController {
 	 * @return bool
 	 */
 	public static function initPageHooks($tplname = '') {
+		$selector = static::getPageHooksTemplateSelector();
 		$m = self::pw('modules')->get('App');
 
-		$selector = static::getPageHooksTemplateSelector();
-
-		$m->addHook("$selector::logoutUrl", function($event) {
-			$event->return = self::logoutUrl($event->arguments(0));
+		$m->addHook("$selector::forgotPasswordUrl", function($event) {
+			$event->return = AccountController\ForgotPassword::url();
 		});
 	}
 
@@ -190,5 +192,4 @@ class Login extends AbstractController {
 			$event->return = self::logoutUrl($event->arguments(0));
 		});
 	}
-
 }
