@@ -1,247 +1,49 @@
 <?php namespace ProcessWire;
-// Pauldro
-use Pauldro\Util\Regex;
-// Twig
-use Twig\Loader\FilesystemLoader, Twig\Environment;
-use Twig\Extension\DebugExtension;
-use Twig\TwigFilter, Twig\TwigFunction;
 
 include(__DIR__.'/vendor/autoload.php');
 
+// Twig
+use Twig\Loader\FilesystemLoader, Twig\Environment;
 // Pauldro Twig
-use Pauldro\Twig\Html;
+use Pauldro\Twig\TwigDecorator;
 
 /**
- * Woodstock
- *
+ * Twig
+ * Autoloads Twig
+ * 
+ * @property  FileSystemLoader $loader
+ * @property  Environment      $twig
  */
 class Twig extends WireData implements Module {
-
-	public function getLoader() {
-		return new FilesystemLoader($this->config->paths->root.$this->path);
+	public function __construct() {
+		$this->loader = false;
+		$this->twig   = false;
 	}
 
-	public function getTwig() {
-		$loader = $this->getLoader();
-		$twig = new Environment($loader, [
-			'cache' => $this->config->paths->root.$this->cachepath,
+	/**
+	 * Initialize Twig
+	 * @return bool
+	 */
+	public function initTwig() {
+		if (empty($this->loader) === false || empty($this->twig) === false) {
+			return true;
+		}
+		$this->loader = new FilesystemLoader($this->config->paths->root.$this->path);
+		$this->twig   = $this->createTwig();
+		return true;
+	}
+
+	/**
+	 * Return Twig Environment
+	 * @return Environment
+	 */
+	public function createTwig() {
+		$twig = new Environment($this->loader, [
+			'cache'       => $this->config->paths->root.$this->cachepath,
 			'auto_reload' => true,
-			'debug' => boolval($this->debug)
+			'debug'       => boolval($this->debug)
 		]);
-		$twig->addExtension(new DebugExtension());
-		$this->setupTwig($twig);
+		TwigDecorator::decorate($twig, $this->loader);
 		return $twig;
 	}
-
-	public function setupTwig(Environment $twig) {
-		$this->setupTwigGlobals($twig);
-		$this->setupTwigFunctions($twig);
-	}
-
-	public function setupTwigGlobals(Environment $twig) {
-		foreach (['page', 'pages', 'config', 'user', 'languages', 'sanitizer', 'session', 'input', 'browseragent'] as $variable) {
-			$twig->addGlobal($variable, $this->wire($variable));
-		};
-		$twig->addGlobal('homepage', $this->wire('pages')->get('/'));
-		$twig->addGlobal('site', $this->wire('pages')->get('template=config-site'));
-	}
-
-	public function setupTwigFunctions(Environment $twig) {
-		$filter = new TwigFilter('bool', function($val) {
-			return boolval($val);
-		});
-		$twig->addFilter($filter);
-		$this->setupTwigFunctionsNumeric($twig);
-		$this->setupTwigFunctionsString($twig);
-		$this->setupTwigFunctionsArray($twig);
-		$this->setupTwigFunctionsHtmlOutput($twig);
-		$this->setupTwigFunctionsTwigObj($twig);
-		$this->setupTwigFunctionsObjects($twig);
-	}
-
-	private function setupTwigFunctionsNumeric(Environment $twig) {
-		$filter = new TwigFilter('currency', function ($money) {
-			$money = floatval($money);
-			return number_format($money, 2, '.', ",");
-		});
-		$twig->addFilter($filter);
-
-		$filter = new TwigFilter('intval', function ($value) {
-			return intval($value);
-		});
-		$twig->addFilter($filter);
-	}
-
-	private function setupTwigFunctionsString(Environment $twig) {
-		$filter = new TwigFilter('stripslashes', function ($str) {
-			return stripslashes($str);
-		});
-		$twig->addFilter($filter);
-		
-		$yesno = new TwigFilter('yesorno', function ($trueorfalse) {
-			return ($trueorfalse === true || strtoupper($trueorfalse) == 'Y') ? 'yes' : 'no';
-		});
-		$twig->addFilter($yesno);
-
-		$filter = new TwigFilter('attrJS', function ($string, $jsprepend = true) {
-			$replace = array(
-				' ' => '+',
-				'=' => 'eq',
-				'%' => 'per',
-				'+' => 'plus'
-			);
-			$string = str_replace(array_keys($replace), array_values($replace), $string);
-			return $jsprepend ? "js-$string" : $string;
-		});
-		$twig->addFilter($filter);
-
-		$filter = new TwigFilter('justifyCssClass', function($justify) {
-			$codeToCssClass = [
-				'r' => 'text-right',
-				'l' => 'text-left',
-				'c' => 'text-center'
-			];
-			$code = substr(strtolower($justify), 0, 1);
-			return array_key_exists($code, $codeToCssClass) ? $codeToCssClass[$code] : '';
-		});
-		$twig->addFilter($filter);
-
-		$filter = new TwigFilter('phone_us', function ($phone) {
-			return Regex\Phone::us_10($phone);
-		});
-		$twig->addFilter($filter);
-
-		$filter = new TwigFilter('strpad', [$this, 'strpad'], ['is_safe' => ['html']]);
-		$twig->addFilter($filter);
-
-		$convertdate = new TwigFilter('convertdate', function ($date, $format = 'm/d/Y') {
-			$date = date($format, strtotime($date));
-			return $date == '11/30/-0001' ? '' : $date;
-		});
-		$twig->addFilter($convertdate);
-
-
-		$filter = new TwigFilter('urlencode', function ($string) {
-			return urlencode($string);
-		});
-		$twig->addFilter($filter);
-	}
-
-	private function setupTwigFunctionsArray(Environment $twig) {
-		
-	}
-
-	private function setupTwigFunctionsHtmlOutput(Environment $twig) {
-		$filter = new TwigFilter('icon', function ($class) {
-			return "<i class=\"$class\" aria-hidden=\"true\"></i>";
-		});
-		$twig->addFilter($filter);
-
-		$matches_search = new TwigFunction('matches_search', function ($subject, $query) {
-			$regex = "/(".str_replace('-', '\-?', $query).")/i";
-			$contains = preg_match($regex, $subject, $matches);
-
-			if ($contains) {
-				$highlight = "<span class='highlight'>" . $matches[0] . "</span>";
-				return preg_replace($regex, $highlight, $subject);
-			}  else {
-				return $subject;
-			}
-		});
-		$twig->addFunction($matches_search);
-	}
-
-	private function setupTwigFunctionsTwigObj(Environment $twig) {
-		$function = new TwigFunction('twiginput', function (array $array) {
-			$input = new Html\Input();
-			$input->setFromArray($array);
-			return $input;
-		});
-		$twig->addFunction($function);
-
-		$function = new TwigFunction('twiginputgroup', function (array $array) {
-			$input = new Html\InputGroup();
-			$input->setFromArray($array);
-			return $input;
-		});
-		$twig->addFunction($function);
-
-		$function = new TwigFunction('twiginputgroupspan', function (array $array) {
-			$input = new Html\InputGroupSpan();
-			$input->setFromArray($array);
-			return $input;
-		});
-		$twig->addFunction($function);
-
-		$function = new TwigFunction('twigbutton', function (array $array) {
-			$input = new Html\Button();
-			$input->setFromArray($array);
-			return $input;
-		});
-		$twig->addFunction($function);
-
-		$function = new TwigFunction('twiglink', function (array $array) {
-			$input = new Html\Link();
-			$input->setFromArray($array);
-			return $input;
-		});
-		$twig->addFunction($function);
-
-		$function = new TwigFunction('twigtextarea', function (array $array) {
-			$input = new Html\Textarea();
-			$input->setFromArray($array);
-			return $input;
-		});
-		$twig->addFunction($function);
-
-		$function = new TwigFunction('twigselectsimple', function (array $array) {
-			$input = new Html\SelectSimple();
-			$input->setFromArray($array);
-			return $input;
-		});
-		$twig->addFunction($function);
-
-		$function = new TwigFunction('twigdatepicker', function (array $array) {
-			$input = new Html\DatePicker();
-			$input->setFromArray($array);
-			return $input;
-		});
-		$twig->addFunction($function);
-	}
-
-	private function setupTwigFunctionsObjects(Environment $twig) {
-		
-	}
-
-	 /**
-     * Twig wrapper for str_pad to Pad a string to a fixed length.
-     * example usage in template:
-     *
-     * {{ page.title|strpad(50,'-', 'left') }}
-     *
-     * @param $input
-     * @param $padlength
-     * @param string $padstring
-     * @param mixed $padtype
-     *
-     * @return string
-     */
-    public function strpad($input, $padlength, $padstring='', $padtype =  'left' )
-    {
-        if (is_string($padtype)) {
-            switch (true) {
-                case stristr($padtype,'left'):
-                    $padtype = STR_PAD_LEFT;
-                    break;
-                case stristr($padtype,'both'):
-                    $padtype = STR_PAD_BOTH;
-                    break;
-                default:
-                    $padtype = STR_PAD_RIGHT;
-            }
-
-        }
-
-        return str_pad($input, $padlength, $padstring, $padtype);
-    }
 }
