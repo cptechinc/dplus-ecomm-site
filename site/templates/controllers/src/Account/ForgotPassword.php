@@ -32,6 +32,9 @@ class ForgotPassword extends AbstractController {
 		if ($data->logout || $data->action) {
 			return self::process($data);
 		}
+		$html = self::display($data);
+		self::deleteSessionVar('emailsent');
+		return $html;
 	}
 
 	/**
@@ -45,15 +48,13 @@ class ForgotPassword extends AbstractController {
 
 		$service = Service::instance();
 		$success = $service->process($data);
-
 		$url = self::url();
 
 		if ($success) {
-			$service->parseLoginIntoSession();
-			$url = AccountController::url();
+			self::setSessionVar('emailsent', $data->email);
 		}
 		self::pw('session')->redirect($url, $http301=false);
-		return false;
+		return true;
 	}
 
 
@@ -75,10 +76,17 @@ class ForgotPassword extends AbstractController {
 /* =============================================================
 	5. Displays
 ============================================================= */
+	private static function display(WireData $data) {
+		return self::render($data);
+	}
 
 /* =============================================================
 	6. HTML Rendering
 ============================================================= */
+	private static function render(WireData $data) {
+		return self::getTwig()->render('account/forgot-password/page.twig');
+	}
+
 
 /* =============================================================
 	7. Class / Module Getters
