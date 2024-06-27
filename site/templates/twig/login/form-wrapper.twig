@@ -1,1 +1,9 @@
+{% import "util/macros/html.twig" as html %}
+
+{% if session.getFor('login', 'attempts') %}
+	<div class="mb-3">
+		{{ html.alert({'type': 'danger', 'icon': {'type': 'warning'}, 'title': 'Invalid Email / Password'}) }}
+	</div>
+{% endif %}
+
 {% include 'login/form.twig' %}
