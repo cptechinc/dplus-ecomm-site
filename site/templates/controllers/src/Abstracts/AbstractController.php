@@ -19,6 +19,7 @@ use Controllers\Login as LoginController;
 abstract class AbstractController extends ParentController {
 	const SESSION_NS = '';
 	const REQUIRE_LOGIN = false;
+	const TEMPLATE = '';
 
 /* =============================================================
 	1. Indexes
@@ -135,6 +136,46 @@ abstract class AbstractController extends ParentController {
 /* =============================================================
 	9. Hooks / Object Decorating
 ============================================================= */
+	/**
+	 * Initialize Hooks for Page
+	 * @param  string $tplname Template Name
+	 * @return void
+	 */
+	public static function initHooks($tplname = '') {
+		static::initPageHooks();
+	}
+
+	/**
+	 * Initialze Page Hooks
+	 * @param  string $tplname
+	 * @return bool
+	 */
+	public static function initPageHooks($tplname = '') {
+		$m = self::pw('modules')->get('App');
+
+		$selector = static::getPageHooksTemplateSelector();
+
+		// $m->addHook("$selector::deleteItemUrl", function($event) {
+		// 	$event->return = self::deleteItemUrl($event->arguments(0));
+		// });
+	}
+
+	/**
+	 * Return Selector for Page Hooks
+	 * @param  string $tplname
+	 * @return string
+	 */
+	public static function getPageHooksTemplateSelector($tplname = '') {
+		$selector = 'Page';
+
+		if ($tplname != '' || static::TEMPLATE != '') {
+			if ($tplname == '') {
+				$tplname = static::TEMPLATE;
+			}
+			$selector .= "(template=$tplname)";
+		}
+		return $selector;
+	}
 
 /* =============================================================
 	10. Sessions
@@ -168,7 +209,7 @@ abstract class AbstractController extends ParentController {
 	}
 
 /* =============================================================
-	11.Redirects
+	11. Redirects
 ============================================================= */
 	/**
 	 * Redirect to Login Page

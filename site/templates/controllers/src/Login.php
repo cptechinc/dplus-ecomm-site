@@ -24,12 +24,12 @@ class Login extends AbstractController {
 			return self::process($data);
 		}
 		// if (Service::instance()->isLoggedIn()) {
-		// 	$role = self::pw('roles')->get(self::pw('user')->dplusRole);
-		// 	$url = $role->homepage;
-		// 	if (empty($url)) {
-		// 		$url = self::pw('pages')->get('/')->url;
-		// 	} 
-		// 	self::pw('session')->redirect($url, $http301=false);
+		//	$role = self::pw('roles')->get(self::pw('user')->dplusRole);
+		//	$url = $role->homepage;
+		//	if (empty($url)) {
+		//		$url = self::pw('pages')->get('/')->url;
+		//	} 
+		//	self::pw('session')->redirect($url, $http301=false);
 		// }
 		return self::display($data);
 	}
@@ -113,8 +113,10 @@ class Login extends AbstractController {
 			$attempts++;
 			self::setSessionVar('attempts', $attempts);
 			self::pw('session')->redirect(self::url(), $http301=false);
+			return true;
 		}
-		self::pw('session')->redirect(self::url(), $http301=false);
+		self::pw('session')->redirect(Account\Dashboard::url(), $http301=false);
+		return true;
 	}
 
 /* =============================================================
@@ -130,6 +132,10 @@ class Login extends AbstractController {
 ============================================================= */
 	public static function url() {
 		return self::pw('pages')->get('template=login')->url;
+	}
+
+	public static function logoutUrl() {
+		return self::url() . '?' . http_build_query(['action' => 'logout']);
 	}
 
 /* =============================================================
@@ -153,4 +159,36 @@ class Login extends AbstractController {
 /* =============================================================
 	8. Supplemental
 ============================================================= */
+
+/* =============================================================
+	9. Hooks / Object Decorating
+============================================================= */
+	/**
+	 * Initialze Page Hooks
+	 * @param  string $tplname
+	 * @return bool
+	 */
+	public static function initPageHooks($tplname = '') {
+		$m = self::pw('modules')->get('App');
+
+		$selector = static::getPageHooksTemplateSelector();
+
+		$m->addHook("$selector::logoutUrl", function($event) {
+			$event->return = self::logoutUrl($event->arguments(0));
+		});
+	}
+
+	/**
+	 * Add Hooks to Pages
+	 * @param  string $tplname
+	 * @return bool
+	 */
+	public static function initPagesHooks() {
+		$m = self::pw('modules')->get('App');
+
+		$m->addHook("Pages::logoutUrl", function($event) {
+			$event->return = self::logoutUrl($event->arguments(0));
+		});
+	}
+
 }
