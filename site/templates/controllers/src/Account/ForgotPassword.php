@@ -52,7 +52,6 @@ class ForgotPassword extends AbstractController {
 			$service->parseLoginIntoSession();
 			$url = AccountController::url();
 		}
-
 		self::pw('session')->redirect($url, $http301=false);
 		return false;
 	}
@@ -70,7 +69,7 @@ class ForgotPassword extends AbstractController {
 	4. URLs
 ============================================================= */
 	public static function url() {
-		return self::pw('pages')->get('template=account')->url . 'forgot-password/';
+		return AccountController::url() . 'forgot-password/';
 	}
 
 /* =============================================================
