@@ -1,8 +1,11 @@
 <?php namespace Controllers\Abstracts;
 // Base PHP
 use ReflectionClass;
+// Twig
+use Twig\Environment as Twig;
 // ProcessWire
 use ProcessWire\WireData;
+use ProcessWire\Twig as PwTwig;
 // App
 use App\Ecomm\Services\Login as LoginService;
 // Mvc Controllers
@@ -76,6 +79,13 @@ abstract class AbstractController extends ParentController {
 /* =============================================================
 	7. Class / Module Getters
 ============================================================= */
+	/**
+	 * Return Twig Renderer
+	 * @return Twig
+	 */
+	protected static function getTwig() {
+		return self::pw('modules')->get('Twig')->twig;
+	}
 
 /* =============================================================
 	8. Supplemental
