@@ -1,8 +1,6 @@
 <?php namespace Controllers;
 // ProcessWire
 use ProcessWire\WireData;
-// App
-use App\Ecomm\Services\Login as LoginService;
 // Controllers
 use Controllers\Abstracts\AbstractController;
 
