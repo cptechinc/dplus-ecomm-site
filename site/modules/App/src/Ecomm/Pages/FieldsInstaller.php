@@ -15,5 +15,6 @@ class FieldsInstaller extends ParentInstaller {
 	const MAP = [
 		Fields\SiteIcon::NAME      => Fields\SiteIcon::class,
 		Fields\SiteIconImage::NAME => Fields\SiteIconImage::class,
+		Fields\SiteLogoImage::NAME => Fields\SiteLogoImage::class,
 	];
 }
