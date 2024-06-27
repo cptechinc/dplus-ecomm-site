@@ -17,6 +17,7 @@ class Login extends AbstractQueryWrapper {
 	const DESCRIPTION        = 'Ecomm session login table';
 	const YN_TRUE = 'Y';
 	const ERMES_FIRST_LOGIN = 'FIRST LOGIN';
+	const ERMES_EMAIL_SENT  = 'SendEmail';
 
 /* =============================================================
 	Query Functions
@@ -73,6 +74,16 @@ class Login extends AbstractQueryWrapper {
 		$q = $this->querySession($sessionID);
 		$q->filterByValidlogin(self::YN_TRUE);
 		$q->filterByErmes(self::ERMES_FIRST_LOGIN);
+		return boolval($q->count());
+	}
+
+	/**
+	 * Return if Session Record is for First Login
+	 * @return bool
+	 */
+	public function hasEmailBeenSent($sessionID = '') {
+		$q = $this->querySession($sessionID);
+		$q->filterByErmes(self::ERMES_EMAIL_SENT);
 		return boolval($q->count());
 	}
 }

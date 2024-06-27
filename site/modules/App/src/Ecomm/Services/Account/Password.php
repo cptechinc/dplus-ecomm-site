@@ -87,7 +87,7 @@ class Password extends LoginService {
 		$data->securityAnswer1 = $input->text('securityAnswer1');
 		$data->securityAnswer2 = $input->text('securityAnswer2');
 		$this->requestForgotPassword($data);
-		return $this->table->isLoggedIn($this->sessionID);
+		return $this->table->hasEmailBeenSent($this->sessionID);
 	}
 
 
