@@ -1,0 +1,7 @@
+<div class="form-group">
+	<label for="{{ field.input.name }}">{{ field.label }}</label>
+	{% include 'util/form/input.twig' with {'input': field.input}%}
+	{% if error.has(field.input.name) %}
+		{% include 'util/form/label-invalid-feedback.twig' with {'for': field.input.name, 'msg': error.get(field.input.name).msg} %}
+	{% endif %}
+</div>
