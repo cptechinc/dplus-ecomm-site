@@ -49,8 +49,12 @@ abstract class AbstractController extends ParentController {
 		if (static::isLoginRequired() === false) {
 			return true;
 		}
+		if (LoginService::instance()->isLoggedIn()) {
+			return true;
+		}
 		LoginController::setSessionVar('redirectUrl', self::pw('input')->url(['withQueryString' => true]));
 		self::pw('session')->redirect(LoginController::url(), $http301=false);
+		return false;
 	}
 
 /* =============================================================
