@@ -18,10 +18,12 @@
 			{{ _self.iconType(data.icon) }}
 			<span class="h5">{{ data.title }}</span>
 		</div>
-		<div class="card-body p-2">
-			{{ data.message }}
-			{{ data.html|raw }}
-		</div>
+		{% if data.message or data.html %}
+			<div class="card-body p-2">
+				{{ data.message }}
+				{{ data.html|raw }}
+			</div>
+		{% endif %}
 	</div>
 {% endmacro %}
 
