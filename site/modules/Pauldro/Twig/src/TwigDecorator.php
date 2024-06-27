@@ -82,7 +82,7 @@ class TwigDecorator extends AbstractStaticPwClass {
 			$twig->addGlobal($variable, $pw->wire($variable));
 		};
 		$twig->addGlobal('homepage', $pw->wire('pages')->get('/'));
-		// $twig->addGlobal('site', $pw->wire('pages')->get('template=config-site'));
+		$twig->addGlobal('site', $pw->wire('pages')->get('template=site-config'));
 	}
 
 /* =============================================================
