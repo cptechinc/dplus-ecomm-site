@@ -4,7 +4,6 @@ use App\Css\Classes\AbstractCssLookup;
 
 /**
  * Buttons
- * 
  * Handles Lookup of CSS Button Color classes
  */
 class Buttons extends AbstractCssLookup {
