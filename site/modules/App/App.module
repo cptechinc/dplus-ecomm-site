@@ -15,6 +15,7 @@ class App extends WireData implements Module {
 		Hooks\ApiUrls::instance()->addHooks();
 		Hooks\WireInput::instance()->addHooks();
 		Hooks\Sanitizer::instance()->addHooks();
+		Hooks\Session::instance()->addHooks();
 		Hooks\User::instance()->addHooks();
 	}
 
