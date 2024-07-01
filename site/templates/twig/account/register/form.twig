@@ -8,44 +8,49 @@
 
 	<div class="row">
 		<div class="col-sm-6 form-group">
-			<label for="email">Email</label>
-			{% include 'util/bootstrap/form/input.twig' with {
-				'input': {
-					'name': 'email',
-					'type': 'email',
-					'attributes': {
-						'aria-label':  'Email',
-						'placeholder': 'user@example.com'
-					}
-				}
-			} %}
+			<label for="contact">Contact</label>
+			{% include 'account/shared/form/inputs/contact.twig' %}
+		</div>
+		<div class="col-sm-6 form-group">
+			<label for="companyname">Company Name</label>
+			{% include 'account/register/form/inputs/companyname.twig' %}
 		</div>
 	</div>
 
 	<div class="row">
 		<div class="col-sm-6 form-group">
-			<label for="email">Mother's Maiden Name</label>
-			{% include 'util/bootstrap/form/input.twig' with {
-				'input': {
-					'name': 'securityAnswer1',
-					'attributes': {
-						'placeholder': '',
-						'aria-label':  "Mother's Maiden Name"
-					}
-				}
-			} %}
+			<label for="email">Email</label>
+			{% include 'account/shared/form/inputs/email.twig' %}
+		</div>
+		<div class="col-sm-3 form-group">
+			<label for="phone">Phone</label>
+			{% include 'account/shared/form/inputs/phone.twig' %}
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-sm-6 form-group">
+			<label for="address1">Address 1</label>
+			{% include 'account/shared/form/inputs/address1.twig' %}
 		</div>
 		<div class="col-sm-6 form-group">
-			<label for="email">What city were you born in?</label>
-			{% include 'util/bootstrap/form/input.twig' with {
-				'input': {
-					'name': 'securityAnswer2',
-					'attributes': {
-						'placeholder': '',
-						'aria-label':  "What city were you born in"
-					}
-				}
-			} %}
+			<label for="address2">Address 2</label>
+			{% include 'account/shared/form/inputs/address2.twig' %}
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-sm-3 form-group">
+			<label for="city">City</label>
+			{% include 'account/shared/form/inputs/city.twig' %}
+		</div>
+		<div class="col-sm-2 form-group">
+			<label for="state">State</label>
+			{% include 'account/shared/form/inputs/state.twig' %}
+		</div>
+		<div class="col-sm-2 form-group">
+			<label for="zip">Zip Code</label>
+			{% include 'account/shared/form/inputs/zip.twig' %}
 		</div>
 	</div>
 
