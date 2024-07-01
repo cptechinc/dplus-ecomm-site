@@ -19,6 +19,7 @@ class Login extends AbstractQueryWrapper {
 	const YN_TRUE = 'Y';
 	const ERMES_FIRST_LOGIN = 'FIRST LOGIN';
 	const ERMES_EMAIL_SENT  = 'SendEmail';
+	const VALIDLOGIN_REGISTERED = 'R';
 
 	protected static $instance;
 
@@ -66,6 +67,16 @@ class Login extends AbstractQueryWrapper {
 	public function isLoggedIn($sessionID = '') {
 		$q = $this->querySession($sessionID);
 		$q->filterByValidlogin(self::YN_TRUE);
+		return boolval($q->count());
+	}
+
+	/**
+	 * Return if Session ID has registered for an account
+	 * @return bool
+	 */
+	public function isRegistered($sessionID = '') {
+		$q = $this->querySession($sessionID);
+		$q->filterByValidlogin(self::VALIDLOGIN_REGISTERED);
 		return boolval($q->count());
 	}
 
