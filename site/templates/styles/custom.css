@@ -1,1 +1,24 @@
-/* your styles go here */
+/*==============================================================
+	Form Styles
+==============================================================*/
+form label {
+	font-weight: bold;
+}
+
+/* Firefox */
+input.form-control[type=number], input.form-control-plaintext[type=number] {
+	-moz-appearance: textfield;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+.bootstrap-select.form-control {
+	border: 1px solid #ced4da;
+	border-radius: .25rem;
+}
+
