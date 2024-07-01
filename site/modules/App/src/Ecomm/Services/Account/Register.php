@@ -13,6 +13,8 @@ use App\Ecomm\Services\Login as LoginService;
  * @property LoginTable $table
  */
 class Register extends LoginService {
+	const SESSION_NS ='register';
+
 	protected static $instance;
 
 /* =============================================================
@@ -32,19 +34,27 @@ class Register extends LoginService {
 	}
 
 	/**
-	 * Parse First Change Password, send request
+	 * Parse Register, send request
 	 * @param  WireInputData $input
 	 * @return bool
 	 */
 	private function processRegister(WireInputData $input) {
-		if ($this->isLoggedIn() === false || $this->isFirstLogin() === false) {
+		if ($this->isLoggedIn() || $this->isFirstLogin()) {
 			return false;
 		}
 		$data = new WireData();
-		$data->email	   = $input->email('email');
 		$data->contact     = $input->text('contact');
+		$data->companyname = $input->text('companyname');
+		$data->email	   = $input->email('email');
+		$data->phone       = $input->text('phone');
+		$data->address1    = $input->text('address1');
+		$data->address2    = $input->text('address2');
+		$data->city        = $input->text('city');
+		$data->state       = $input->text('state');
+		$data->zip         = $input->text('zip');
 		$this->requestRegister($data);
-		return $this->table->isLoggedIn($this->sessionID);
+		$this->setSessionVar('emailsent', $data->email);
+		return $this->table->isRegistered($this->sessionID);
 	}
 
 /* =============================================================
