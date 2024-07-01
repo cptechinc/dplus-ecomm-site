@@ -11,6 +11,7 @@ use ProcessWire\WireInputData;
  * Template class for handling CRUD requests
  */
 abstract class AbstractCrudManager extends WireData {
+	const SESSION_NS = '';
 	const FIELD_ATTRIBUTES = [
 		// 'qty'     => ['type' => 'number', 'label' => 'Qty', 'precision' => 2],
 	];
@@ -144,4 +145,35 @@ abstract class AbstractCrudManager extends WireData {
 	 * @return bool
 	 */
 	abstract protected function processInput(WireInputData $input);
+
+/* =============================================================
+	10. Sessions
+============================================================= */
+	/**
+	 * Set Session Variable
+	 * @param  string $key
+	 * @param  string $value
+	 * @return bool
+	 */
+	public function setSessionVar($key = '', $value) {
+		return $this->session->setFor(static::SESSION_NS, $key, $value);
+	}
+
+	/**
+	 * Return Session Variable
+	 * @param  string $key
+	 * @return mixed
+	 */
+	public function getSessionVar($key = '') {
+		return $this->session->getFor(static::SESSION_NS, $key);
+	}
+
+	/**
+	 * Delete Session Variable
+	 * @param  string $key
+	 * @return bool
+	 */
+	public function deleteSessionVar($key = '') {
+		return $this->session->removeFor(static::SESSION_NS, $key);
+	}
 }
