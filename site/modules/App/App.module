@@ -1,10 +1,9 @@
 <?php namespace ProcessWire;
 
 include_once(__DIR__.'/vendor/autoload.php');
-
+// App
+use App\Ecomm;
 use App\Pw\Hooks;
-
-use App\TableFormatters\Database\Table;
 
 /**
  * App
@@ -17,6 +16,9 @@ class App extends WireData implements Module {
 		Hooks\Sanitizer::instance()->addHooks();
 		Hooks\Session::instance()->addHooks();
 		Hooks\User::instance()->addHooks();
+
+		$this->ecommDB = new WireData();
+		$this->ecommDB->states = Ecomm\Database\States::instance();
 	}
 
 	public static function getModuleInfo() {
