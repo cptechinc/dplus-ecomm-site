@@ -9,6 +9,7 @@ use Dplus\Abstracts\AbstractQueryWrapper;
  * Reads Records from Login table
  * 
  * @method Query query()
+ * @static self  $instance
  */
 class Login extends AbstractQueryWrapper {
 	const MODEL              = 'Login';
@@ -18,6 +19,8 @@ class Login extends AbstractQueryWrapper {
 	const YN_TRUE = 'Y';
 	const ERMES_FIRST_LOGIN = 'FIRST LOGIN';
 	const ERMES_EMAIL_SENT  = 'SendEmail';
+
+	protected static $instance;
 
 /* =============================================================
 	Query Functions
