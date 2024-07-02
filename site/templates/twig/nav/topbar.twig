@@ -20,9 +20,11 @@
 						<a href="{{ pages.get('template=login').url }}"class="login-btn">
 							{{ html.iconType({'type': 'sign-in'}) }}<span class="d-none d-md-inline-block">Sign In</span>
 						</a>
-						<a href="customer-register.html" class="signup-btn">
-							{{ html.iconType({'type': 'register'}) }}<span class="d-none d-md-inline-block">Sign Up</span>
-						</a>
+						{% if config.register.allowRegister %}
+							<a href="customer-register.html" class="signup-btn">
+								{{ html.iconType({'type': 'register'}) }}<span class="d-none d-md-inline-block">Sign Up</span>
+							</a>
+						{% endif %}
 					</div>
 					<ul class="social-custom list-inline">
 						<li class="list-inline-item"><a href="#">{{ html.iconType({'type': 'facebook'}) }}</a></li>
