@@ -7,3 +7,26 @@
 {% endif %}
 
 {% include 'login/form.twig' %}
+
+<div class="d-flex w-100 justify-content-between">
+	<div>
+		<p class="lead mb-1">Forgot Password?</p>
+		<a href="{{ page.forgotPasswordUrl() }}" class="btn btn-block {{ CSS.colors.buttons.getClass('link') }}">
+			{{ html.iconType({'type': 'lock'}) }}  Recover Account
+		</a>
+	</div>
+	<div>
+		<p class="lead mb-1">Forgot Login?</p>
+		<a href="{# pages.get('template=contact').url #}" class="btn btn-block {{ CSS.colors.buttons.getClass('link') }}">
+			Contact Us
+		</a>
+	</div>
+	{% if config.register.allowRegister %}
+		<div>
+			<p class="lead mb-1">Request Login</p>
+			<a href="{{ page.registerUrl() }}" class="btn btn-block {{ CSS.colors.buttons.getClass('link') }}">
+				{{ html.iconType({'type': 'lock'}) }}  Register
+			</a>
+		</div>
+	{% endif %}
+</div>
