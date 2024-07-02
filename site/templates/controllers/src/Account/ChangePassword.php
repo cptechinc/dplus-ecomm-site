@@ -13,22 +13,11 @@ use Controllers\Account as AccountController;
 class ChangePassword extends AbstractServiceController {
 	const SESSION_NS    = 'change-password';
 	const PAGE_NAME     = 'change-password';
+	const TITLE         = 'Update Your Password';
 
 /* =============================================================
 	1. Indexes
 ============================================================= */
-	public static function index(WireData $data) {
-		if (self::init() === false) {
-			return false;
-		}
-		$fields = ['action|text', 'logout|bool'];
-		self::sanitizeParametersShort($data, $fields);
-
-		if ($data->action) {
-			return self::process($data);
-		}
-	}
-
 	/**
 	 * Process Action Request
 	 * @param  WireData $data
