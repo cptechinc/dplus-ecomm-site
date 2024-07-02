@@ -1,6 +1,6 @@
 {% set states = APP.ecommDB.states.all() %}
 
-<select class="selectpicker form-control show-tick" required>
+<select class="selectpicker form-control show-tick" name="state" required>
 	<option value=""></option>
 	{% for state in states %}
 		<option value="{{ state.abbreviation }}" title="{{ state.abbreviation }}">{{ state.name }}</option>
