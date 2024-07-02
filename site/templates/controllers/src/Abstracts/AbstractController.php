@@ -5,9 +5,9 @@ use ReflectionClass;
 use Twig\Environment as Twig;
 // ProcessWire
 use ProcessWire\WireData;
-use ProcessWire\Twig as PwTwig;
 // App
 use App\Ecomm\Services\Login as LoginService;
+use App\Configs\Configs\App as AppConfig;
 // Mvc Controllers
 use Mvc\Controllers\AbstractController as ParentController;
 // Controllers
@@ -34,6 +34,11 @@ abstract class AbstractController extends ParentController {
 	 * @return bool
 	 */
 	public static function isLoginRequired(WireData $data = null) {
+		/** @var AppConfig */
+		$config = self::pw('config')->app;
+		if ($config->requireLogin) {
+			return $config->requireLogin;
+		}
 		return static::REQUIRE_LOGIN;
 	}
 

@@ -3,6 +3,9 @@
 use Pauldro\ProcessWire\FileHasher;
 // Dplus
 use Dplus\Database\Connectors as DplusDbConnectors;
+// App
+use App\Configs\Configs\App as AppConfig;
+use App\Ecomm\Services\Login as LoginService;
 
 
 /** @var ProcessWire\Config $config */
@@ -19,6 +22,16 @@ if ($connectedDatax === false || $connectedDpluso === false) {
 include_once('./_init.config.php');
 
 include_once($modules->get('Mvc')->controllersPath().'vendor/autoload.php');
+
+/** @var AppConfig */
+$configApp = $this->config->app;
+
+if ($configApp->requireLogin && $page->template->name != 'login') {
+	if (LoginService::instance()->isLoggedIn() === false) {
+		$session->redirect($pages->get('template=login')->url, $http301=false);
+		return true;
+	}
+}
 
 
 if ($input->get->offsetExists('action') === false && $page->template->name != 'json') {
