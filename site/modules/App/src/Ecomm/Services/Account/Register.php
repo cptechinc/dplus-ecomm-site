@@ -2,7 +2,9 @@
 // ProcessWire
 use ProcessWire\WireData;
 use ProcessWire\WireInputData;
+use ProcessWire\WireMail;
 // App
+use App\Configs\Configs\Register as Config;
 use App\Ecomm\Database\Login as LoginTable;
 use App\Ecomm\Services\Login as LoginService;
 
@@ -53,8 +55,43 @@ class Register extends LoginService {
 		$data->state       = $input->text('state');
 		$data->zip         = $input->text('zip');
 		$this->requestRegister($data);
+		$success = $this->table->isRegistered($this->sessionID);
+
+		if ($success === false) {
+			return false;
+		}
 		$this->setSessionVar('emailsent', $data->email);
-		return $this->table->isRegistered($this->sessionID);
+		return $this->emailRegistration($data);
+	}
+
+	/**
+	 * Email Registration Data
+	 * @param  WireData $data
+	 * @return bool
+	 */
+	private function emailRegistration(WireData $data) {
+		/** @var Config */
+		$config = $this->config->register;
+		
+		if ($config->allowRegister === false || $config->emailRegistersTo->count() == 0) {
+			return false;
+		}
+
+		$body = ['Requested Account:', "EMAIL: $data->email", "COMPANY: $data->companyname",
+			"CONTACT: $data->contact", "PHONE: $data->phone",  "ADDRESS: $data->address1", "ADDRESS2: $data->address2",
+			"CITY: $data->city", "STATE: $data->state", "ZIP: $data->zip",
+		];
+
+		foreach ($config->emailRegistersTo as $address) {
+			$email = $this->mail->new();
+			
+			$email->subject("Account Registration: $data->companyname")
+			->to($address)
+			->from($config->emailRegistersFrom)
+			->body(implode("\r\n", $body));
+			$numSent = $email->send();
+		}
+		return true;
 	}
 
 /* =============================================================
