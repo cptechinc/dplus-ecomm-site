@@ -90,7 +90,6 @@ class Password extends LoginService {
 		return $this->table->hasEmailBeenSent($this->sessionID);
 	}
 
-
 /* =============================================================
 	Dplus Requests
 ============================================================= */
