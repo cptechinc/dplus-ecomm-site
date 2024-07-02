@@ -1,7 +1,7 @@
 <?php include ('./_head-blank.php'); ?>
 
 <div class="page">
-	<?php if ($session->isLoggedInEcomm() === false) : ?>
+	<?php if ($config->site->useTopbar && $session->isLoggedInEcomm() === false) : ?>
 		<?= $TWIG->render('nav/topbar.twig'); ?>
 	<?php endif; ?>
 	
