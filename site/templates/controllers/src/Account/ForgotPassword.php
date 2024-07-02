@@ -22,15 +22,16 @@ class ForgotPassword extends AbstractServiceController {
 		if (self::init() === false) {
 			return false;
 		}
-		$fields = ['action|text', 'logout|bool'];
-		self::sanitizeParametersShort($data, $fields);
 
 		if (Service::instance()->isLoggedIn()) {
 			self::pw('session')->redirect(AccountController::url(), $http301=false);
 			return false;
 		}
 
-		if ($data->logout || $data->action) {
+		$fields = ['action|text', 'logout|bool'];
+		self::sanitizeParametersShort($data, $fields);
+
+		if ($data->action) {
 			return self::process($data);
 		}
 		$html = self::display($data);
