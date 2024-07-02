@@ -50,7 +50,7 @@ class SessionUser extends WireData {
 		foreach (self::FIELDS_STRING as $field) {
 			if (array_key_exists($field, self::FIELD_MAP)) {
 				$fieldAlias = self::FIELD_MAP[$field];
-				$this->field = $r->$fieldAlias;
+				$this->$field = $r->$fieldAlias;
 				continue;
 			}
 			$this->$field = $r->$field;
