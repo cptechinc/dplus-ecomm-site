@@ -15,6 +15,9 @@ if ($connectedDatax === false || $connectedDpluso === false) {
 	// TODO: handle bad db connections
 }
 
+// LOAD / HYDRATE Configs
+include_once('./_init.config.php');
+
 include_once($modules->get('Mvc')->controllersPath().'vendor/autoload.php');
 
 
