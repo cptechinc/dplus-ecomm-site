@@ -4,6 +4,7 @@ use ReflectionClass;
 // Twig
 use Twig\Environment as Twig;
 // ProcessWire
+use ProcessWire\Config as PwConfig;
 use ProcessWire\WireData;
 // App
 use App\Ecomm\Services\Login as LoginService;
@@ -93,6 +94,14 @@ abstract class AbstractController extends ParentController {
 		return self::pw('modules')->get('Twig')->twig;
 	}
 
+	/**
+	 * Return ProcessWire Config
+	 * @return PwConfig
+	 */
+	protected static function getPwConfig() {
+		return self::pw('config');
+	}
+
 /* =============================================================
 	8. Supplemental
 ============================================================= */
@@ -135,7 +144,21 @@ abstract class AbstractController extends ParentController {
 	 * @return string
 	 */
 	protected static function getNamespaceClassNameAsPath() {
-		return ltrim(static::getNamespaceAsPath() . '/' . static::getClassNameAsPath(), '/');
+		return static::getNamespaceAsPath() . '/' . static::getClassNameAsPath() . '/';
+	}
+
+	/**
+	 * Append jQuery Validate scripts
+	 * @return bool
+	 */
+	public static function appendJsJqueryValiudate() {
+		$fh     = self::getFileHasher();
+		$config = self::getPwConfig();
+
+		$config->scripts->append($fh->getHashUrl('vendor/jquery.validate/jquery.validate.min.js'));
+		$config->scripts->append($fh->getHashUrl('vendor/jquery.validate/additional-methods.min.js'));
+		$config->scripts->append($fh->getHashUrl('scripts/jquery.validate-setup.js'));
+		return true;
 	}
 
 /* =============================================================
