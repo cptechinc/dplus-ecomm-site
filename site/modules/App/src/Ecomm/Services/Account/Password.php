@@ -66,9 +66,9 @@ class Password extends LoginService {
 			return false;
 		}
 		$data = new WireData();
-		$data->email	   = $input->email('email');
+		$data->email	   = $this->table->findOne()->email;
 		$data->password    = $input->text('password');
-		$data->passwordNew = $input->text('passwordNew');
+		$data->passwordNew = $input->text('npassword');
 		$this->requestChangePassword($data);
 		return $this->table->isLoggedIn($this->sessionID);
 	}
