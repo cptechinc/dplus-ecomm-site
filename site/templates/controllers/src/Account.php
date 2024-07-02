@@ -68,5 +68,9 @@ class Account extends AbstractController {
 		$m->addHook("Pages::registerUrl", function($event) {
 			$event->return = Account\Register::url();
 		});
+
+		$m->addHook("Pages::dashboardUrl", function($event) {
+			$event->return = Account\Dashboard::url();
+		});
 	}
 }

@@ -175,10 +175,7 @@
 					<li class="nav-item dropdown"><a href="javascript: void(0)" data-toggle="dropdown" class="dropdown-toggle">Account <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li class="dropdown-item">
-								<a href="contact.html" class="nav-link">Contact option 1</a>
-							</li>
-							<li class="dropdown-item">
-								<a href="contact2.html" class="nav-link">Contact option 2</a>
+								<a href="{{ pages.dashboardUrl() }}" class="nav-link">Dashboard</a>
 							</li>
 							<li class="dropdown-item bg-danger">
 								<a href="{{ pages.logoutUrl() }}" class="nav-link text-white">{{ html.iconType({'type': 'logout'}) }} Logout</a>
