@@ -4,18 +4,15 @@ use ProcessWire\WireData;
 // App
 use App\Ecomm\Services\Account\Password as Service;
 // Controllers
-use Controllers\Abstracts\AbstractController;
 use Controllers\Account as AccountController;
-use Controllers\Login as LoginController;
-
 
 /**
  * ChangePassword
  * Handles ChangePassword Requests
  */
-class ChangePassword extends AbstractController {
-	const SESSION_NS = 'change-password';
-	const REQUIRE_LOGIN = true;
+class ChangePassword extends AbstractServiceController {
+	const SESSION_NS    = 'change-password';
+	const PAGE_NAME     = 'change-password';
 
 /* =============================================================
 	1. Indexes
@@ -26,15 +23,16 @@ class ChangePassword extends AbstractController {
 		}
 		$fields = ['action|text', 'logout|bool'];
 		self::sanitizeParametersShort($data, $fields);
-		if ($data->logout || $data->action) {
+
+		if ($data->action) {
 			return self::process($data);
 		}
 	}
 
 	/**
-	 * Handle Login / Logout
+	 * Process Action Request
 	 * @param  WireData $data
-	 * @return void
+	 * @return bool
 	 */
 	public static function process(WireData $data) {
 		$fields = ['logout|bool'];
@@ -49,11 +47,9 @@ class ChangePassword extends AbstractController {
 			$service->parseLoginIntoSession();
 			$url = AccountController::url();
 		}
-
 		self::pw('session')->redirect($url, $http301=false);
-		return false;
+		return true;
 	}
-
 
 /* =============================================================
 	2. Validations / Permissions / Initializations
@@ -66,9 +62,6 @@ class ChangePassword extends AbstractController {
 /* =============================================================
 	4. URLs
 ============================================================= */
-	public static function url() {
-		return self::pw('pages')->get('template=account')->url . 'change-password/';
-	}
 
 /* =============================================================
 	5. Displays

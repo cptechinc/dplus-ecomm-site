@@ -1,63 +1,36 @@
 <?php namespace Controllers\Account;
 // ProcessWire
 use ProcessWire\WireData;
-// App
-use App\Ecomm\Services\Account\Register as Service;
 // Controllers
+use Controllers\Abstracts\AbstractController;
 use Controllers\Account as AccountController;
 
 /**
- * Register
- * Handles Register Requests
+ * AbstractServiceController
+ * Template for handling Account Service Requests
  */
-class Register extends AbstractServiceController {
-	const SESSION_NS = 'register';
-	const PAGE_NAME  = 'register';
-	const REQUIRE_LOGIN = false;
+abstract class AbstractServiceController extends AbstractController {
+	const SESSION_NS    = 'account';
+	const REQUIRE_LOGIN = true;
+	const PAGE_NAME     = 'account';
 
 /* =============================================================
 	1. Indexes
 ============================================================= */
-	public static function index(WireData $data) {
-		if (self::init() === false) {
-			return false;
-		}
-		$fields = ['action|text', 'logout|bool'];
-		self::sanitizeParametersShort($data, $fields);
+	/**
+	 * Handle Display
+	 * @param  WireData $data
+	 * @return string
+	 */
+	abstract public static function index(WireData $data);
 
-		if (Service::instance()->isLoggedIn()) {
-			self::pw('session')->redirect(AccountController::url(), $http301=false);
-			return false;
-		}
-
-		if ($data->logout || $data->action) {
-			return self::process($data);
-		}
-		$html = self::display($data);
-		self::deleteSessionVar('emailsent');
-		return $html;
-	}
 
 	/**
-	 * Handle Login / Logout
+	 * Process Action Request
 	 * @param  WireData $data
-	 * @return void
+	 * @return bool
 	 */
-	public static function process(WireData $data) {
-		$fields = ['logout|bool'];
-		self::sanitizeParametersShort($data, $fields);
-
-		$service = Service::instance();
-		$success = $service->process($data);
-		$url = self::url();
-
-		if ($success) {
-			self::setSessionVar('emailsent', $data->email);
-		}
-		self::pw('session')->redirect($url, $http301=false);
-		return true;
-	}
-
+	abstract public static function process(WireData $data);
 
 /* =============================================================
 	2. Validations / Permissions / Initializations
@@ -70,14 +43,23 @@ class Register extends AbstractServiceController {
 /* =============================================================
 	4. URLs
 ============================================================= */
+	public static function url() {
+		return AccountController::url() . static::PAGE_NAME . '/';
+	}
 
 /* =============================================================
 	5. Displays
 ============================================================= */
+	protected static function display(WireData $data) {
+		return static::render($data);
+	}
 
 /* =============================================================
 	6. HTML Rendering
 ============================================================= */
+	protected static function render(WireData $data) {
+		return self::getTwig()->render('account/' . static::PAGE_NAME . '/page.twig');
+	}
 
 /* =============================================================
 	7. Class / Module Getters

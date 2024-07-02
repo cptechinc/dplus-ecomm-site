@@ -3,19 +3,17 @@
 use ProcessWire\WireData;
 // App
 use App\Ecomm\Services\Account\Password as Service;
-use App\Ecomm\Services\Login as LoginService;
 // Controllers
-use Controllers\Abstracts\AbstractController;
 use Controllers\Account as AccountController;
-use Controllers\Login as LoginController;
 
 
 /**
- * Login
- * Handles Login Requests
+ * FirstLogin
+ * Handles FirstLogin Requests
  */
-class FirstLogin extends AbstractController {
-	const SESSION_NS = 'first-login';
+class FirstLogin extends AbstractServiceController {
+	const SESSION_NS  = 'first-login';
+	const PAGE_NAME   = 'first-login';
 
 /* =============================================================
 	1. Indexes
@@ -33,9 +31,9 @@ class FirstLogin extends AbstractController {
 	}
 
 	/**
-	 * Handle Login / Logout
+	 * Process Action Request
 	 * @param  WireData $data
-	 * @return void
+	 * @return bool
 	 */
 	public static function process(WireData $data) {
 		$fields = ['logout|bool'];
@@ -50,9 +48,8 @@ class FirstLogin extends AbstractController {
 			$service->parseLoginIntoSession();
 			$url = AccountController::url();
 		}
-
 		self::pw('session')->redirect($url, $http301=false);
-		return false;
+		return true;
 	}
 
 
@@ -67,9 +64,6 @@ class FirstLogin extends AbstractController {
 /* =============================================================
 	4. URLs
 ============================================================= */
-	public static function url() {
-		return self::pw('pages')->get('template=account')->url . 'first-login/';
-	}
 
 /* =============================================================
 	5. Displays

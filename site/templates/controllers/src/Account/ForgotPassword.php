@@ -4,15 +4,16 @@ use ProcessWire\WireData;
 // App
 use App\Ecomm\Services\Account\Password as Service;
 // Controllers
-use Controllers\Abstracts\AbstractController;
 use Controllers\Account as AccountController;
 
 /**
  * ForgotPassword
  * Handles ForgotPassword Requests
  */
-class ForgotPassword extends AbstractController {
-	const SESSION_NS = 'forgot-password';
+class ForgotPassword extends AbstractServiceController {
+	const REQUIRE_LOGIN = false;
+	const SESSION_NS    = 'forgot-password';
+	const PAGE_NAME     = 'forgot-password';
 
 /* =============================================================
 	1. Indexes
@@ -38,9 +39,9 @@ class ForgotPassword extends AbstractController {
 	}
 
 	/**
-	 * Handle Login / Logout
+	 * Process Action Request
 	 * @param  WireData $data
-	 * @return void
+	 * @return bool
 	 */
 	public static function process(WireData $data) {
 		$fields = ['logout|bool'];
@@ -57,7 +58,6 @@ class ForgotPassword extends AbstractController {
 		return true;
 	}
 
-
 /* =============================================================
 	2. Validations / Permissions / Initializations
 ============================================================= */
@@ -69,24 +69,14 @@ class ForgotPassword extends AbstractController {
 /* =============================================================
 	4. URLs
 ============================================================= */
-	public static function url() {
-		return AccountController::url() . 'forgot-password/';
-	}
 
 /* =============================================================
 	5. Displays
 ============================================================= */
-	private static function display(WireData $data) {
-		return self::render($data);
-	}
 
 /* =============================================================
 	6. HTML Rendering
 ============================================================= */
-	private static function render(WireData $data) {
-		return self::getTwig()->render('account/forgot-password/page.twig');
-	}
-
 
 /* =============================================================
 	7. Class / Module Getters
