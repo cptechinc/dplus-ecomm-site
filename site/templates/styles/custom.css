@@ -22,3 +22,6 @@ input::-webkit-inner-spin-button {
 	border-radius: .25rem;
 }
 
+label.invalid-feedback {
+	color: #dc3545;
+}
