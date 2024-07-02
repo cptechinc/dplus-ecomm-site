@@ -12,43 +12,18 @@
 	<div class="row">
 		<div class="col-sm-6 form-group">
 			<label for="email">Email</label>
-			{% include 'util/bootstrap/form/input.twig' with {
-				'input': {
-					'name': 'email',
-					'type': 'email',
-					'attributes': {
-						'aria-label':  'Email',
-						'placeholder': 'user@example.com'
-					}
-				}
-			} %}
+			{% include 'account/shared/form/inputs/email.twig' %}
 		</div>
 	</div>
 
 	<div class="row">
 		<div class="col-sm-6 form-group">
-			<label for="email">Mother's Maiden Name</label>
-			{% include 'util/bootstrap/form/input.twig' with {
-				'input': {
-					'name': 'securityAnswer1',
-					'attributes': {
-						'placeholder': '',
-						'aria-label':  "Mother's Maiden Name"
-					}
-				}
-			} %}
+			<label for="securityAnswer1">{{ config.account.labelSecurityQuestion1 }}</label>
+			{% include 'account/shared/form/inputs/security-answer1.twig' %}
 		</div>
 		<div class="col-sm-6 form-group">
-			<label for="email">What city were you born in?</label>
-			{% include 'util/bootstrap/form/input.twig' with {
-				'input': {
-					'name': 'securityAnswer2',
-					'attributes': {
-						'placeholder': '',
-						'aria-label':  "What city were you born in"
-					}
-				}
-			} %}
+			<label for="securityAnswer2">{{ config.account.labelSecurityQuestion2 }}</label>
+			{% include 'account/shared/form/inputs/security-answer2.twig' %}
 		</div>
 	</div>
 
