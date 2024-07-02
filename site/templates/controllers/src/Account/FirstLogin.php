@@ -19,15 +19,17 @@ class FirstLogin extends AbstractServiceController {
 	1. Indexes
 ============================================================= */
 	public static function index(WireData $data) {
-		if (self::init() === false) {
+		if (static::init() === false) {
 			return false;
 		}
-		$fields = ['action|text', 'logout|bool'];
+		$fields = ['action|text'];
 		self::sanitizeParametersShort($data, $fields);
 
-		if ($data->logout || $data->action) {
-			return self::process($data);
+		if ($data->action) {
+			return static::process($data);
 		}
+		static::appendJs($data);
+		return static::display($data);
 	}
 
 	/**
@@ -80,4 +82,18 @@ class FirstLogin extends AbstractServiceController {
 /* =============================================================
 	8. Supplemental
 ============================================================= */
+	protected static function appendJs(WireData $data) {
+		self::appendJsJqueryValiudate();
+		$fh = self::getFileHasher();
+		$config = self::getPwConfig();
+		$jsPath = 'pages/' . self::getNamespaceClassNameAsPath();
+
+		$scripts = ['form.twig'];
+
+		foreach ($scripts as $file) {
+			if (file_exists($config->paths->templates . $jsPath . $file)) {
+				$config->scripts->append($fh->getHashUrl($jsPath . $file));
+			}
+		}
+	}
 }
