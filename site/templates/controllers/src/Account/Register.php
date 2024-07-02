@@ -14,6 +14,7 @@ class Register extends AbstractServiceController {
 	const SESSION_NS = 'register';
 	const PAGE_NAME  = 'register';
 	const REQUIRE_LOGIN = false;
+	const TITLE = 'Register for an Account';
 
 /* =============================================================
 	1. Indexes
@@ -22,17 +23,19 @@ class Register extends AbstractServiceController {
 		if (self::init() === false) {
 			return false;
 		}
-		$fields = ['action|text', 'logout|bool'];
-		self::sanitizeParametersShort($data, $fields);
 
 		if (Service::instance()->isLoggedIn()) {
 			self::pw('session')->redirect(AccountController::url(), $http301=false);
 			return false;
 		}
 
-		if ($data->logout || $data->action) {
+		$fields = ['action|text', 'logout|bool'];
+		self::sanitizeParametersShort($data, $fields);
+		
+		if ($data->action) {
 			return self::process($data);
 		}
+		self::pw('page')->title = self::TITLE;
 		$html = self::display($data);
 		self::deleteSessionVar('emailsent');
 		return $html;

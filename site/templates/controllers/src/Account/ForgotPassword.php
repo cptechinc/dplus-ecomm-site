@@ -14,6 +14,7 @@ class ForgotPassword extends AbstractServiceController {
 	const REQUIRE_LOGIN = false;
 	const SESSION_NS    = 'forgot-password';
 	const PAGE_NAME     = 'forgot-password';
+	const TITLE         = 'Recover Your Account';
 
 /* =============================================================
 	1. Indexes
@@ -34,6 +35,7 @@ class ForgotPassword extends AbstractServiceController {
 		if ($data->action) {
 			return self::process($data);
 		}
+		self::pw('page')->title = self::TITLE;
 		$html = self::display($data);
 		self::deleteSessionVar('emailsent');
 		return $html;

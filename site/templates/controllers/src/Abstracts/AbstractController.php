@@ -21,6 +21,7 @@ abstract class AbstractController extends ParentController {
 	const SESSION_NS = '';
 	const REQUIRE_LOGIN = false;
 	const TEMPLATE = '';
+	const TITLE = '';
 
 /* =============================================================
 	1. Indexes
