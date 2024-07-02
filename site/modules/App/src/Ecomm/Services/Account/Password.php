@@ -47,7 +47,7 @@ class Password extends LoginService {
 			return false;
 		}
 		$data = new WireData();
-		$data->email	   = $input->email('email');
+		$data->email	   = $this->table->findOne()->email;
 		$data->password    = $input->text('password');
 		$data->passwordNew = $input->text('passwordNew');
 		$data->securityAnswer1 = $input->text('securityAnswer1');
