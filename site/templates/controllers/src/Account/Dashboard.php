@@ -12,6 +12,7 @@ use Controllers\Account as AccountController;
 class Dashboard extends AbstractController {
 	const SESSION_NS = 'dashboard';
 	const REQUIRE_LOGIN = true;
+	const TITLE = 'Your Dashboard';
 
 /* =============================================================
 	1. Indexes
@@ -22,6 +23,10 @@ class Dashboard extends AbstractController {
 		}
 		$fields = ['action|text', 'logout|bool'];
 		self::sanitizeParametersShort($data, $fields);
+		self::pw('page')->title = self::TITLE;
+		
+		self::initPageHooks();
+		return self::display($data);
 	}
 
 /* =============================================================
@@ -42,10 +47,16 @@ class Dashboard extends AbstractController {
 /* =============================================================
 	5. Displays
 ============================================================= */
+	protected static function display(WireData $data) {
+		return static::render($data);
+	}
 
 /* =============================================================
 	6. HTML Rendering
 ============================================================= */
+	protected static function render(WireData $data) {
+		return self::getTwig()->render('account/dashboard/page.twig');
+	}
 
 /* =============================================================
 	7. Class / Module Getters
@@ -54,4 +65,17 @@ class Dashboard extends AbstractController {
 /* =============================================================
 	8. Supplemental
 ============================================================= */
+	/**
+	 * Initialze Page Hooks
+	 * @param  string $tplname
+	 * @return bool
+	 */
+	public static function initPageHooks($tplname = '') {
+		$selector = static::getPageHooksTemplateSelector();
+		$m = self::pw('modules')->get('App');
+
+		$m->addHook("$selector::changePasswordUrl", function($event) {
+			$event->return = AccountController\ChangePassword::url();
+		});
+	}
 }
