@@ -178,6 +178,10 @@ class Login extends AbstractController {
 		$m->addHook("$selector::forgotPasswordUrl", function($event) {
 			$event->return = AccountController\ForgotPassword::url();
 		});
+
+		$m->addHook("$selector::registerUrl", function($event) {
+			$event->return = AccountController\Register::url();
+		});
 	}
 
 	/**
