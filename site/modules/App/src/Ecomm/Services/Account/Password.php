@@ -49,7 +49,7 @@ class Password extends LoginService {
 		$data = new WireData();
 		$data->email	   = $this->table->findOne()->email;
 		$data->password    = $input->text('password');
-		$data->passwordNew = $input->text('passwordNew');
+		$data->passwordNew = $input->text('npassword');
 		$data->securityAnswer1 = $input->text('securityAnswer1');
 		$data->securityAnswer2 = $input->text('securityAnswer2');
 		$this->requestFirstChangePassword($data);
