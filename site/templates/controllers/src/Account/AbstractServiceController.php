@@ -32,6 +32,7 @@ abstract class AbstractServiceController extends AbstractController {
 		if ($data->action) {
 			return static::process($data);
 		}
+		self::pw('page')->title = static::TITLE;
 		static::appendJs($data);
 		return static::display($data);
 	}
