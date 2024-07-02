@@ -1,0 +1,29 @@
+<form action="{{ input.url() }}" method="POST" class="allow-enterkey-submit" id="changePasswordForm">
+	<input type="hidden" name="action" value="change-password">
+
+	<div class="row">
+		<div class="col-sm-6 form-group">
+			<label for="password">Current Password</label>
+			{% include 'account/shared/form/inputs/password-x.twig' with {'name': 'password'} %}
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-sm-6 form-group">
+			<label for="npassword">New Password</label>
+			{% include 'account/shared/form/inputs/password-x.twig' with {'name': 'npassword'} %}
+		</div>
+		<div class="col-sm-6 form-group">
+			<label for="cpassword">Confirm Password</label>
+			{% include 'account/shared/form/inputs/password-x.twig' with {'name': 'cpassword'} %}
+		</div>
+	</div>
+
+	<hr>
+
+	<div class="text-center">
+		<button type="submit" class="btn btn-block {{ CSS.colors.buttons.getClass('submit') }}">
+			Submit
+		</button>
+	</div>
+</form>
