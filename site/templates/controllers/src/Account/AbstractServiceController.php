@@ -18,11 +18,23 @@ abstract class AbstractServiceController extends AbstractController {
 	1. Indexes
 ============================================================= */
 	/**
-	 * Handle Display
+	 * Process HTTP GET Request
 	 * @param  WireData $data
-	 * @return string
+	 * @return string|bool
 	 */
-	abstract public static function index(WireData $data);
+	public static function index(WireData $data) {
+		if (static::init() === false) {
+			return false;
+		}
+		$fields = ['action|text'];
+		self::sanitizeParametersShort($data, $fields);
+
+		if ($data->action) {
+			return static::process($data);
+		}
+		static::appendJs($data);
+		return static::display($data);
+	}
 
 
 	/**
