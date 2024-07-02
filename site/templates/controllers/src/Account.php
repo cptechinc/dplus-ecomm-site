@@ -53,4 +53,20 @@ class Account extends AbstractController {
 /* =============================================================
 	8. Supplemental
 ============================================================= */
+
+/* =============================================================
+	9. Hooks / Object Decorating
+============================================================= */
+	/**
+	 * Add Hooks to Pages
+	 * @param  string $tplname
+	 * @return bool
+	 */
+	public static function initPagesHooks() {
+		$m = self::pw('modules')->get('App');
+
+		$m->addHook("Pages::registerUrl", function($event) {
+			$event->return = Account\Register::url();
+		});
+	}
 }

@@ -33,7 +33,6 @@ if ($configApp->requireLogin && $page->template->name != 'login') {
 	}
 }
 
-
 if ($input->get->offsetExists('action') === false && $page->template->name != 'json') {
 	$fh = FileHasher::instance();
 
@@ -71,4 +70,5 @@ if ($input->get->offsetExists('action') === false && $page->template->name != 'j
 	$homepage = $pages->get('/');
 
 	Controllers\Login::initPagesHooks();
+	Controllers\Account::initPagesHooks();
 }
