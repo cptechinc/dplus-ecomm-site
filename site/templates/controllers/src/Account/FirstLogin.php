@@ -86,9 +86,9 @@ class FirstLogin extends AbstractServiceController {
 		self::appendJsJqueryValiudate();
 		$fh = self::getFileHasher();
 		$config = self::getPwConfig();
-		$jsPath = 'pages/' . self::getNamespaceClassNameAsPath();
+		$jsPath = 'scripts/pages/' . self::getNamespaceClassNameAsPath();
 
-		$scripts = ['form.twig'];
+		$scripts = ['form.js'];
 
 		foreach ($scripts as $file) {
 			if (file_exists($config->paths->templates . $jsPath . $file)) {
