@@ -11,7 +11,7 @@ use ProcessWire\WireArray;
  */
 class Account extends AbstractConfig {
 	public function __construct() {
-		$this->labelSecurityQuestion1 = "Mother's Maiden Name";
-		$this->labelSecurityQuestion2 = "City Born In";
+		$this->labelSecurityQuestion1 = "Mother's maiden name";
+		$this->labelSecurityQuestion2 = "City you were born in";
 	}
 }
