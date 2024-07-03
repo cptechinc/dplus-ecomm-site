@@ -15,11 +15,13 @@ abstract class AbstractQueryWrapper extends WireData {
 	const MODEL_KEY          = '';
 	const MODEL_TABLE        = '';
 	const DESCRIPTION        = '';
+	const SORT_OPTIONS = ['ASC', 'DESC'];
+	const WILDCARD_CHAR = '%';
 
 	protected static $instance;
 	
 /* =============================================================
-	1. Constructors
+	Constructors
 ============================================================= */
 	/** @return static */
 	public static function instance() {
@@ -76,10 +78,41 @@ abstract class AbstractQueryWrapper extends WireData {
 	}
 
 	/**
-	 * Returns the associated CodeQuery class for table code
+	 * Returns the associated Query class for table code
 	 * @return mixed
 	 */
 	public function query() {
 		return $this->getQueryClass();
+	}
+
+	/**
+	 * Return Query Filtered By Filter Data
+	 * @param  AbstractFilterData $data
+	 * @return bool
+	 */
+	public function queryFilteredByFilterData(AbstractFilterData $data) {
+		return $this->query();
+	}
+
+	/**
+	 * Apply Order By Clause to Query
+	 * @param  Query              $q
+	 * @param  AbstractFilterData $data
+	 * @return bool
+	 */
+	public function applyOrderByFilterData(Query $q, AbstractFilterData $data) {
+		$model = $this->modelClassName();
+
+		if (empty($data->sortby) === false && $model::aliasproperty_exists($data->sortby)) {
+			$col = $model::aliasproperty($data->sortby);
+			$q->orderBy($col, $data->sortdir);
+			return true;
+		}
+		if (empty($data::DEFAULT_SORTBY)) {
+			return true;
+		}
+		$col = $model::aliasproperty($data::DEFAULT_SORTBY);
+		$q->orderBy($col, $data::DEFAULT_SORTDIR);
+		return true;
 	}
 }
