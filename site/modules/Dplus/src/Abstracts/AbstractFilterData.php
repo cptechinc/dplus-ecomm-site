@@ -14,6 +14,8 @@ use ProcessWire\WireInputData;
  */
 abstract class AbstractFilterData extends WireData {
 	const FIELDS_FILTERABLE = [];
+	const DEFAULT_SORTBY  = '';
+	const DEFAULT_SORTDIR = '';
 	
 	public function __construct() {
 		$this->pagenbr = 1;
@@ -28,7 +30,7 @@ abstract class AbstractFilterData extends WireData {
 	 * @return void
 	 */
 	abstract public function setFromWireInputData(WireInputData $input);
-
+	
 	/**
 	 * Return instance
 	 * @param  WireInputData $input
