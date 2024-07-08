@@ -1,4 +1,4 @@
-<form action="{{ input.url() }}" method="POST" class="allow-enterkey-submit">
+<form action="{{ input.url() }}" method="POST" class="allow-enterkey-submit" id="registerForm">
 	<input type="hidden" name="action" value="register">
 
 	<legend>Let's get your account started</legend>
@@ -46,7 +46,9 @@
 		</div>
 		<div class="col-sm-2 form-group">
 			<label for="state">State</label>
-			{% include 'account/shared/form/inputs/state.twig' %}
+			<div class="input-parent">
+				{% include 'account/shared/form/inputs/state.twig' %}
+			</div>
 		</div>
 		<div class="col-sm-2 form-group">
 			<label for="zip">Zip Code</label>

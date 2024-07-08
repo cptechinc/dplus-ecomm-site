@@ -36,6 +36,7 @@ class Register extends AbstractServiceController {
 			return self::process($data);
 		}
 		self::pw('page')->title = self::TITLE;
+		self::appendJs($data);
 		$html = self::display($data);
 		self::deleteSessionVar('emailsent');
 		return $html;
@@ -89,4 +90,10 @@ class Register extends AbstractServiceController {
 /* =============================================================
 	8. Supplemental
 ============================================================= */
+	protected static function appendJs(WireData $data, $scripts = []) {
+		self::appendJsJqueryValiudate();
+
+		$scripts = self::getJsScriptPaths($data);
+		parent::appendJs($data, $scripts);
+	}
 }
