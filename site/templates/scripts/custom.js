@@ -1,5 +1,13 @@
 $(function() {
-	
+	$('.datepicker').each(function(index) {
+		let container = $(this);
+		let val = container.find('input.date-input').val();
+
+		container.datepicker({
+			date: val,
+			allowPastDates: true,
+		});
+	});
 });
 
 let callback = function() {
@@ -11,11 +19,8 @@ let callback = function() {
 			let phoneNumber = this;
 			let charCode = (evt.which) ? evt.which : evt.keyCode;
 			phoneNumber.value = formatPhoneUs(phoneNumber.value);
-			console.log(phoneNumber.value)
 		});
 	});
-
-	
 }
 
 if (document.readyState === "complete" || (document.readyState !== "loading" && !document.documentElement.doScroll) ) {
@@ -24,7 +29,6 @@ if (document.readyState === "complete" || (document.readyState !== "loading" && 
 } else {
 	document.addEventListener("DOMContentLoaded", callback);
 }
-
 
 /*==============================================================
 	STRING FUNCTIONS
