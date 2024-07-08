@@ -81,4 +81,19 @@ abstract class AbstractServiceController extends AbstractController {
 /* =============================================================
 	8. Supplemental
 ============================================================= */
+	/**
+	 * Return List of Script filepaths to be appended
+	 * @param  WireData $data
+	 * @return array
+	 */
+	protected static function getJsScriptPaths(WireData $data) {
+		$jsPath = 'scripts/pages/' . static::getNamespaceClassNameAsPath();
+		$filenames = ['form.js'];
+		$scripts = [];
+
+		foreach ($filenames as $filename) {
+			$scripts[] = $jsPath . $filename;
+		}
+		return $scripts;
+	}
 }

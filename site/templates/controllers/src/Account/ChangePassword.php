@@ -67,4 +67,10 @@ class ChangePassword extends AbstractServiceController {
 /* =============================================================
 	8. Supplemental
 ============================================================= */
+	protected static function appendJs(WireData $data, $scripts = []) {
+		self::appendJsJqueryValiudate();
+
+		$scripts = self::getJsScriptPaths($data);
+		parent::appendJs($data, $scripts);
+	}
 }
