@@ -5,7 +5,7 @@ div.main {
 	min-height: 600px;
 }
 
-a.link {
+a.link, button.link {
 	text-decoration: none;
 	background-color: transparent;
 	border-bottom: 3px solid #bcdcef;
@@ -80,4 +80,31 @@ label.invalid-feedback {
 .form-control::placeholder {
 	color: #A2AEB9;
 	opacity: 1;
+}
+
+/*==============================================================
+	Fuelux Styles
+==============================================================*/
+.fuelux .datepicker-calendar-days td.current-day span {
+	border: 1px solid #333;
+	background: #bcdcef;
+}
+
+.fuelux .datepicker-calendar-days td.selected span {
+	background: #1A153D;
+}
+
+.fuelux .datepicker-calendar-days td.selected b, .fuelux .datepicker-calendar-days td.selected button {
+	color: #fff;
+}
+
+.fuelux .datepicker-calendar-footer .datepicker-today {
+	color: #bcdcef;
+	font-size: inherit;
+	text-decoration: none;
+	border-bottom: 3px solid #bcdcef;
+}
+
+.fuelux .datepicker-calendar-footer {
+	border-radius: 0;
 }
