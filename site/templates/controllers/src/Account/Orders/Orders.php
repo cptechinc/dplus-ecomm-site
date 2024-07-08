@@ -5,6 +5,7 @@ use Propel\Runtime\Util\PropelModelPager;
 use SalesOrder as SoRecord;
 // ProcessWire
 use ProcessWire\WireData;
+use ProcessWire\WireInput;
 // Dplus
 use Dplus\Database\Tables\SalesOrder as SoTable;
 // Controllers
@@ -18,6 +19,7 @@ class Orders extends AbstractController {
 	const TEMPLATE      = 'account';
 	const TITLE         = 'Your Open Orders';
 	const PAGE_NAME     = 'orders';
+	const RESULTS_PERPAGE = 25;
 
 /* =============================================================
 	1. Indexes
@@ -50,7 +52,11 @@ class Orders extends AbstractController {
 	 * @return PropelModelPager[SoRecord]
 	 */
 	private static function fetchListPaged(WireData $data) {
-		$filter = SoTable\FilterData::fromWireInputData(self::pw('input')->get);
+		/** @var WireInput */
+		$input = self::pw('input');
+		$filter = SoTable\FilterData::fromWireInputData($input->get);
+		$filter->pagenbr = $input->pageNum();
+		$filter->limit   = static::RESULTS_PERPAGE;
 		$table = SoTable::instance();
 		return $table->findPaginatedByFilterData($filter);
 	}
