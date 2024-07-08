@@ -7,10 +7,10 @@ use ProcessWire\WireInputData;
  * AbstractFilterData
  * Container for Filtering Data
  * 
- * @property int    $pagenbr
- * @property int    $limit
- * @property string $sortby
- * @property string $sortdir
+ * @property int    $pagenbr   Page Number
+ * @property int    $limit     Number of Results to return
+ * @property string $sortby    Field to Sort by
+ * @property string $sortdir   Sort Direction
  */
 abstract class AbstractFilterData extends WireData {
 	const FIELDS_FILTERABLE = [];
