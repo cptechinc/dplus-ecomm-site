@@ -1,0 +1,10 @@
+<div>
+	<section class="bar pt-4">
+		<div class="heading">
+			<h2>Your Orders</h2>
+		</div>
+
+		{% include 'account/orders/orders/list/list.twig' %}
+		{% include 'util/paginator/propel-model-pager.twig' with {'pager': results} %}
+	</section>
+</div>

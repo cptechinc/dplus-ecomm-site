@@ -1,0 +1,63 @@
+{% import "util/macros/html.twig" as html %}
+
+<div class="list-group">
+	<div class="list-group-item bg-dark text-light h4 mb-0">
+		{% block header %}
+			<div class="form-row mb-3">
+				<div class="col-4">
+					<a href="{{ input.sortUrl('date_ordered') }}" class="link sort">Order Date
+						{% if input.get.text('orderBy') == 'date_ordered'  %}
+							{{ html.iconTypeSort({'type': 'sort-numeric', 'direction' : input.get.text('sortDir')}) }}
+						{% endif %}
+					</a>
+				</div>
+				<div class="col-4 text-right">
+					<a href="{{ input.sortUrl('total_total') }}" class="link sort">Order Total
+						{% if input.get.text('orderBy') == 'total_total'  %}
+							{{ html.iconTypeSort({'type': 'sort-numeric', 'direction' : input.get.text('sortDir')}) }}
+						{% endif %}
+					</a>
+				</div>
+				<div class="col-4">Status</div>
+			</div>
+			<div class="form-row">
+				<div class="col-1"></div>
+				<div class="col-3">
+					<a href="{{ input.sortUrl('ordernumber') }}" class="link sort">Order # 
+						{% if input.get.text('orderBy') == 'ordernumber'  %}
+							{{ html.iconTypeSort({'type': 'sort-numeric', 'direction' : input.get.text('sortDir')}) }}
+						{% endif %}
+					</a>
+				</div>
+				<div class="col-4">Cust PO</div>
+				<div class="col-4">Ship-To</div>
+			</div>
+		{% endblock %}
+	</div>
+	
+	{% block results %}
+		{% if results.count == 0 %}
+			<div class="list-group-item bg-light">
+				<div class="text-center">There are no results to display.</div>
+			</div>
+		{% endif %}
+		
+		{% for order in results %}
+			<a href="{# page.orderUrl(order.ordernumber) #}" class="list-group-item list-group-item-action py-1">
+				<div class="form-row">
+					<div class="col-4">{{ order.orderdate|convertdate }}</div>
+					<div class="col-4 text-right">$ {{ order.total_total|currency }}</div>
+					<div class="col-4">{{ order.status()|capitalize }}</div>
+				</div>
+				<div class="form-row">
+					<div class="col-1"></div>
+					<div class="col-3">{{ order.ordernumber }}</div>
+					<div class="col-4">{{ order.custpo }}</div>
+					<div class="col-4">
+						<div>{{ order.shiptoid }}</div>
+					</div>
+				</div>
+			</a>
+		{% endfor %}
+	{% endblock %}
+</div>
