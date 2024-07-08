@@ -12,7 +12,10 @@ use Dplus\Database\Tables\SalesOrder as SoTable;
 use Controllers\Abstracts\AbstractController;
 use Controllers\Account as AccountController;
 
-
+/**
+ * Orders
+ * Handles the Orders, List and Page
+ */
 class Orders extends AbstractController {
 	const SESSION_NS = 'sales-orders';
 	const REQUIRE_LOGIN = true;
@@ -34,10 +37,14 @@ class Orders extends AbstractController {
 			return false;
 		}
 		self::pw('page')->title = static::TITLE;
-		// static::appendJs($data);
 		return static::list($data);
 	}
 
+	/**
+	 * Handle Display of List Page
+	 * @param  WireData $data
+	 * @return bool
+	 */
 	private static function list(WireData $data) {
 		$results = static::fetchListPaged($data);
 		return self::displayList($data, $results);
