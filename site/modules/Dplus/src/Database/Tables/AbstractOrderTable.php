@@ -1,20 +1,20 @@
 <?php namespace  Dplus\Database\Tables;
 // Propel ORM Library
-	// use Propel\Runtime\Util\PropelModelPager;
+use Propel\Runtime\Util\PropelModelPager;
 // Dplus Models
 use SalesOrderQuery as Query, SalesOrder as Record;
 // Dplus
-	// use Dplus\Abstracts\AbstractQueryWrapper;
-	// use Dplus\Abstracts\AbstractFilterData;
+use Dplus\Abstracts\AbstractQueryWrapper;
+use Dplus\Abstracts\AbstractFilterData;
 
 /**
- * SalesOrder
- * Reads Records from SalesOrder table
+ * AbstractOrderTable
+ * Template for reading Records from Order tables
  * 
  * @method Query query()
  * @static self  $instance
  */
-class SalesOrder extends AbstractOrderTable {
+abstract class AbstractOrderTable extends AbstractQueryWrapper {
 	const MODEL              = 'SalesOrder';
 	const MODEL_KEY          = 'ordernumber';
 	const MODEL_TABLE        = 'so_header';
@@ -25,6 +25,18 @@ class SalesOrder extends AbstractOrderTable {
 /* =============================================================
 	Query Functions
 ============================================================= */
+	/**
+	 * Return Query Filtered By Filter Data
+	 * @param  SalesOrder\FilterData $data
+	 * @return Query
+	 */
+	public function queryFilteredByFilterData(AbstractFilterData $data) {
+		$q = $this->query();
+		$q->filterByCustid($data->custid);
+		$this->applyFilterDataOrderdateFilter($q, $data);
+		return $q;
+	}
+
 	/**
 	 * Add Filter for Orderdate
 	 * @param  Query                 $q
@@ -46,5 +58,13 @@ class SalesOrder extends AbstractOrderTable {
 /* =============================================================
 	Reads
 ============================================================= */
-
+	/**
+	 * Return Results Paginated
+	 * @return PropelModelPager[Record]
+	 */
+	public function findPaginatedByFilterData(SalesOrder\FilterData $data) {
+		$q = $this->queryFilteredByFilterData($data);
+		$this->applyOrderByFilterData($q, $data);
+		return $q->paginate($data->pagenbr, $data->limit);
+	}
 }
