@@ -43,6 +43,7 @@ if ($input->get->offsetExists('action') === false && $page->template->name != 'j
 	$styles->append($fh->getHashUrl('vendor/bootstrap-select/css/bootstrap-select.min.css'));
 	$styles->append($fh->getHashUrl('vendor/owl.carousel/assets/owl.carousel.css'));
 	$styles->append($fh->getHashUrl('vendor/owl.carousel/assets/owl.theme.default.css'));
+	$styles->append($fh->getHashUrl('vendor/fuelux/css/fuelux-datepicker.css'));
 	$styles->append($fh->getHashUrl('styles/style.blue.css'));
 	$styles->append($fh->getHashUrl('styles/custom.css'));
 
@@ -58,6 +59,7 @@ if ($input->get->offsetExists('action') === false && $page->template->name != 'j
 	$scripts->append($fh->getHashUrl('scripts/jquery.parallax-1.1.3.js'));
 	$scripts->append($fh->getHashUrl('vendor/bootstrap-select/js/bootstrap-select.min.js'));
 	$scripts->append($fh->getHashUrl('vendor/jquery.scrollto/jquery.scrollTo.min.js'));
+	$scripts->append($fh->getHashUrl('vendor/fuelux/js/fuelux.js'));
 	$scripts->append($fh->getHashUrl('scripts/front.js'));
 	$scripts->append($fh->getHashUrl('scripts/custom.js'));
 
