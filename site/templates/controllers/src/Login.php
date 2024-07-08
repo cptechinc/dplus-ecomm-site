@@ -25,14 +25,10 @@ class Login extends AbstractController {
 		if ($data->logout || $data->action) {
 			return self::process($data);
 		}
-		// if (Service::instance()->isLoggedIn()) {
-		//	$role = self::pw('roles')->get(self::pw('user')->dplusRole);
-		//	$url = $role->homepage;
-		//	if (empty($url)) {
-		//		$url = self::pw('pages')->get('/')->url;
-		//	} 
-		//	self::pw('session')->redirect($url, $http301=false);
-		// }
+		if (Service::instance()->isLoggedIn()) {
+			self::pw('session')->redirect(AccountController\Dashboard::url(), $http301=false);
+			return false;
+		}
 		self::initPageHooks();
 		return self::display($data);
 	}

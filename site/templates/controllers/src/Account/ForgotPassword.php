@@ -25,7 +25,7 @@ class ForgotPassword extends AbstractServiceController {
 		}
 
 		if (Service::instance()->isLoggedIn()) {
-			self::pw('session')->redirect(AccountController::url(), $http301=false);
+			self::pw('session')->redirect(AccountController\Dashboard::url(), $http301=false);
 			return false;
 		}
 
