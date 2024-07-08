@@ -49,10 +49,35 @@ input::-webkit-inner-spin-button {
 }
 
 .bootstrap-select.form-control {
-	border: 1px solid #ced4da;
+	border: 1px solid #A2AEB9;
 	border-radius: .25rem;
 }
 
 label.invalid-feedback {
 	color: #dc3545;
+}
+
+.form-control::-webkit-input-placeholder {
+	color: #A2AEB9;
+	opacity: 1;
+}
+
+.form-control::-moz-placeholder {
+	color: #A2AEB9;
+	opacity: 1;
+}
+
+.form-control:-ms-input-placeholder {
+	color: #A2AEB9;
+	opacity: 1;
+}
+
+.form-control::-ms-input-placeholder {
+	color: #A2AEB9;
+	opacity: 1;
+}
+
+.form-control::placeholder {
+	color: #A2AEB9;
+	opacity: 1;
 }
