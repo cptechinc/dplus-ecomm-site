@@ -81,7 +81,4 @@ abstract class AbstractServiceController extends AbstractController {
 /* =============================================================
 	8. Supplemental
 ============================================================= */
-	protected static function appendJs(WireData $data) {
-
-	}
 }

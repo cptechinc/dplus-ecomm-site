@@ -162,6 +162,23 @@ abstract class AbstractController extends ParentController {
 		return true;
 	}
 
+	/**
+	 * Add Script Paths to be listed in HTML
+	 * @param  WireData $data
+	 * @param  array    $scripts  Relative Script Paths
+	 * @return void
+	 */
+	protected static function appendJs(WireData $data, $scripts = []) {
+		$fh = self::getFileHasher();
+		$config = self::getPwConfig();
+
+		foreach ($scripts as $file) {
+			if (file_exists($config->paths->templates . $file)) {
+				$config->scripts->append($fh->getHashUrl($file));
+			}
+		}
+	}
+
 /* =============================================================
 	9. Hooks / Object Decorating
 ============================================================= */

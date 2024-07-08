@@ -82,18 +82,16 @@ class FirstLogin extends AbstractServiceController {
 /* =============================================================
 	8. Supplemental
 ============================================================= */
-	protected static function appendJs(WireData $data) {
+	protected static function appendJs(WireData $data, $scripts = []) {
 		self::appendJsJqueryValiudate();
-		$fh = self::getFileHasher();
-		$config = self::getPwConfig();
+	
 		$jsPath = 'scripts/pages/' . self::getNamespaceClassNameAsPath();
-
 		$scripts = ['form.js'];
+		$js = [];
 
-		foreach ($scripts as $file) {
-			if (file_exists($config->paths->templates . $jsPath . $file)) {
-				$config->scripts->append($fh->getHashUrl($jsPath . $file));
-			}
+		foreach ($scripts as $script) {
+			$js[] = $jsPath . $script;
 		}
+		parent::appendJs($data, $js);
 	}
 }
