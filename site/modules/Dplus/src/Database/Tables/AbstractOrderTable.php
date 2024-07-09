@@ -1,5 +1,6 @@
 <?php namespace  Dplus\Database\Tables;
 // Propel ORM Library
+use Propel\Runtime\ActiveQuery\ModelCriteria as AbstractQuery;
 use Propel\Runtime\Util\PropelModelPager;
 // Dplus Models
 use SalesOrderQuery as Query, SalesOrder as Record;
@@ -43,7 +44,7 @@ abstract class AbstractOrderTable extends AbstractQueryWrapper {
 	 * @param  SalesOrder\FilterData $data
 	 * @return true
 	 */
-	protected function applyFilterDataOrderdateFilter(Query $q, SalesOrder\FilterData $data) {
+	protected function applyFilterDataOrderdateFilter(AbstractQuery $q, SalesOrder\FilterData $data) {
 		if (empty($data->datefrom) && empty($data->datethru)) {
 			return true;
 		}
