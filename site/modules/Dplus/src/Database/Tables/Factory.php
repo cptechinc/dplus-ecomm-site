@@ -12,7 +12,8 @@ use ProcessWire\WireData;
  */
 class Factory extends WireData {
 	const KEYMAP = [
-		'sales-orders' => 'SalesOrder',
+		'sales-orders'  => 'SalesOrder',
+		'sales-history' => 'SalesHistory',
 	];
 	private static $instance;
 
