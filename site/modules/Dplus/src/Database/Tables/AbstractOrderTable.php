@@ -44,14 +44,17 @@ abstract class AbstractOrderTable extends AbstractQueryWrapper {
 	 * @return true
 	 */
 	protected function applyFilterDataOrderdateFilter(Query $q, SalesOrder\FilterData $data) {
-		if (empty($data->fromdate) && empty($data->thrudate)) {
+		if (empty($data->datefrom) && empty($data->datethru)) {
 			return true;
 		}
 		$colOrderdate = Record::aliasproperty('orderdate');
-		$fromdate = date('Ymd', strtotime($data->fromdate));
-		$thrudate = date('Ymd', strtotime($data->thrudate));
-		$params = [':fromdate' => $fromdate, ':thrudate' => $thrudate];
-		$q->where("($colOrderdate BETWEEN :fromdate AND :thrudate)", $params);
+		$datefrom = date('Ymd', strtotime($data->datefrom));
+		$datethru = date('Ymd', strtotime($data->datethru));
+		// $params = [':datefrom' => $datefrom, ':datethru' => $datethru];
+		// $q->where("($colOrderdate BETWEEN :datefrom AND :datethru)", $params);
+		$q->condition('from', static::MODEL . ".$colOrderdate >= ?", $datefrom);
+		$q->condition('thru', static::MODEL . ".$colOrderdate <= ?", $datethru);
+		$q->where(array('from', 'thru'), 'AND');
 		return true;
 	}
 	
