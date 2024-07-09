@@ -11,8 +11,8 @@ use Dplus\Abstracts\AbstractFilterData;
  * @property string $sortby   Field to Sort By
  * @property string $sortdir  Direction to Sort By
  * @property string $custID   Customer ID
- * @property string $fromdate Order Date From
- * @property string $thrudate Order Date Through
+ * @property string $datefrom Order Date From
+ * @property string $datethru Order Date Through
  */
 class FilterData extends AbstractFilterData {
 	const DEFAULT_SORTBY  = 'orderdate';
@@ -21,8 +21,8 @@ class FilterData extends AbstractFilterData {
 	public function __construct() {
 		parent::__construct();
 		$this->custid   = $this->session->ecuser->custid;
-		$this->fromdate = '';
-		$this->thrudate = '';
+		$this->datefrom = '';
+		$this->datethru = '';
 	}
 
 	/**
@@ -31,8 +31,8 @@ class FilterData extends AbstractFilterData {
 	 * @return void
 	 */
 	public function setFromWireInputData(WireInputData $input) {
-		$this->fromdate = $input->text('fromdate');
-		$this->thrudate = $input->text('thrudate');
+		$this->datefrom = $input->text('datefrom');
+		$this->datethru = $input->text('datethru');
 		$this->sortby   = $input->text('orderBy');
 		$this->sortdir  = $input->text('sortDir');
 	}
