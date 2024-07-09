@@ -1,4 +1,4 @@
-<?php namespace  Dplus\Database\Tables;
+<?php namespace Dplus\Database\Tables;
 // Propel ORM Library
 	// use Propel\Runtime\Util\PropelModelPager;
 // Dplus Models
@@ -25,24 +25,7 @@ class SalesOrder extends AbstractOrderTable {
 /* =============================================================
 	Query Functions
 ============================================================= */
-	/**
-	 * Add Filter for Orderdate
-	 * @param  Query                 $q
-	 * @param  SalesOrder\FilterData $data
-	 * @return true
-	 */
-	protected function applyFilterDataOrderdateFilter(Query $q, SalesOrder\FilterData $data) {
-		if (empty($data->fromdate) && empty($data->thrudate)) {
-			return true;
-		}
-		$colOrderdate = Record::aliasproperty('orderdate');
-		$fromdate = date('Ymd', strtotime($data->fromdate));
-		$thrudate = date('Ymd', strtotime($data->thrudate));
-		$params = [':fromdate' => $fromdate, ':thrudate' => $thrudate];
-		$q->where("($colOrderdate BETWEEN :fromdate AND :thrudate)", $params);
-		return true;
-	}
-	
+
 /* =============================================================
 	Reads
 ============================================================= */
