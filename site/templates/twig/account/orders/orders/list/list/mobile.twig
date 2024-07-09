@@ -1,7 +1,7 @@
 {% import "util/macros/html.twig" as html %}
 
 <div class="list-group">
-	<div class="list-group-item bg-dark text-light h4 mb-0">
+	<div class="list-group-item bg-light h4 mb-0">
 		{% block header %}
 			<div class="form-row mb-3">
 				<div class="col-4">
@@ -29,7 +29,7 @@
 						{% endif %}
 					</a>
 				</div>
-				<div class="col-4">Cust PO</div>
+				<div class="col-4">PO #</div>
 				<div class="col-4">Ship-To</div>
 			</div>
 		{% endblock %}
@@ -43,7 +43,7 @@
 		{% endif %}
 		
 		{% for order in results %}
-			<a href="{# page.orderUrl(order.ordernumber) #}" class="list-group-item list-group-item-action py-1">
+			<div class="list-group-item py-2">
 				<div class="form-row">
 					<div class="col-4">{{ order.orderdate|convertdate }}</div>
 					<div class="col-4 text-right">$ {{ order.total_total|currency }}</div>
@@ -57,7 +57,12 @@
 						<div>{{ order.shiptoid }}</div>
 					</div>
 				</div>
-			</a>
+				<div class="form-row">
+					<div class="col-4">
+						<a href="{# page.orderUrl(order.ordernumber) #}" class="btn btn-sm {{ CSS.colors.buttons.getClass('link') }}">View</a>
+					</div>
+				</div>
+			</div>
 		{% endfor %}
 	{% endblock %}
 </div>
