@@ -19,7 +19,7 @@ class SalesOrder extends AbstractOrderTable {
 	const MODEL_KEY          = 'ordernumber';
 	const MODEL_TABLE        = 'so_header';
 	const DESCRIPTION        = 'Dplus Sales Orders table';
-
+	
 	protected static $instance;
 
 /* =============================================================
