@@ -1,0 +1,25 @@
+{% extends 'account/orders/orders/list/filter/form.twig' %}
+
+
+{% block inputs %}
+	<div class="form-row">
+		<div class="col-sm-2">
+			<label for="dateFfield">Date Field</label>
+			{% include 'account/orders/history/list/filter/form/inputs/datefield.twig' %}
+		</div>
+		<div class="col-sm-3">
+			<div class="mb-2">
+				<label for="dateFrom">From Date</label>
+				{% include 'account/orders/orders/list/filter/form/inputs/date-from.twig' %}
+			</div>
+			<div>
+				<label for="dateThru">Through Date</label>
+				{% include 'account/orders/orders/list/filter/form/inputs/date-thru.twig' %}
+			</div>
+		</div>
+		<div class="col-sm-3">
+			<label for="custpo">PO Number</label>
+			{% include 'account/orders/orders/list/filter/form/inputs/custpo.twig' %}
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,8 @@
+{% set options = DPLUS.db.fetch('sales-history').datefieldOptions() %}
+
+<select class="selectpicker form-control show-tick" name="datefield" title="Choose" required>
+	<option value=""></option>
+	{% for value,label in options %}
+		<option value="{{ value }}" {{ input.get.text('datefield') == value ? 'selected' : '' }}>{{ label }}</option>
+	{% endfor %}
+</select>

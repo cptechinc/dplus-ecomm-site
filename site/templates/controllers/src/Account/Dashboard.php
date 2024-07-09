@@ -81,5 +81,9 @@ class Dashboard extends AbstractController {
 		$m->addHook("$selector::ordersUrl", function($event) {
 			$event->return = AccountController\Orders\Orders::url();
 		});
+
+		$m->addHook("$selector::historyUrl", function($event) {
+			$event->return = AccountController\Orders\History::url();
+		});
 	}
 }
