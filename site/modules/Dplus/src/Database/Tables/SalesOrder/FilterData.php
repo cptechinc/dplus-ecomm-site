@@ -14,16 +14,23 @@ use Dplus\Abstracts\AbstractFilterData;
  * @property string $datefrom Order Date From
  * @property string $datethru Order Date Through
  * @property string $custpo   Customer PO #
+ * @property string $datefield  Date Field (invoicedate, orderdate)
  */
 class FilterData extends AbstractFilterData {
-	const DEFAULT_SORTBY  = 'orderdate';
-	const DEFAULT_SORTDIR = 'DESC';
+	const DEFAULT_SORTBY    = 'orderdate';
+	const DEFAULT_SORTDIR   = 'DESC';
+	const DEFAULT_DATEFIELD = 'orderdate';
+	const DATEFIELD_OPTIONS = [
+		'orderdate'   => 'Order Date',
+		'invoicedate' => 'Invoice Date',
+	];
 
 	public function __construct() {
 		parent::__construct();
 		$this->custid   = $this->session->ecuser->custid;
 		$this->datefrom = '';
 		$this->datethru = '';
+		$this->datefield = self::DEFAULT_DATEFIELD; 
 	}
 
 	/**
@@ -37,5 +44,10 @@ class FilterData extends AbstractFilterData {
 		$this->sortby   = $input->text('orderBy');
 		$this->sortdir  = $input->text('sortDir');
 		$this->custpo   = $input->string('custpo');
+		$this->datefield = $input->option('datefield', array_keys(self::DATEFIELD_OPTIONS));
+
+		if (empty($this->datefield)) {
+			$this->datefield = self::DEFAULT_DATEFIELD; 
+		}
 	}
 }
