@@ -13,6 +13,7 @@ use Dplus\Abstracts\AbstractFilterData;
  * @property string $custID   Customer ID
  * @property string $datefrom Order Date From
  * @property string $datethru Order Date Through
+ * @property string $custpo   Customer PO #
  */
 class FilterData extends AbstractFilterData {
 	const DEFAULT_SORTBY  = 'orderdate';
@@ -35,5 +36,6 @@ class FilterData extends AbstractFilterData {
 		$this->datethru = $input->text('datethru');
 		$this->sortby   = $input->text('orderBy');
 		$this->sortdir  = $input->text('sortDir');
+		$this->custpo   = $input->string('custpo');
 	}
 }

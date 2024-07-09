@@ -5,7 +5,7 @@
 use SalesOrderQuery as Query, SalesOrder as Record;
 // Dplus
 	// use Dplus\Abstracts\AbstractQueryWrapper;
-	// use Dplus\Abstracts\AbstractFilterData;
+	use Dplus\Abstracts\AbstractFilterData;
 
 /**
  * SalesOrder
@@ -19,12 +19,24 @@ class SalesOrder extends AbstractOrderTable {
 	const MODEL_KEY          = 'ordernumber';
 	const MODEL_TABLE        = 'so_header';
 	const DESCRIPTION        = 'Dplus Sales Orders table';
-	
+
 	protected static $instance;
 
 /* =============================================================
 	Query Functions
 ============================================================= */
+	/**
+	 * Return Query Filtered By Filter Data
+	 * @param  SalesOrder\FilterData $data
+	 * @return Query
+	 */
+	public function queryFilteredByFilterData(AbstractFilterData $data) {
+		$q = parent::queryFilteredByFilterData($data);
+		if ($data->custpo) {
+			$q->filterByCustpo($data->custpo);
+		}
+		return $q;
+	}
 
 /* =============================================================
 	Reads
