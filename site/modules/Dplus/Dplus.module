@@ -2,13 +2,16 @@
 
 include_once(__DIR__.'/vendor/autoload.php');
 
+// Dplus
+use Dplus\Database;
+
 /**
  * Dplus
  * Module for Autoloading Dplus classes
  */
 class Dplus extends WireData implements Module {
 	public function init() {
-		
+		$this->db = Database\Tables\Factory::instance();
 	}
 
 	public static function getModuleInfo() {
