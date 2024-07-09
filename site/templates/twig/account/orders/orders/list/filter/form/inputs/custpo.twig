@@ -1,0 +1,11 @@
+{% include 'util/bootstrap/form/input.twig' with {
+	'input': {
+		'size': 'sm',
+		'name': 'custpo',
+		'value': input.get.string('custpo'),
+		'attributes': {
+			'aria-label':  'Customer PO',
+			'placeholder': 'Customer PO',
+		}
+	}
+} %}

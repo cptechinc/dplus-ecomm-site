@@ -1,10 +1,34 @@
+{% import "util/macros/html.twig" as html %}
+
 <div>
 	<section class="bar pt-4">
 		<div class="heading">
-			<h2>Your Orders</h2>
+			<div class="row">
+				<div class="col-sm-6">
+					<h2>{{ page.title }}</h2>
+				</div>
+				<div class="col-sm-6 text-right">
+					<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#listFilter" aria-expanded="{{ input.get.offsetExists('filter') ? 'true' : 'false' }}" aria-controls="listFilter">
+						{{ html.iconType({'type': 'filter'}) }} Filter
+					</button>
+				</div>
+			</div>
 		</div>
 
-		{% include 'account/orders/orders/list/list.twig' %}
+		{% block filter_wrapper %}
+			<div class="card collapse {{ input.get.offsetExists('filter') ? 'show' }}" id="listFilter">
+				<div class="card-body">
+					{% block filter_form %}
+						{% include 'account/orders/orders/list/filter/form.twig' %}
+					{% endblock %}
+				</div>
+			</div>
+		{% endblock %}
+
+		{% block list %}
+			{% include 'account/orders/orders/list/list.twig' %}
+		{% endblock %}
+		
 		{% include 'util/paginator/propel-model-pager.twig' with {'pager': results} %}
 	</section>
 </div>

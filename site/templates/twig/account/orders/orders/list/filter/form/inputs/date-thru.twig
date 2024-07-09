@@ -1,0 +1,18 @@
+{% include 'util/bootstrap/form/input-date-picker.twig' with {
+	'inputgroup': {
+		'size': 'sm',
+		'input': {
+			'name': 'datethru',
+			'value': input.get.offsetExists('datethru') and input.get.text('datethru') ? input.get.text('datethru')|convertdate : '',
+			'attributes': {
+				'placeholder': '',
+				'aria-label': 'Through Date'
+			}
+		},
+		'button': {
+			'attributes': {
+				'tabindex': '-1',
+			}
+		}
+	}
+} %}

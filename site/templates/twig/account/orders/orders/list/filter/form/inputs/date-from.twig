@@ -1,0 +1,18 @@
+{% include 'util/bootstrap/form/input-date-picker.twig' with {
+	'inputgroup': {
+		'size': 'sm',
+		'input': {
+			'name': 'datefrom',
+			'value': input.get.offsetExists('datefrom') and input.get.text('datefrom') ? input.get.text('datefrom')|convertdate : '',
+			'attributes': {
+				'placeholder': '',
+				'aria-label': 'From Date'
+			}
+		},
+		'button': {
+			'attributes': {
+				'tabindex': '-1',
+			}
+		}
+	}
+} %}

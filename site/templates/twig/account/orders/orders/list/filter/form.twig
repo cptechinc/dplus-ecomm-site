@@ -1,0 +1,35 @@
+{% import "util/macros/html.twig" as html %}
+
+<form action="{{ input.paginateUrl(1) }}">
+	<input type="hidden" name="filter" value="filter">
+	
+	<div class="form-row">
+		<div class="col-sm-3">
+			<div class="mb-2">
+				<label for="dateFrom">From Date</label>
+				{% include 'account/orders/orders/list/filter/form/inputs/date-from.twig' %}
+			</div>
+			<div>
+				<label for="dateThru">Through Date</label>
+				{% include 'account/orders/orders/list/filter/form/inputs/date-thru.twig' %}
+			</div>
+		</div>
+		<div class="col-sm-3">
+			<label for="custpo">PO Number</label>
+			{% include 'account/orders/orders/list/filter/form/inputs/custpo.twig' %}
+		</div>
+	</div>
+
+	<div class="form-row mt-3">
+		<div class="col-6">
+			<button type="submit" class="btn {{ CSS.colors.buttons.getClass('submit') }} w-100">Submit</button>
+		</div>
+		<div class="col-6">
+			{% if input.get.offsetExists('filter') %}
+				<a href="{{ input.paginateUrl(1, {'includeQueryString': false}) }}" class="btn btn-warning w-100">
+					{{ html.iconType({'type': 'exit'}) }} Clear Filter
+				</a>
+			{% endif %}
+		</div>
+	</div>
+</form>
