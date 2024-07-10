@@ -4,8 +4,9 @@ use Propel\Runtime\Util\PropelModelPager;
 // Dplus Models
 use SalesOrder as SoRecord;
 // ProcessWire
+use ProcessWire\HookEvent;
 use ProcessWire\WireData;
-use ProcessWire\WireInput;
+
 // Dplus
 use Dplus\Abstracts\AbstractFilterData;
 use Dplus\Database\Tables\AbstractOrderTable;
@@ -39,6 +40,7 @@ abstract class AbstractListController extends AbstractController {
 			return false;
 		}
 		self::pw('page')->title = static::TITLE;
+		static::initPageHooks();
 		return static::list($data);
 	}
 
@@ -79,6 +81,10 @@ abstract class AbstractListController extends AbstractController {
 	public static function url() {
 		return AccountController::url() . static::PAGE_NAME . '/';
 	}
+
+	public static function orderUrl($ordn) {
+		return Order::urlOrder($ordn);
+	}
 	
 /* =============================================================
 	5. Displays
@@ -102,4 +108,21 @@ abstract class AbstractListController extends AbstractController {
 	 * @return AbstractOrderTable
 	 */
 	abstract protected static function getOrdersTable();
+
+/* =============================================================
+	9. Hooks / Object Decorating
+============================================================= */
+	/**
+	 * Initialze Page Hooks
+	 * @param  string $tplname
+	 * @return bool
+	 */
+	public static function initPageHooks($tplname = '') {
+		$selector = static::getPageHooksTemplateSelector();
+		$m = self::pw('modules')->get('App');
+
+		$m->addHook("$selector::orderUrl", function(HookEvent $event) {
+			$event->return = static::orderUrl($event->arguments(0));
+		});
+	}
 }
