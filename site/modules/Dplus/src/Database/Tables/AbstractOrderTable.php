@@ -91,6 +91,16 @@ abstract class AbstractOrderTable extends AbstractQueryWrapper {
 	}
 
 	/**
+	 * Return if Order is for Customer
+	 * @param  int $ordn
+	 * @param  string $custID
+	 * @return bool
+	 */
+	public function isForCustid($ordn, $custID) {
+		return boolval($this->queryOrdn($ordn)->filterByCustid($custID)->count());
+	}
+
+	/**
 	 * Return Order
 	 * @param  int $ordn
 	 * @return Record
