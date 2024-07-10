@@ -5,10 +5,12 @@ use ReflectionClass;
 use Twig\Environment as Twig;
 // ProcessWire
 use ProcessWire\Config as PwConfig;
+use ProcessWire\Session;
 use ProcessWire\WireData;
 // App
-use App\Ecomm\Services\Login as LoginService;
 use App\Configs\Configs\App as AppConfig;
+use App\Ecomm\Services\Login as LoginService;
+use App\Ecomm\Services\Login\Data\SessionUser as EcUser;
 // Mvc Controllers
 use Mvc\Controllers\AbstractController as ParentController;
 // Controllers
@@ -101,6 +103,22 @@ abstract class AbstractController extends ParentController {
 	 */
 	protected static function getPwConfig() {
 		return self::pw('config');
+	}
+
+	/**
+	 * Return ProcessWire Session
+	 * @return Session
+	 */
+	protected static function getPwSession() {
+		return self::pw('session');
+	}
+
+	/**
+	 * Return Ecomm User Data
+	 * @return EcUser
+	 */
+	protected static function getEcUser() {
+		return self::getPwSession()->ecuser;
 	}
 
 /* =============================================================
