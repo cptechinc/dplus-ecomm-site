@@ -1,0 +1,49 @@
+{% extends 'account/orders/orders/order/sections/items/desktop.twig' %}
+
+{% block header_display %}
+	<div class="row">
+		<div class="col-4">Product</div>
+		<div class="col-1 text-right">Quantity</div>
+		<div class="col-2 text-right">Unit Price</div>
+		<div class="col-2 text-right">Total</div>
+	</div>
+{% endblock %}
+
+{% block item_display %}
+	<div class="row">
+		<div class="col-4">
+			<b>{{ item.itemid }}</b><br>
+			{{ item.description }}
+		</div>
+		<div class="col-1 text-right">{{ item.qty_ordered|number_format(0) }}</div>
+		<div class="col-2 text-right">${{ item.price|currency }}</div>
+		<div class="col-2 text-right">${{ item.total_price|currency }}</div>
+	</div>
+{% endblock %}
+	
+{% block totals %}
+	<div class="list-group-item py-2">
+		<div class="row">
+			<div class="col-7 text-bold text-right">Subtotal</div>
+			<div class="col-sm-2 text-right">${{ order.subtotal_tax|currency }}</div>
+		</div>
+	</div>
+	<div class="list-group-item py-2">
+		<div class="row">
+			<div class="col-7 text-bold text-right">Shipping</div>
+			<div class="col-sm-2 text-right">${{ order.total_freight|currency }}</div>
+		</div>
+	</div>
+	<div class="list-group-item py-2">
+		<div class="row">
+			<div class="col-7 text-bold text-right">Tax</div>
+			<div class="col-sm-2 text-right">${{ order.total_tax|currency}}</div>
+		</div>
+	</div>
+	<div class="list-group-item py-2">
+		<div class="row">
+			<div class="col-7 text-bold text-right">Total</div>
+			<div class="col-sm-2 text-right">${{ order.total_total|currency }}</div>
+		</div>
+	</div>
+{% endblock %}

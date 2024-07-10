@@ -1,0 +1,22 @@
+{% import "util/macros/html.twig" as html %}
+
+<div>
+	<section class="bar pt-4">
+		<div class="heading">
+			<div class="row">
+				<div class="col-sm-6">
+					<h2>{{ page.title }}</h2>
+				</div>
+				<div class="col-sm-6 text-right">
+					{% block status %}
+						{{ html.badge({'type': 'success', 'text': order.status()}) }}
+					{% endblock %}
+				</div>
+			</div>
+		</div>
+
+		{% block order %}
+			{% include 'account/orders/order/order/order.twig' %}
+		{% endblock %}
+	</section>
+</div>

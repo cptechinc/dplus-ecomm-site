@@ -1,0 +1,48 @@
+<div class="row">
+	<div class="col-sm-4">
+		<h3 class="text-uppercase">Shipped To:</h3>
+		<address>
+			{{ order.shipto_name }} <br>
+			{{ order.shipto_address1 }} <br>
+
+			{% if order.shipto_address2 %}
+				{{ order.shipto_address2 }} <br>
+			{% endif %}
+			{{ order.shipto_city }}, {{ order.shipto_state }} {{ order.shipto_zip }}
+		</address>
+	</div>
+	<div class="col-sm-4">
+		<h3 class="text-uppercase">Billed To:</h3>
+		<address>
+			{{ order.customer.name }} <br>
+			{{ order.customer.address1 }} <br>
+
+			{% if order.customer.address2 %}
+				{{ order.customer.address2 }} <br>
+			{% endif %}
+			{{ order.customer.city }}, {{ order.customer.state }} {{ order.customer.zip }}
+		</address>
+	</div>
+	<div class="col-sm-4">
+		<div class="table-responsive">
+			<table class="table table-sm">
+				<tr>
+					<th>Order Date:</th>
+					<td class="text-right">{{ order.orderdate|convertdate }}</td>
+				</tr>
+				<tr>
+					<th>Shipping:</th>
+					<td class="text-right">${{ order.total_freight|currency }}</td>
+				</tr>
+				<tr>
+					<th>Tax:</th>
+					<td class="text-right">${{ order.total_tax|currency }}</td>
+				</tr>
+				<tr>
+					<th>Total:</th>
+					<td class="text-right">${{ order.total_total|currency }}</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>
