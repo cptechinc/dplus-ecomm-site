@@ -58,6 +58,15 @@ abstract class AbstractOrderTable extends AbstractQueryWrapper {
 		$q->where(array('from', 'thru'), 'AND');
 		return true;
 	}
+
+	/**
+	 * Return Query Filtered By Order Number
+	 * @param  int   $ordn
+	 * @return Query
+	 */
+	public function queryOrdn($ordn) {
+		return $this->query()->filterByOrdernumber($ordn);
+	}
 	
 /* =============================================================
 	Reads
@@ -70,5 +79,23 @@ abstract class AbstractOrderTable extends AbstractQueryWrapper {
 		$q = $this->queryFilteredByFilterData($data);
 		$this->applyOrderByFilterData($q, $data);
 		return $q->paginate($data->pagenbr, $data->limit);
+	}
+
+	/**
+	 * Return if Order Exists
+	 * @param  int $ordn
+	 * @return bool
+	 */
+	public function exists($ordn) {
+		return boolval($this->queryOrdn($ordn)->count());
+	}
+
+	/**
+	 * Return Order
+	 * @param  int $ordn
+	 * @return Record
+	 */
+	public function order($ordn) {
+		return $this->queryOrdn($ordn)->findOne();
 	}
 }

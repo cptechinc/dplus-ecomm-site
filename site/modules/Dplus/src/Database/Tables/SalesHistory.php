@@ -12,7 +12,9 @@ use SalesHistoryQuery as Query, SalesHistory as Record;
  * SalesHistory
  * Reads Records from SalesHistory table
  * 
- * @method Query query()
+ * @method Query   query()
+ * @method Query   queryOrdn($ordn)
+ * @method Record  order($ordn)
  * @static self  $instance
  */
 class SalesHistory extends AbstractOrderTable {
