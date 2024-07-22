@@ -13,6 +13,10 @@ use Dplus\Database\Tables\SalesOrder as SoTable;
  * @static SoRecord fetchOrder(WireData $data)
  */
 class Order extends AbstractOrderController {
+	const SESSION_NS = 'sales-order';
+	const TITLE         = 'Sales Order';
+	const PAGE_NAME     = 'order';
+	
 /* =============================================================
 	7. Class / Module Getters
 ============================================================= */
