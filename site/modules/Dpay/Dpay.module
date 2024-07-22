@@ -1,0 +1,29 @@
+<?php namespace ProcessWire;
+
+// include_once(__DIR__.'/vendor/autoload.php');
+
+// Dplus
+use Dplus\Database;
+
+/**
+ * Dpay
+ * Module for Autoloading Dpay
+ */
+class Dpay extends WireData implements Module {
+	public function init() {
+		
+	}
+
+	public static function getModuleInfo() {
+		$infoArray = array(
+			'title' => __('Dpay'),
+			'version' => 115,
+			'summary' => __("Autoloads Dpay"),
+			'autoload' => true,
+			'singular' => true,
+			'author' => 'pauldro',
+			'icon' => 'database'
+		);
+		return $infoArray;
+	}
+}
