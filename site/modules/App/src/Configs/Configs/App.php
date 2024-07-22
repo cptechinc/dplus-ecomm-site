@@ -9,9 +9,11 @@ use App\Pw\Roles;
  * Container for Application Config Data
  * 
  * @property bool $requireLogin  Require Login to view Site?
+ * @property bool $useDpay       Use Dpay?
  */
 class App extends AbstractConfig {
 	public function __construct() {
 		$this->requireLogin = false;
+		$this->useDpay      = false;
 	}
 }
