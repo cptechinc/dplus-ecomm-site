@@ -100,4 +100,17 @@ class Login extends AbstractQueryWrapper {
 		$q->filterByErmes(self::ERMES_EMAIL_SENT);
 		return boolval($q->count());
 	}
+
+/* =============================================================
+	Deletes
+============================================================= */
+	/**
+	 * Removes Record for Session
+	 * @param  string $sessonID
+	 * @return bool
+	 */
+	public function removeLogin($sessionID = '') {
+		$q = $this->querySession($sessionID);
+		return boolval($q->delete());
+	}
 }

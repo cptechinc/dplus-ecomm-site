@@ -50,9 +50,10 @@ class Login extends AbstractEcommCrudService {
 			$this->removeLoginFromSession();
 			return true;
 		}
-		if ($this->processLogout() === false) {
-			return false;
-		}
+		// if ($this->processLogout() === false) {
+		// 	return false;
+		// }
+		$this->removeLoginRecord();
 		$this->removeLoginFromSession();
 		return true;
 	}
@@ -64,6 +65,14 @@ class Login extends AbstractEcommCrudService {
 	private function removeLoginFromSession() {
 		$this->session->remove('ecuser');
 		return true;
+	}
+
+	/**
+	 * Remove Login Session Record
+	 * @return bool
+	 */
+	private function removeLoginRecord() {
+		return $this->table->removeLogin($this->sessionID);
 	}
 
 /* =============================================================
