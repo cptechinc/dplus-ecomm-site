@@ -6,11 +6,9 @@ use SalesOrder as SoRecord;
 // ProcessWire
 use ProcessWire\HookEvent;
 use ProcessWire\WireData;
-
 // Dplus
 use Dplus\Abstracts\AbstractFilterData;
 use Dplus\Database\Tables\AbstractOrderTable;
-use Dplus\Database\Tables\SalesOrder as SoTable;
 // Controllers
 use Controllers\Abstracts\AbstractController;
 use Controllers\Account as AccountController;

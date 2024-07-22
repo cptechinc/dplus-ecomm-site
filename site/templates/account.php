@@ -22,8 +22,8 @@ $routes = [
 		['GET',  'page{pagenbr:\d+}/', Account\Orders\Orders::class, 'index'],
 	],
 	'history' => [
-		['GET',  '', Account\Orders\History::class, 'index'],
-		['GET',  'page{pagenbr:\d+}/', Account\Orders\History::class, 'index'],
+		['GET',  '', Account\Orders\HistoryList::class, 'index'],
+		['GET',  'page{pagenbr:\d+}/', Account\Orders\HistoryList::class, 'index'],
 	],
 	'register' => [
 		['GET',  '', Account\Register::class, 'index'],

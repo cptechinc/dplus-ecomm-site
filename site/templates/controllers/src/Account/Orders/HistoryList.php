@@ -14,10 +14,10 @@ use Dplus\Database\Tables\SalesHistory as ShTable;
 // use Controllers\Account as AccountController;
 
 /**
- * History
+ * HistoryList
  * Handles the Sales History List page
  */
-class History extends AbstractListController {
+class HistoryList extends AbstractListController {
 	const SESSION_NS    = 'sales-history';
 	const TITLE         = 'Your Sales History';
 	const PAGE_NAME     = 'history';

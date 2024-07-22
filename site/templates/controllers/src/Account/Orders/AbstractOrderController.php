@@ -1,15 +1,12 @@
 <?php namespace Controllers\Account\Orders;
 // Propel ORM Library
 use Propel\Runtime\ActiveRecord\ActiveRecordInterface as AbstractOrder;
-// Dplus Models
-use SalesOrder as SoRecord;
 // ProcessWire
 use ProcessWire\WireData;
 // Dplus
 use Dplus\Database\Tables\AbstractOrderTable;
 // Controllers
 use Controllers\Abstracts\AbstractController;
-use Controllers\Account as AccountController;
 
 /**
  * AbstractOrderController
