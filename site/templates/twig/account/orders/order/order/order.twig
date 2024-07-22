@@ -1,22 +1,42 @@
+{% import "util/macros/html.twig" as html %}
+
 <div>
-	{% include 'account/orders/order/order/sections/header.twig' %}
+	{% block header %}
+		{% include 'account/orders/order/order/sections/header.twig' %}
+	{% endblock %}
 </div>
 
 <div class="mb-3">
 	<h3 class="text-uppercase">Items</h3>
-	{% include 'account/orders/order/order/sections/items.twig' %}
+	{% block items %}
+		{% include 'account/orders/order/order/sections/items.twig' %}
+	{% endblock %}
 </div>
 
-{% if config.app.useDpay %}
-	<hr>
-	<div class="row">
-		<div class="col-sm-6">
-			<h3 class="text-uppercase">Payment Link</h3>
+{% block paymentlinks %}
+	{% if config.app.useDpay %}
+		<hr>
+		<div class="row">
+			<div class="col-sm-6">
+				<h3 class="text-uppercase">Payment Link</h3>
+			</div>
+			<div class="col-sm-6">
+				<a href="https://buy.stripe.com/test_9AQaI27oL7qE6B2dRo" target="_blank" class="btn {{ CSS.colors.buttons.getClass('link') }}">
+					$ Pay
+				</a>
+			</div>
 		</div>
-		<div class="col-sm-6">
-			<a href="https://buy.stripe.com/test_9AQaI27oL7qE6B2dRo" target="_blank" class="btn {{ CSS.colors.buttons.getClass('link') }}">
-				$ Pay
+	{% endif %}
+{% endblock %}
+
+{% block footer %}
+	<div class="d-flex justify-content-between">
+		<div></div>
+
+		<div>
+			<a href="{{ page.listUrl() }}" class="btn {{ CSS.colors.buttons.getClass('exit') }}">
+				{{ html.iconType({'type': 'exit'}) }} Exit
 			</a>
 		</div>
 	</div>
-{% endif %}
+{% endblock %}

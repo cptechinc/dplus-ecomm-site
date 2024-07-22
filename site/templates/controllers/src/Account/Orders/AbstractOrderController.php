@@ -36,6 +36,7 @@ abstract class AbstractOrderController extends AbstractController {
 		}
 		self::sanitizeParametersShort($data, ['ordn|int']);
 		self::pw('page')->title = "Order #$data->ordn";
+		static::initHooks();
 		return static::order($data);
 	}
 
@@ -71,7 +72,6 @@ abstract class AbstractOrderController extends AbstractController {
 /* =============================================================
 	3. Data Fetching / Requests / Retrieval
 ============================================================= */
-
 	/**
 	 * Return Order
 	 * @param  WireData $data
@@ -145,16 +145,8 @@ abstract class AbstractOrderController extends AbstractController {
 		$selector = static::getPageHooksTemplateSelector();
 		$m = self::pw('modules')->get('App');
 
-		$m->addHook("$selector::changePasswordUrl", function($event) {
-			$event->return = AccountController\ChangePassword::url();
-		});
-
-		$m->addHook("$selector::ordersUrl", function($event) {
-			$event->return = AccountController\Orders\Orders::url();
-		});
-
-		$m->addHook("$selector::historyUrl", function($event) {
-			$event->return = AccountController\Orders\History::url();
+		$m->addHook("$selector::listUrl", function($event) {
+			$event->return = static::listUrl();
 		});
 	}
 }
