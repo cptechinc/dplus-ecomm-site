@@ -134,7 +134,7 @@ class Login extends AbstractController {
 	}
 
 	public static function logoutUrl() {
-		return self::url() . '?' . http_build_query(['action' => 'logout']);
+		return self::url() . '?' . http_build_query(['logout' => 'true']);
 	}
 
 /* =============================================================
