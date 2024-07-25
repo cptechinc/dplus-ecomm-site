@@ -8,6 +8,7 @@ use Twig\TwigFilter, Twig\TwigFunction;
 // Pauldro
 use Pauldro\ProcessWire\AbstractStaticPwClass;
 use Pauldro\Twig\Html;
+use Pauldro\Util\Regex;
 // App
 use App\Css;
 
@@ -211,6 +212,11 @@ class TwigDecorator extends AbstractStaticPwClass {
 		$twig->addFilter($convertdate);
 
 		$filter = new TwigFilter('strpad', [self::class, 'strpad'], ['is_safe' => ['html']]);
+		$twig->addFilter($filter);
+
+		$filter = new TwigFilter('phone_us', function ($phone) {
+			return Regex\Phone::us_10($phone);
+		});
 		$twig->addFilter($filter);
 	}
 
