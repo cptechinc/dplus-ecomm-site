@@ -14,6 +14,7 @@ class Factory extends WireData {
 	const KEYMAP = [
 		'sales-orders'  => 'SalesOrder',
 		'sales-history' => 'SalesHistory',
+		'shipvia'       => 'CodeTables\\Shipvia'
 	];
 	private static $instance;
 
