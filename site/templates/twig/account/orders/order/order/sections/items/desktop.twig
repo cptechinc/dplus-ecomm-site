@@ -2,7 +2,7 @@
 	<div class="list-group-item bg-light text-bold">
 		{% block header_display %}
 			<div class="row">
-				<div class="col-4">Product</div>
+				<div class="col-6">Product</div>
 				<div class="col-1 text-right">Quantity</div>
 				<div class="col-2 text-right">Unit Price</div>
 				<div class="col-2 text-right">Total</div>
@@ -13,7 +13,7 @@
 		<div class="list-group-item">
 			{% block item_display %}
 				<div class="row">
-					<div class="col-4">
+					<div class="col-6">
 						<b>{{ item.itemid }}</b><br>
 						{{ item.description }}
 					</div>
@@ -27,26 +27,26 @@
 	{% block totals %}
 		<div class="list-group-item py-2">
 			<div class="row">
-				<div class="col-7 text-bold text-right">Subtotal</div>
-				<div class="col-sm-2 text-right">${{ order.subtotal_tax|currency }}</div>
+				<div class="col-9 text-bold text-right">Subtotal</div>
+				<div class="col-2 text-right">${{ order.subtotal_tax|currency }}</div>
 			</div>
 		</div>
 		<div class="list-group-item py-2">
 			<div class="row">
-				<div class="col-7 text-bold text-right">Shipping</div>
-				<div class="col-sm-2 text-right">${{ order.total_freight|currency }}</div>
+				<div class="col-9 text-bold text-right">Shipping</div>
+				<div class="col-2 text-right">${{ order.total_freight|currency }}</div>
 			</div>
 		</div>
 		<div class="list-group-item py-2">
 			<div class="row">
-				<div class="col-7 text-bold text-right">Tax</div>
-				<div class="col-sm-2 text-right">${{ order.total_tax|currency}}</div>
+				<div class="col-9 text-bold text-right">Tax</div>
+				<div class="col-2 text-right">${{ order.total_tax|currency}}</div>
 			</div>
 		</div>
 		<div class="list-group-item py-2">
 			<div class="row">
-				<div class="col-7 text-bold text-right">Total</div>
-				<div class="col-sm-2 text-right">${{ order.total_total|currency }}</div>
+				<div class="col-9 text-bold text-right">Total</div>
+				<div class="col-2 text-right">${{ order.total_total|currency }}</div>
 			</div>
 		</div>
 	{% endblock %}
