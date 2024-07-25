@@ -1,3 +1,5 @@
+{% set SHIPVIAS = DPLUS.db.fetch('shipvia') %}
+
 <div class="row">
 	<div class="col-sm-4">
 		<h3 class="text-uppercase">Shipped To:</h3>
@@ -29,6 +31,10 @@
 				<tr>
 					<th>Order Date:</th>
 					<td class="text-right">{{ order.orderdate|convertdate }}</td>
+				</tr>
+				<tr>
+					<th>Ship-Via:</th>
+					<td class="text-right">{{ SHIPVIAS.description(order.shipvia) }}</td>
 				</tr>
 				<tr>
 					<th>Shipping:</th>
