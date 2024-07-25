@@ -1,5 +1,5 @@
 <div class="list-group">
-	<div class="list-group-item bg-light text-bold">
+	<div class="list-group-item {{ browseragent.isMobile() ? 'px-2' : '' }} bg-light text-bold">
 		{% block header_display %}
 			<div class="row">
 				<div class="col-6">Product</div>
@@ -10,7 +10,7 @@
 		{% endblock %}
 	</div>
 	{% for item in order.items %}
-		<div class="list-group-item">
+		<div class="list-group-item {{ browseragent.isMobile() ? 'px-2' : '' }}">
 			{% block item_display %}
 				<div class="row">
 					<div class="col-6">
@@ -25,25 +25,25 @@
 		</div>
 	{% endfor %}
 	{% block totals %}
-		<div class="list-group-item py-2">
+		<div class="list-group-item py-2 {{ browseragent.isMobile() ? 'px-2' : '' }}">
 			<div class="row">
 				<div class="col-9 text-bold text-right">Subtotal</div>
 				<div class="col-2 text-right">${{ order.subtotal_tax|currency }}</div>
 			</div>
 		</div>
-		<div class="list-group-item py-2">
+		<div class="list-group-item py-2 {{ browseragent.isMobile() ? 'px-2' : '' }}">
 			<div class="row">
 				<div class="col-9 text-bold text-right">Shipping</div>
 				<div class="col-2 text-right">${{ order.total_freight|currency }}</div>
 			</div>
 		</div>
-		<div class="list-group-item py-2">
+		<div class="list-group-item py-2 {{ browseragent.isMobile() ? 'px-2' : '' }}">
 			<div class="row">
 				<div class="col-9 text-bold text-right">Tax</div>
 				<div class="col-2 text-right">${{ order.total_tax|currency}}</div>
 			</div>
 		</div>
-		<div class="list-group-item py-2">
+		<div class="list-group-item py-2 {{ browseragent.isMobile() ? 'px-2' : '' }}">
 			<div class="row">
 				<div class="col-9 text-bold text-right">Total</div>
 				<div class="col-2 text-right">${{ order.total_total|currency }}</div>
