@@ -7,6 +7,8 @@ use Pauldro\ProcessWire\WireCache;
 /**
  * AbstractCacheWireCache
  * Base Wrapper for caching data using WireCache
+ * 
+ * @property string $namespace  Cache Namespace
  */
 abstract class AbstractCacheWireCache extends WireData {
 	const EXPIRE = WireCache::expireDaily;
@@ -25,6 +27,7 @@ abstract class AbstractCacheWireCache extends WireData {
 
 	public function __construct() {
 		$this->cacher = WireCache::instance();
+		$this->namespace = static::NAMESPACE;
 	}
 
 	/**
@@ -33,7 +36,7 @@ abstract class AbstractCacheWireCache extends WireData {
 	 * @return bool
 	 */
 	public function exists($id) {
-		return $this->cacher->existsFor(static::NAMESPACE, $id);
+		return $this->cacher->existsFor($this->namespace, $id);
 	}
 
 	/**
@@ -42,7 +45,7 @@ abstract class AbstractCacheWireCache extends WireData {
 	 * @return mixed
 	 */
 	public function fetch($id) {
-		return $this->cacher->getFor(static::NAMESPACE, $id);
+		return $this->cacher->getFor($this->namespace, $id);
 	}
 
 	/**
@@ -52,7 +55,7 @@ abstract class AbstractCacheWireCache extends WireData {
 	 * @return bool
 	 */
 	public function save($id, $data = null) {
-		return $this->cacher->saveFor(static::NAMESPACE, $id, $data, static::EXPIRE);
+		return $this->cacher->saveFor($this->namespace, $id, $data, static::EXPIRE);
 	}
 
 	/**
@@ -61,6 +64,6 @@ abstract class AbstractCacheWireCache extends WireData {
 	 * @return bool
 	 */
 	public function delete($id) {
-		return $this->cacher->deleteFor(static::NAMESPACE, $id);
+		return $this->cacher->deleteFor($this->namespace, $id);
 	}
 }
