@@ -54,7 +54,7 @@
 					<div class="col-2">{{ order.custpo }}</div>
 					<div class="col-2 text-right">$ {{ order.total_total|currency }}</div>
 					<div class="col-2">
-						<a href="{# page.orderUrl(order.ordernumber) #}" class="btn btn-sm {{ CSS.colors.buttons.getClass('link') }}">View</a>
+						<a href="{{ page.orderUrl(order.ordernumber) }}" class="btn btn-sm {{ CSS.colors.buttons.getClass('link') }}">View</a>
 					</div>
 				</div>
 			</div>
