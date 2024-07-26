@@ -1,0 +1,40 @@
+{#
+	var                    Description / Instance of
+	-------------------------------------------------
+	order                  SalesOrder|SalesHistory
+#}
+
+{% import "util/macros/html.twig" as html %}
+
+<div>
+	<section class="bar pt-4">
+		<div class="heading">
+			<div class="row">
+				<div class="col-sm-6">
+					<h2>{{ page.title }}</h2>
+				</div>
+			</div>
+		</div>
+		<div class="row mb-3">
+			<div class="col-sm-2">
+				<a href="{{ page.orderUrl(page.ordn) }}" class="btn {{ CSS.colors.buttons.getClass('link') }}">
+					View Order
+				</a>
+			</div>
+			<div class="col-sm-2">
+				<a href="{{ page.ordersListUrl() }}" class="btn {{ CSS.colors.buttons.getClass('link') }}">
+					{{ html.iconType({'type': 'list'}) }} Order List
+				</a>
+			</div>
+		</div>
+		{% include 'account/orders/order/documents/documents.twig' %}
+	</section>
+	<div class="d-flex justify-content-between">
+		<div></div>
+		<div>
+			<a href="{{ page.ordersListUrl() }}" class="btn {{ CSS.colors.buttons.getClass('exit') }}">
+				{{ html.iconType({'type': 'exit'}) }} Exit
+			</a>
+		</div>
+	</div>
+</div>

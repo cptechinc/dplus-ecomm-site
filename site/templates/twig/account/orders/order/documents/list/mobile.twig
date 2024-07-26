@@ -1,0 +1,25 @@
+{% import "util/macros/html.twig" as html %}
+
+{% extends 'account/orders/order/documents/list/desktop.twig' %}
+
+{% block header_display %}
+	<div class="row">
+		<div class="col-6">Folder</div>
+		<div class="col-6">Title</div>
+		<div class="col-6">Date / Time</div>
+	</div>
+{% endblock %}
+
+{% block item_display %}
+	<div class="row">
+		<div class="col-6">{{ document.directory.description }}</div>
+		<div class="col-6">{{ document.title }}</div>		
+		<div class="col-1"></div>
+		<div class="col-6">{{ document.date|convertdate }} {{ (document.date ~ document.time[:4])|convertdate("h:i A") }}</div>
+		<div class="col-4">
+			<a href="{{ page.downloadDocumentUrl(page.ordn, document.folder, document.filename) }}" class="btn btn-sm {{ CSS.colors.buttons.getClass('link') }}" target="_blank">
+				{{ html.iconType({'type': 'document'}) }} Download
+			</a>
+		</div>
+	</div>
+{% endblock %}

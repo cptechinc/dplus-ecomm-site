@@ -19,11 +19,13 @@ $routes = [
 	'orders' => [
 		['GET',  '', Account\Orders\Orders::class, 'index'],
 		['GET',  '{ordn:\d+}/', Account\Orders\Order::class, 'index'],
+		['GET',  '{ordn:\d+}/documents/', Account\Orders\OrderDocuments::class, 'index'],
 		['GET',  'page{pagenbr:\d+}/', Account\Orders\Orders::class, 'index'],
 	],
 	'history' => [
 		['GET',  '', Account\Orders\HistoryList::class, 'index'],
 		['GET',  '{ordn:\d+}/', Account\Orders\HistoryOrder::class, 'index'],
+		['GET',  '{ordn:\d+}/documents/', Account\Orders\HistoryOrderDocuments::class, 'index'],
 		['GET',  'page{pagenbr:\d+}/', Account\Orders\HistoryList::class, 'index'],
 	],
 	'register' => [
