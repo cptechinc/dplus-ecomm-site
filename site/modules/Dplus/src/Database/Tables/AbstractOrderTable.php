@@ -20,6 +20,7 @@ abstract class AbstractOrderTable extends AbstractQueryWrapper {
 	const MODEL_KEY          = 'ordernumber';
 	const MODEL_TABLE        = 'so_header';
 	const DESCRIPTION        = 'Dplus Sales Orders table';
+	const ORDN_NBROF_DIGITS  = 10;
 
 	protected static $instance;
 
@@ -107,5 +108,17 @@ abstract class AbstractOrderTable extends AbstractQueryWrapper {
 	 */
 	public function order($ordn) {
 		return $this->queryOrdn($ordn)->findOne();
+	}
+
+/* =============================================================
+	Supplementals
+============================================================= */
+	/**
+	 * Adds Leading Zeroes to Sales Order Number
+	 * @param  string $ordn Sales Order Number ex.    4290100
+	 * @return string       Sales Order Number ex. 0004290100
+	 */
+	public static function padOrdernumber($ordn) {
+		return str_pad($ordn , self::ORDN_NBROF_DIGITS , "0", STR_PAD_LEFT);
 	}
 }
