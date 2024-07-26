@@ -61,6 +61,9 @@ class HistoryList extends AbstractListController {
 /* =============================================================
 	4. URLs
 ============================================================= */
+	public static function orderUrl($ordn) {
+		return HistoryOrder::urlOrder($ordn);
+	}
 
 /* =============================================================
 	5. Displays

@@ -12,12 +12,14 @@
 	{% endblock %}
 </div>
 
-<div class="mb-3">
-	<h3 class="text-uppercase">Items</h3>
-	{% block items %}
-		{% include 'account/orders/order/order/sections/items.twig' %}
-	{% endblock %}
-</div>
+{% block items %}
+	<div class="mb-3">
+		<h3 class="text-uppercase">Items</h3>
+		{% block items_list %}
+			{% include 'account/orders/order/order/sections/items.twig' %}
+		{% endblock %}
+	</div>
+{% endblock %}
 
 {% block paymentlinks %}
 	{% if config.app.useDpay %}
