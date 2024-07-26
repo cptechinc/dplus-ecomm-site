@@ -1,5 +1,7 @@
 {% import "util/macros/html.twig" as html %}
 
+{% set documents = page.findOrderDocuments(order.ordernumber) %}
+
 <div class="list-group">
 	<div class="list-group-item {{ browseragent.isMobile() ? 'px-2' : '' }} bg-light text-bold">
 		{% block header_display %}
@@ -11,7 +13,12 @@
 			</div>
 		{% endblock %}
 	</div>
-	{% for document in page.findOrderDocuments(order.ordernumber) %}
+	{% if documents.count() == 0 %}
+		<div class="list-group-item {{ browseragent.isMobile() ? 'px-2' : '' }} text-bold">
+			No Documents Found
+		</div>
+	{% endif %}
+	{% for document in documents %}
 		<div class="list-group-item {{ browseragent.isMobile() ? 'px-2' : '' }}">
 			{% block item_display %}
 				<div class="row">
@@ -20,7 +27,7 @@
 					<div class="col-2">{{ document.date|convertdate }}</div>
 					<div class="col-2">{{ (document.date ~ document.time[:4])|convertdate("h:i A") }}</div>
 					<div class="col-2">
-						<a href="{# page.orderUrl(order.ordernumber) #}" class="btn btn-sm {{ CSS.colors.buttons.getClass('link') }}">
+						<a href="{{ page.documentUrl(order.ordernumber, document.folder, document.filename) }}" class="btn btn-sm {{ CSS.colors.buttons.getClass('link') }}" target="_blank">
 							{{ html.iconType({'type': 'document'}) }} View
 						</a>
 					</div>

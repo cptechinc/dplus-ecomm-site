@@ -27,6 +27,17 @@ class HistoryOrder extends AbstractOrderController {
 	protected static function listUrl() {
 		return HistoryList::url();
 	}
+
+	/**
+	 * Return URL to download Order Document
+	 * @param  string $ordn
+	 * @param  string $folder
+	 * @param  string $filename
+	 * @return string
+	 */
+	public static function urlDocumentDownload($ordn, $folder, $filename) {
+		return HistoryOrderDocuments::urlDownload($ordn, $folder, $filename);
+	}
 	
 /* =============================================================
 	7. Class / Module Getters

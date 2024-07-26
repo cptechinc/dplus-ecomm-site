@@ -66,6 +66,8 @@ abstract class AbstractOrderController extends AbstractController {
 			self::pw('session')->redirect(static::listUrl(), $http301=false);
 			return false;
 		}
+		self::pw('input')->get->ordn = $data->ordn;
+		self::pw('page')->ordn       = $data->ordn;
 		return true;
 	}
 
@@ -109,6 +111,26 @@ abstract class AbstractOrderController extends AbstractController {
 	public static function urlOrder($ordn) {
 		return static::url() . "$ordn/";
 	}
+
+	/**
+	 * Return URL to Order Page
+	 * @param  string $ordn
+	 * @return string
+	 */
+	public static function urlDocuments($ordn) {
+		return static::urlOrder($ordn) . "documents/";
+	}
+
+	/**
+	 * Return URL to download Order Document
+	 * @param  string $ordn
+	 * @param  string $folder
+	 * @param  string $filename
+	 * @return string
+	 */
+	public static function urlDocumentDownload($ordn, $folder, $filename) {
+		return OrderDocuments::urlDownload($ordn, $folder, $filename);
+	}
 	
 /* =============================================================
 	5. Displays
@@ -147,6 +169,10 @@ abstract class AbstractOrderController extends AbstractController {
 
 		$m->addHook("$selector::listUrl", function($event) {
 			$event->return = static::listUrl();
+		});
+
+		$m->addHook("$selector::documentUrl", function(HookEvent $event) {
+			$event->return = static::urlDocumentDownload($event->arguments(0), $event->arguments(1), $event->arguments(2));
 		});
 
 		$m->addHook("$selector::countOrderDocuments", function(HookEvent $event) {

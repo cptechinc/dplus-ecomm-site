@@ -17,7 +17,7 @@
 		<div class="col-1"></div>
 		<div class="col-6">{{ document.date|convertdate }} {{ (document.date ~ document.time[:4])|convertdate("h:i A") }}</div>
 		<div class="col-4">
-			<a href="{# page.orderUrl(order.ordernumber) #}" class="btn btn-sm {{ CSS.colors.buttons.getClass('link') }}">
+			<a href="{{ page.documentUrl(order.ordernumber, document.folder, document.filename) }}" class="btn btn-sm {{ CSS.colors.buttons.getClass('link') }}" target="_blank">
 				{{ html.iconType({'type': 'document'}) }} View
 			</a>
 		</div>
