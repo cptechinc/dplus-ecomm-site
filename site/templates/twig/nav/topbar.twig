@@ -8,21 +8,14 @@
 			</div>
 			<div class="col-md-6">
 				<div class="d-flex justify-content-md-end justify-content-between">
-					<ul class="list-inline contact-info d-block d-md-none">
-						<li class="list-inline-item">
-							<a href="#">{{ html.iconType({'type': 'phone'}) }}</a>
-						</li>
-						<li class="list-inline-item">
-							<a href="#">{{ html.iconType({'type': 'email'}) }}</a>
-						</li>
-					</ul>
+					
 					<div class="login">
 						<a href="{{ pages.get('template=login').url }}"class="login-btn">
-							{{ html.iconType({'type': 'sign-in'}) }}<span class="d-none d-md-inline-block">Sign In</span>
+							{{ html.iconType({'type': 'sign-in'}) }}<span class="d-inline-block">Sign In</span>
 						</a>
 						{% if config.register.allowRegister %}
 							<a href="{{ pages.registerUrl() }}" class="signup-btn">
-								{{ html.iconType({'type': 'register'}) }}<span class="d-none d-md-inline-block">Sign Up</span>
+								{{ html.iconType({'type': 'register'}) }}<span class="d-inline-block">Sign Up</span>
 							</a>
 						{% endif %}
 					</div>

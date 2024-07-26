@@ -9,6 +9,6 @@ use App\Pw\Templates\AbstractTemplate;
 class SiteConfig extends AbstractTemplate {
 	const NAME  = 'site-config';
 	const LABEL = 'Site Config';
-	const FIELDS = ['title', 'siteicon', 'siteiconimage', 'sitelogoimage'];
+	const FIELDS = ['title', 'displayname', 'siteicon', 'siteiconimage', 'sitelogoimage'];
 	const IS_SINGLE_USE = true;
 }
