@@ -11,6 +11,9 @@ use ProcessWire\WireData;
 class StaticDocumentQueryWrapper {
 	protected static $columns;
 
+/* =============================================================
+	Query Functions
+============================================================= */
 	/**
 	 * Return Query
 	 * @return Query
@@ -25,6 +28,42 @@ class StaticDocumentQueryWrapper {
 	 */
 	protected static function _query() {
 		return Query::create();
+	}
+
+	/**
+	 * Return Query filtered by Folder, Filename
+	 * @param  string $folder
+	 * @param  string $filename
+	 * @return Query
+	 */
+	public static function queryFolderFilename($folder, $filename) {
+		$q = static::query();
+		$q->filterByFolder($folder);
+		$q->filterByFilename($filename);
+		return $q;
+	}
+
+/* =============================================================
+	Reads
+============================================================= */
+	/**
+	 * Return Query filtered by Folder, Filename
+	 * @param  string $folder
+	 * @param  string $filename
+	 * @return bool
+	 */
+	public static function documentExists($folder, $filename) {
+		return boolval(static::queryFolderFilename($folder, $filename)->count());
+	}
+
+	/**
+	 * Return Document filtered by Folder, Filename
+	 * @param  string $folder
+	 * @param  string $filename
+	 * @return Document|false
+	 */
+	public static function document($folder, $filename) {
+		return static::queryFolderFilename($folder, $filename)->findOne();
 	}
 
 /* =============================================================
@@ -45,5 +84,17 @@ class StaticDocumentQueryWrapper {
 		$columns->folder     = Document::aliasproperty('folder');
 		self::$columns = $columns;
 		return self::$columns;
+	}
+
+	/**
+	 * Return Filepath for File
+	 * @param  Document $file
+	 * @return string
+	 */
+	public static function filepath(Document $file) {
+		if (empty($file)) {
+			return '';
+		}
+		return rtrim($file->directory->directory, '/') . '/' . $file->filename;
 	}
 }
