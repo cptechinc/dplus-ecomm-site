@@ -2,11 +2,14 @@
 // Propel ORM Library
 use Propel\Runtime\ActiveRecord\ActiveRecordInterface as AbstractOrder;
 // ProcessWire
+use ProcessWire\HookEvent;
 use ProcessWire\WireData;
 // Dplus
 use Dplus\Database\Tables\AbstractOrderTable;
+use Dplus\Docm\Finders\SalesOrder as DOCM;
 // Controllers
 use Controllers\Abstracts\AbstractController;
+
 
 /**
  * AbstractOrderController
@@ -144,6 +147,14 @@ abstract class AbstractOrderController extends AbstractController {
 
 		$m->addHook("$selector::listUrl", function($event) {
 			$event->return = static::listUrl();
+		});
+
+		$m->addHook("$selector::countOrderDocuments", function(HookEvent $event) {
+			$event->return = DOCM::count($event->arguments(0));
+		});
+
+		$m->addHook("$selector::findOrderDocuments", function(HookEvent $event) {
+			$event->return = DOCM::find($event->arguments(0));
 		});
 	}
 }

@@ -1,0 +1,8 @@
+{% if browseragent.isMobile() == false %}
+	{% include 'account/orders/order/order/sections/documents/desktop.twig' %}
+{% endif %}
+
+{% if browseragent.isMobile() %}
+	{% include 'account/orders/order/order/sections/documents/mobile.twig' %}
+{% endif %}
+
