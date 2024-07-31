@@ -1,0 +1,73 @@
+<?php namespace  Dplus\Database\Tables;
+// Propel ORM Library
+	// use Propel\Runtime\ActiveQuery\ModelCriteria as AbstractQuery;
+	// use Propel\Runtime\Util\PropelModelPager;
+// Dplus Models
+use ItemMasterItemQuery as Query, ItemMasterItem as Record;
+// Dplus
+use Dplus\Abstracts\AbstractQueryWrapper;
+	// use Dplus\Abstracts\AbstractFilterData;
+
+/**
+ * Item
+ * Template for reading Records from Item table
+ * 
+ * @method Query query()
+ * @method Query queryFilteredByFilterData(Item\FilterData $data)
+ * @method Query queryFilteredByFilterData(Item\FilterData $data)
+ * @static self  $instance
+ */
+class Item extends AbstractQueryWrapper {
+	const MODEL              = 'ItemMasterItem';
+	const MODEL_KEY          = 'itemid';
+	const MODEL_TABLE        = 'inv_item_mast';
+	const DESCRIPTION        = 'Dplus Items table';
+
+	protected static $instance;
+
+/* =============================================================
+	Query Functions
+============================================================= */
+	/**
+	 * Return Query Filtered By Order Number
+	 * @param  int   $itemID
+	 * @return Query
+	 */
+	public function queryItemid($itemID) {
+		return $this->query()->filterByItemid($itemID);
+	}
+	
+/* =============================================================
+	Reads
+============================================================= */
+	/**
+	 * Return if Item Exists
+	 * @param  int $itemID
+	 * @return bool
+	 */
+	public function exists($itemID) {
+		return boolval($this->queryItemid($itemID)->count());
+	}
+
+	/**
+	 * Return the number of records in table
+	 * @return int
+	 */
+	public function countAll() {
+		return $this->query()->count();
+	}
+
+	/**
+	 * Return Item
+	 * @param  int $itemID
+	 * @return Record
+	 */
+	public function item($itemID) {
+		return $this->queryItemid($itemID)->findOne();
+	}
+
+/* =============================================================
+	Supplemental
+============================================================= */
+
+}
