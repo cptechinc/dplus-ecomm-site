@@ -15,6 +15,9 @@ class TemplatesInstaller extends ParentInstaller {
 	const TEMPLATE_CLASSES = [
 		'login'       => Templates\Login::class,
 		'account'     => Templates\Account::class,
-		'site-conrig' => Templates\SiteConfig::class
+		'product'     => Templates\Product::class,
+		'products'    => Templates\Products::class,
+		'site-conrig' => Templates\SiteConfig::class,
+		
 	];
 }
