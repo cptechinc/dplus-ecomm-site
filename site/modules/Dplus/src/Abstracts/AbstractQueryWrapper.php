@@ -3,6 +3,7 @@
 use Propel\Runtime\ActiveQuery\ModelCriteria as Query;
 use Propel\Runtime\ActiveRecord\ActiveRecordInterface as Record;
 	// use Propel\Runtime\Collection\ObjectCollection;
+use Propel\Runtime\Util\PropelModelPager;
 // ProcessWire
 use ProcessWire\WireData;
 
@@ -88,7 +89,7 @@ abstract class AbstractQueryWrapper extends WireData {
 	/**
 	 * Return Query Filtered By Filter Data
 	 * @param  AbstractFilterData $data
-	 * @return bool
+	 * @return Query
 	 */
 	public function queryFilteredByFilterData(AbstractFilterData $data) {
 		return $this->query();
@@ -114,5 +115,19 @@ abstract class AbstractQueryWrapper extends WireData {
 		$col = $model::aliasproperty($data::DEFAULT_SORTBY);
 		$q->orderBy($col, $data::DEFAULT_SORTDIR);
 		return true;
+	}
+	
+/* =============================================================
+	Reads
+============================================================= */
+	/**
+	 * Return Results Paginated
+	 * @param  AbstractFilterData $data
+	 * @return PropelModelPager[Record]
+	 */
+	public function findPaginatedByFilterData(AbstractFilterData $data) {
+		$q = $this->queryFilteredByFilterData($data);
+		$this->applyOrderByFilterData($q, $data);
+		return $q->paginate($data->pagenbr, $data->limit);
 	}
 }
