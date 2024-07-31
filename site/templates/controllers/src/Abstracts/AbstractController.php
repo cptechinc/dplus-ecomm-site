@@ -5,6 +5,7 @@ use ReflectionClass;
 use Twig\Environment as Twig;
 // ProcessWire
 use ProcessWire\Config as PwConfig;
+use ProcessWire\Page;
 use ProcessWire\Session;
 use ProcessWire\WireData;
 // App
@@ -103,6 +104,14 @@ abstract class AbstractController extends ParentController {
 	 */
 	protected static function getPwConfig() {
 		return self::pw('config');
+	}
+
+	/**
+	 * Return ProcessWire Session
+	 * @return Page
+	 */
+	protected static function getPwPage() {
+		return self::pw('page');
 	}
 
 	/**
