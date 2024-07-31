@@ -10,10 +10,12 @@ use App\Pw\Roles;
  * 
  * @property bool $requireLogin  Require Login to view Site?
  * @property bool $useDpay       Use Dpay?
+ * @property bool $allowOrdering Allow User to Order Items
  */
 class App extends AbstractConfig {
 	public function __construct() {
-		$this->requireLogin = false;
-		$this->useDpay      = false;
+		$this->requireLogin  = false;
+		$this->useDpay       = false;
+		$this->allowOrdering = false;
 	}
 }
