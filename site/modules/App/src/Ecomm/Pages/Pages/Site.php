@@ -14,5 +14,11 @@ class Site extends AbstractPageBuilder {
 			'template' => 'site-config',
 			'parentSelector'   => '/',
 		],
+		'products' => [
+			'name'     => 'products',
+			'title'    => 'Products',
+			'template' => 'products',
+			'parentSelector'   => '/',
+		],
 	];
 }
