@@ -1,0 +1,29 @@
+{% set group = twiginputgroup(inputgroup) %}
+
+<div class="{{ group.class() }}" {{ group.attributes()|raw }}>
+	{% for element in inputgroup.elements %}
+		{% if element.useSpanAppend or element.useSpanPrepend %}
+			<span class="{{ element.useSpanAppend ? 'input-group-append': 'input-group-prepend' }}">
+		{% endif %}
+
+		{% if element.type == 'button' %}
+			{% include 'util/bootstrap/html/button.twig' with {'button': element.data} %}
+		{% endif %}
+
+		{% if element.type == 'span' %}
+			{% include 'util/bootstrap/form/input-group-span.twig' with {'span': element.data} %}
+		{% endif %}
+
+		{% if element.type == 'input' %}
+			{% include 'util/bootstrap/form/input.twig' with {'input': element.data} %}
+		{% endif %}
+
+		{% if element.type == 'p' %}
+			{% include 'util/bootstrap/form/p.twig' with {'p': element.data} %}
+		{% endif %}
+
+		{% if element.useSpanAppend or element.useSpanPrepend %}
+			</span>
+		{% endif %}
+	{% endfor %}
+</div>
