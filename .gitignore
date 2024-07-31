@@ -9,6 +9,7 @@ site/config.php
 /vendor
 test.php
 .env
+site/modules/App/vendor/
 site/modules/Dplus/vendor/
 site/modules/Pauldro/Mvc/vendor/
 site/modules/Pauldro/Pauldro/vendor/
