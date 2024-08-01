@@ -1,0 +1,9 @@
+{% import "util/macros/html.twig" as html %}
+
+<section class="bar pt-4">
+	<div class="heading">
+		<h2>Welcome, {{ session.get('ecuser').name }}</h2>
+	</div>
+
+	{% include 'admin/dashboard-links.twig' %}
+</section>
