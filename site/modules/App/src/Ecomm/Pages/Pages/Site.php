@@ -26,5 +26,11 @@ class Site extends AbstractPageBuilder {
 			'template' => 'admin-site',
 			'parentSelector'   => '/',
 		],
+		'admin-site-rebuild' => [
+			'name'     => 'rebuild',
+			'title'    => 'Site Rebuild',
+			'template' => 'admin-site-rebuild',
+			'parentSelector'   => '/admin/',
+		],
 	];
 }
