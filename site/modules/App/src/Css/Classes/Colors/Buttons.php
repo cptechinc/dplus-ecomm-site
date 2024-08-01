@@ -13,6 +13,7 @@ class Buttons extends AbstractCssLookup {
 		'submit' => 'btn-success',
 		'link'   => 'btn-template-outlined',
 		'exit'   => 'btn-warning',
+		'delete' => 'btn-danger',
 	];
 
 	protected static $instance;
