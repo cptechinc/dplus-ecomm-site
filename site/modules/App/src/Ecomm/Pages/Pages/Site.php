@@ -32,5 +32,17 @@ class Site extends AbstractPageBuilder {
 			'template' => 'admin-site-rebuild',
 			'parentSelector'   => '/admin/',
 		],
+		'ajax' => [
+			'name'     => 'ajax',
+			'title'    => 'AJAX',
+			'template' => 'ajax',
+			'parentSelector'   => '/',
+		],
+		'ajax-json' => [
+			'name'     => 'json',
+			'title'    => 'JSON',
+			'template' => 'ajax-json',
+			'parentSelector'   => '/ajax/',
+		],
 	];
 }
