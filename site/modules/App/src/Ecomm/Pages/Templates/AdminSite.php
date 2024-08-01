@@ -4,7 +4,7 @@ use App\Pw\Templates\AbstractTemplate;
 
 /**
  * AdminSite
- * Template for the AdminSite Page
+ * Template for the Admin Site Page
  */
 class AdminSite extends AbstractTemplate {
 	const NAME  = 'admin-site';
@@ -14,4 +14,5 @@ class AdminSite extends AbstractTemplate {
 	const ALLOW_CHILDREN    = true;
 	const ALLOW_PAGINATION  = true;
 	const ALLOW_URLSEGMENTS = true;
+	const ALLOWED_CHILD_TEMPLATES = ['admin-site-rebuild'];
 }
