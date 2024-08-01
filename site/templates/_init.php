@@ -80,4 +80,6 @@ if ($input->get->offsetExists('action') === false && $page->template->name != 'j
 
 	Controllers\Login::initPagesHooks();
 	Controllers\Account::initPagesHooks();
+
+	include('./_init.js.php');
 }

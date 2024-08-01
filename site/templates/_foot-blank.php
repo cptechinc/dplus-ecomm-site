@@ -6,6 +6,8 @@
 		
 		<?php if ($config->js('vars')) : ?>
 			<script>		
+				let config = <?= json_encode($config->js('config')); ?>;
+				
 				<?php foreach ($config->js('vars') as $var => $data) : ?>
 					let <?= $var; ?> = <?= json_encode($data); ?>;
 				<?php endforeach; ?>
