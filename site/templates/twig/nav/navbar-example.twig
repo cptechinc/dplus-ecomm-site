@@ -183,6 +183,18 @@
 						</ul>
 					</li>
 				{% endif %}
+				{% if config.app.allowOrdering %}
+					{% set nbrOfItems = APP.ecommDB.cart.countItems() %}
+					<li class="nav-item">
+						<a href="#">
+							{{ html.iconType({'type': 'cart'}) }} Cart
+							
+							{% if nbrOfItems %}
+								{{ html.badge({'type': 'primary', 'text': nbrOfItems}) }}
+							{% endif %}
+						</a>	
+					</li>
+				{% endif %}
 			</ul>
 		</div>
 		<div id="search" class="collapse clearfix">
