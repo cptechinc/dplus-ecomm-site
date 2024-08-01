@@ -106,6 +106,7 @@ class Cart extends AbstractEcommCrudService {
 		$data->itemID = $input->string('itemID');
 		$data->qty    = $input->int('qty', ['min' => 1]);
 		$beforeQty = $this->itemidQty($data->itemID);
+		$data->qty += $beforeQty;
 		$this->requestAddToCart($data);
 		$afterQty = $this->itemidQty($data->itemID);
 		return $afterQty > $beforeQty;
