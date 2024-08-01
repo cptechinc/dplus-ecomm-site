@@ -26,19 +26,6 @@ class Product extends AbstractController {
 		return self::display($data);
 	}
 
-	public static function process(WireData $data) {
-		$fields = ['action|text', 'itemID|string', 'qty|int'];
-		self::sanitizeParametersShort($data, $fields);
-
-		switch ($data->action) {
-			case 'add-to-cart':
-				$SERVICE = Cart::instance();
-				$SERVICE->addToCart($data->itemID, $data->qty);
-				self::getPwSession()->redirect(self::getPwPage()->url, $http301=false);
-				break;
-		}
-	}
-
 /* =============================================================
 	2. Validations / Permissions / Initializations
 ============================================================= */
@@ -50,7 +37,6 @@ class Product extends AbstractController {
 /* =============================================================
 	4. URLs
 ============================================================= */
-	
 
 /* =============================================================
 	5. Displays

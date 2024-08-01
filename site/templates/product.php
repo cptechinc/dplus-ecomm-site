@@ -3,7 +3,6 @@ use Controllers\Product;
 
 $routes = [
 	['GET',  '', Product::class, 'index'],
-	['POST',  '', Product::class, 'process'],
 ];
 $router = new Mvc\Routers\Router();
 $router->setRoutes($routes);
