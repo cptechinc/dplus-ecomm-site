@@ -20,5 +20,11 @@ class Site extends AbstractPageBuilder {
 			'template' => 'products',
 			'parentSelector'   => '/',
 		],
+		'admin-site' => [
+			'name'     => 'admin',
+			'title'    => 'Site Administration',
+			'template' => 'admin-site',
+			'parentSelector'   => '/',
+		],
 	];
 }

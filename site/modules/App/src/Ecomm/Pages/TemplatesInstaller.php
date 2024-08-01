@@ -13,11 +13,11 @@ use App\Ecomm\Pages\Templates;
  */
 class TemplatesInstaller extends ParentInstaller {
 	const TEMPLATE_CLASSES = [
+		'admin-site'  => Templates\AdminSite::class,
 		'login'       => Templates\Login::class,
 		'account'     => Templates\Account::class,
 		'product'     => Templates\Product::class,
 		'products'    => Templates\Products::class,
 		'site-conrig' => Templates\SiteConfig::class,
-		
 	];
 }
