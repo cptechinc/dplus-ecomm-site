@@ -42,7 +42,18 @@ class Cart extends AbstractEcommCrudService {
 		$input->qty = $qty;
 		return $this->processAddToCart($input);	
 	}
-	
+
+	/**
+	 * Remove Item from Cart
+	 * @param  string  $itemID
+	 * @param  int     $qty
+	 * @return bool
+	 */	
+	public function removeFromCart($itemID) {
+		$input = new WireInputData();
+		$input->itemID = $itemID;
+		return $this->processRemoveToCart($input);	
+	}
 
 /* =============================================================
 	CRUD Reads
@@ -102,6 +113,9 @@ class Cart extends AbstractEcommCrudService {
 			case 'add-to-cart':
 				return $this->processAddToCart($input);
 				break;
+			case 'remove-from-cart':
+				return $this->processRemoveFromCart($input);
+				break;
 		}
 	}
 
@@ -121,6 +135,18 @@ class Cart extends AbstractEcommCrudService {
 		return $afterQty > $beforeQty;
 	}
 
+	/**
+	 * Parse Remove From Cart
+	 * @param  WireInputData $input
+	 * @return bool
+	 */
+	private function processRemoveFromCart(WireInputData $input) {
+		$data = new WireData();
+		$data->itemID = $input->string('itemID');
+		$this->requestRemoveFromCart($data);
+		return $this->exists($data->itemID) === false;
+	}
+
 /* =============================================================
 	Dplus Requests
 ============================================================= */
@@ -131,6 +157,16 @@ class Cart extends AbstractEcommCrudService {
 	 */
 	private function requestAddToCart(WireData $data) {
 		$rqst =  ['ADDTOCART', "ITEMID=$data->itemID", "QTY=$data->qty"];
+		return $this->writeRqstUpdateDplus($rqst);
+	}
+
+	/**
+	 * Write Remove from Cart Request File
+	 * @param  WireData $data
+	 * @return bool
+	 */
+	private function requestRemoveFromCart(WireData $data) {
+		$rqst =  ['ADDTOCART', "ITEMID=$data->itemID", "QTY=0"];
 		return $this->writeRqstUpdateDplus($rqst);
 	}
 }
