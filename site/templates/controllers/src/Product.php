@@ -22,6 +22,7 @@ class Product extends AbstractController {
 		self::sanitizeParametersShort($data, $fields);
 
 		self::initPageHooks();
+		self::appendJs($data);
 		return self::display($data);
 	}
 
@@ -72,6 +73,28 @@ class Product extends AbstractController {
 /* =============================================================
 	8. Supplemental
 ============================================================= */
+	/**
+	 * Return List of Script filepaths to be appended
+	 * @param  WireData $data
+	 * @return array
+	 */
+	protected static function getJsScriptPaths(WireData $data) {
+		$jsPath = 'scripts/pages/products/product/';
+		$filenames = ['classes/Requests.js', 'page.js'];
+		$scripts = [];
+
+		foreach ($filenames as $filename) {
+			$scripts[] = $jsPath . $filename;
+		}
+		return $scripts;
+	}
+
+	protected static function appendJs(WireData $data, $scripts = []) {
+		self::appendJsJqueryValiudate();
+
+		$scripts = self::getJsScriptPaths($data);
+		parent::appendJs($data, $scripts);
+	}
 
 /* =============================================================
 	9. Hooks / Object Decorating
@@ -102,8 +125,8 @@ class Product extends AbstractController {
 	public static function initPagesHooks() {
 		$m = self::pw('modules')->get('App');
 
-		$m->addHook("Pages::logoutUrl", function($event) {
-			$event->return = self::logoutUrl($event->arguments(0));
-		});
+		// $m->addHook("Pages::logoutUrl", function($event) {
+		// 	$event->return = self::logoutUrl($event->arguments(0));
+		// });
 	}
 }

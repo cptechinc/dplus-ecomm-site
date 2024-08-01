@@ -1,6 +1,6 @@
 {% import "util/macros/html.twig" as html %}
 
-<form action="{{ input.url() }}" method="POST" class="allow-enterkey-submit">
+<form action="{{ input.url() }}" method="POST" class="allow-enterkey-submit" id="addProductToCartForm">
 	<input type="hidden" name="action" value="add-to-cart">
 	<input type="hidden" name="itemID" value="{{ page.itemid }}">
 	
