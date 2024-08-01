@@ -71,6 +71,14 @@ class Cart extends AbstractEcommCrudService {
 	public function items() {
 		return $this->table->all($this->sessionID);
 	}
+	/**
+	 * Return the Qty for Item ID
+	 * @param  string $itemID
+	 * @return float
+	 */
+	public function itemidQty($itemID) {
+		return $this->table->itemidQty($this->sessionID, $itemID);
+	}
 
 /* =============================================================
 	CRUD Processing
@@ -97,8 +105,10 @@ class Cart extends AbstractEcommCrudService {
 		$data = new WireData();
 		$data->itemID = $input->string('itemID');
 		$data->qty    = $input->int('qty', ['min' => 1]);
+		$beforeQty = $this->itemidQty($data->itemID);
 		$this->requestAddToCart($data);
-		return $this->exist();
+		$afterQty = $this->itemidQty($data->itemID);
+		return $afterQty > $beforeQty;
 	}
 
 /* =============================================================

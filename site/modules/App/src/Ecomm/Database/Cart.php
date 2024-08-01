@@ -74,6 +74,19 @@ class Cart extends AbstractQueryWrapper {
 	}
 
 	/**
+	 * Return Qty for Item ID
+	 * @param  string $sessionID
+	 * @param  string $itemID
+	 * @return bool
+	 */
+	public function itemidQty($sessionID = '', $itemID) {
+		$q = $this->querySessionItemid($sessionID, $itemID);
+		$q->withColumn('SUM(qty)', 'total');
+		$q->select('total');
+		return floatval($q->findOne());
+	}
+
+	/**
 	 * Return Cart Records
 	 * @param  string $sessionID
 	 * @param  string $itemID
