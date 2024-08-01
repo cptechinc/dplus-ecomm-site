@@ -1,0 +1,39 @@
+{% import "util/macros/html.twig" as html %}
+
+{% extends 'cart/items/desktop.twig' %}
+
+{% block header_display %}
+	<div class="form-row">
+		<div class="col-10">Product</div>
+		<div class="col-2 text-right">Qty</div>
+		<div class="col-5">Price</div>
+		<div class="col-2"></div>
+		<div class="col-5 text-right">Total</div>
+	</div>
+{% endblock %}
+
+{% block item_display %}
+	<div class="form-row">
+		<div class="col-10">
+			<b>{{ item.itemid }}</b><br>
+			{{ item.desc1 }}
+		</div>
+		<div class="col-2 text-right">{{ item.qty|number_format(0) }}</div>
+		<div class="col-5 text-right"><b>Price:</b> ${{ item.price|currency }}</div>
+		
+		<div class="col-2 text-right"></div>
+		<div class="col-5 text-right"><b>Total:</b> ${{ item.amount|currency }}</div>
+	</div>
+	<div class="form-row">
+		<div class="col-6"></div>
+		<div class="col-6 text-right">
+			<a href="{{ page.removeItemFromCartUrl(item.itemid) }}" class="btn btn-sm {{ CSS.colors.buttons.getClass('delete') }}">
+				{{ html.iconType({'type': 'delete'}) }} Delete
+			</a>
+		</div>
+	</div>
+{% endblock %}
+	
+{% block totals %}
+	
+{% endblock %}

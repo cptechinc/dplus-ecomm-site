@@ -1,0 +1,39 @@
+{% import "util/macros/html.twig" as html %}
+
+<div class="list-group">
+	<div class="list-group-item {{ browseragent.isMobile() ? 'px-2' : '' }} bg-light text-bold">
+		{% block header_display %}
+			<div class="row">
+				<div class="col-5">Product</div>
+				<div class="col-1 text-right">Quantity</div>
+				<div class="col-2 text-right">Unit Price</div>
+				<div class="col-2 text-right">Total</div>
+			</div>
+		{% endblock %}
+	</div>
+
+	{% for item in items %}
+		<div class="list-group-item {{ browseragent.isMobile() ? 'px-2' : '' }}">
+			{% block item_display %}
+				<div class="row">
+					<div class="col-5">
+						<b>{{ item.itemid }}</b><br>
+						{{ item.desc1 }}
+					</div>
+					<div class="col-1 text-right">{{ item.qty|number_format(0) }}</div>
+					<div class="col-2 text-right">${{ item.price|currency }}</div>
+					<div class="col-2 text-right">${{ item.amount|currency }}</div>
+					<div class="col-2 text-right">
+						<a href="{{ page.removeItemFromCartUrl(item.itemid) }}" class="btn btn-sm {{ CSS.colors.buttons.getClass('delete') }}">
+							{{ html.iconType({'type': 'delete'}) }} Delete
+						</a>
+					</div>
+				</div>
+			{% endblock %}
+		</div>
+	{% endfor %}
+	
+	{% block totals %}
+		
+	{% endblock %}
+</div>
