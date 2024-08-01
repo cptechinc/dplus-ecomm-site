@@ -9,6 +9,7 @@ use ProcessWire\WireData;
  * 
  * @property bool  $installOnlyNew
  * @property array $installed 
+ * @property array $updated
  */
 class TemplatesInstaller extends WireData {
 	const TEMPLATE_CLASSES = [
@@ -17,6 +18,8 @@ class TemplatesInstaller extends WireData {
 
 	public function __construct() {
 		$this->installOnlyNew = true;
+		$this->installed = [];
+		$this->updated = [];
 	}
 
 	/**
@@ -47,9 +50,10 @@ class TemplatesInstaller extends WireData {
 		$installed = [];
 		
 		foreach(static::TEMPLATE_CLASSES as $name => $classname) {
+			/** @var AbstractTemplate $classname */
 			$installed[$name] = $classname::install();
 		}
-		$this->installed = $installed;
+		$this->updated = $installed;
 		return true;
 	}
 }

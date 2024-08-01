@@ -159,9 +159,11 @@ abstract class AbstractPageBuilder extends AbstractStaticPwInstaller {
 	 * @return bool
 	 */
 	protected static function _install() {
+		$results = [];
 		foreach (static::PAGES as $page) {
-			static::installOne($page);
+			$results[$page['name']] = static::installOne($page);
 		}
+		static::$results = $results;
 		return false;
 	}
 

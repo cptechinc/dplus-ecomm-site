@@ -36,7 +36,7 @@ abstract class AbstractTemplate extends AbstractStaticPwInstaller {
 			$t = static::newTemplate();
 		}
 		static::setTemplateProperties($t);
-		return $t->save();
+		return boolval($t->save());
 	}
 
 	/**

@@ -48,6 +48,7 @@ class Icons extends AbstractCssLookup {
 		'phone' 	=> 'fa fa-phone',
 		'print' 	=> 'fa fa-print',
 		'question'   => 'bi bi-question-lg',
+		'rebuild'	 => 'fa fa-wrench',
 		'refresh'	 => 'fa fa-refresh',
 		'register'	 => 'fa fa-user',
 		'save'		 => 'fa fa-floppy-o',

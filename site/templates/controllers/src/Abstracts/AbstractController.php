@@ -7,6 +7,7 @@ use Twig\Environment as Twig;
 use ProcessWire\Config as PwConfig;
 use ProcessWire\Page;
 use ProcessWire\Session;
+use ProcessWire\User;
 use ProcessWire\WireData;
 // App
 use App\Configs\Configs\App as AppConfig;
@@ -25,6 +26,7 @@ abstract class AbstractController extends ParentController {
 	const REQUIRE_LOGIN = false;
 	const TEMPLATE = '';
 	const TITLE = '';
+	const ALLOWED_PWROLES  = ['superuser', 'site-admin'];
 
 /* =============================================================
 	1. Indexes
@@ -71,6 +73,25 @@ abstract class AbstractController extends ParentController {
 		return false;
 	}
 
+	/**
+	 * Check if user has necessesary ProcessWire Role
+	 * @param  WireData|null $data
+	 * @return bool
+	 */
+	protected static function validatePwRole(WireData $data = null) {
+		if (empty(static::ALLOWED_PWROLES)) {
+			return true;
+		}
+		$user = self::getPwUser();
+
+		foreach (static::ALLOWED_PWROLES as $roleid) {
+			if ($user->hasRole($roleid)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 /* =============================================================
 	3. Data Fetching / Requests / Retrieval
 ============================================================= */
@@ -112,6 +133,14 @@ abstract class AbstractController extends ParentController {
 	 */
 	protected static function getPwPage() {
 		return self::pw('page');
+	}
+
+	/**
+	 * Return ProcessWire Current User
+	 * @return User
+	 */
+	protected static function getPwUser() {
+		return self::pw('user');
 	}
 
 	/**

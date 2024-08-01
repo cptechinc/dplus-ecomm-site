@@ -6,10 +6,10 @@ use Pauldro\ProcessWire\AbstractStaticPwClass;
  * AbstractStaticPwInstaller
  * Template for Installing PW components
  * 
- * static array $results
+ * @static array $results
  */
 abstract class AbstractStaticPwInstaller extends AbstractStaticPwClass {
-	protected static $results = [];
+	public static $results = [];
 
 	/**
 	 * Install PW components
