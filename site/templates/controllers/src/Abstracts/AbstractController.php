@@ -201,7 +201,7 @@ abstract class AbstractController extends ParentController {
 	 * @return string
 	 */
 	protected static function getNamespaceClassNameAsPath() {
-		return static::getNamespaceAsPath() . '/' . static::getClassNameAsPath() . '/';
+		return rtrim(static::getNamespaceAsPath(), '/') . '/' . static::getClassNameAsPath() . '/';
 	}
 
 	/**
