@@ -1,5 +1,6 @@
 <?php namespace Pauldro\ProcessWire\Installers;
 // ProcessWire
+use ProcessWire\Config;
 use ProcessWire\Fieldgroup;
 use ProcessWire\Template;
 
@@ -19,6 +20,8 @@ abstract class AbstractTemplate extends AbstractStaticPwInstaller {
 	const IS_SINGLE_USE     = false;
 	const ALLOWED_PARENT_TEMPLATES = [];
 	const ALLOWED_CHILD_TEMPLATES  = [];
+	// {"html":"text\/html","txt":"text\/plain","json":"application\/json","xml":"application\/xml"}
+	const CONTENT_TYPE = 'html';
 
 	/**
 	 * Install Template
@@ -91,6 +94,7 @@ abstract class AbstractTemplate extends AbstractStaticPwInstaller {
 		$t->fieldgroup = static::fieldgroupFromDatabase();
 		static::setTemplatePropertiesUrl($t);
 		static::setTemplatePropertiesFamily($t);
+		static::setTemplatePropertiesContentType($t);
 		return true;
 	}
 
@@ -117,6 +121,26 @@ abstract class AbstractTemplate extends AbstractStaticPwInstaller {
 		$t->parentTemplates(static::ALLOWED_PARENT_TEMPLATES);
 		$t->noChildren = intval(static::ALLOW_CHILDREN === false);
 		$t->childTemplates(static::ALLOWED_CHILD_TEMPLATES);
+		return true;
+	}
+
+	/**
+	 * Set Template Properties related to Content Type
+	 * @param  Template $t
+	 * @return bool
+	 */
+	protected static function setTemplatePropertiesContentType(Template $t) {
+		if (static::CONTENT_TYPE == 'html') {
+			return true;
+		}
+		
+		/** @var Config */
+		$config = self::pw('config');
+
+		if (array_key_exists(static::CONTENT_TYPE, $config->contentTypes) === false) {
+			return true;
+		}
+		$t->contentType = static::CONTENT_TYPE;
 		return true;
 	}
 
