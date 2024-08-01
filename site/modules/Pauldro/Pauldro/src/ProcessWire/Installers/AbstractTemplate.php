@@ -90,6 +90,7 @@ abstract class AbstractTemplate extends AbstractStaticPwInstaller {
 		$t->label = static::LABEL;
 		$t->fieldgroup = static::fieldgroupFromDatabase();
 		static::setTemplatePropertiesUrl($t);
+		static::setTemplatePropertiesFamily($t);
 		return true;
 	}
 
