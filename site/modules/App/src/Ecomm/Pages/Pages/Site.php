@@ -32,6 +32,12 @@ class Site extends AbstractPageBuilder {
 			'template' => 'ajax-json',
 			'parentSelector'   => '/ajax/',
 		],
+		'cart' => [
+			'name'     => 'cart',
+			'title'    => 'Cart',
+			'template' => 'cart',
+			'parentSelector'   => '/',
+		],
 		'config' => [
 			'name'     => 'config',
 			'title'    => 'Config',

@@ -17,6 +17,7 @@ class TemplatesInstaller extends ParentInstaller {
 		'ajax-json'   => Templates\AjaxJson::class,
 		'admin-site'  => Templates\AdminSite::class,
 		'admin-site-rebuild' => Templates\AdminSiteRebuild::class,
+		'cart'        => Templates\Cart::class,
 		'login'       => Templates\Login::class,
 		'account'     => Templates\Account::class,
 		'product'     => Templates\Product::class,
