@@ -186,7 +186,7 @@
 				{% if config.app.allowOrdering %}
 					{% set nbrOfItems = APP.ecommDB.cart.countItems() %}
 					<li class="nav-item">
-						<a href="#">
+						<a href="{{ pages.get('template=cart').url }}">
 							{{ html.iconType({'type': 'cart'}) }} Cart
 							
 							{% if nbrOfItems %}
