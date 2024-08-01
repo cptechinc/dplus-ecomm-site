@@ -1,0 +1,35 @@
+{% import "util/macros/html.twig" as html %}
+
+<form action="{{ input.url() }}" method="POST" class="allow-enterkey-submit">
+	<input type="hidden" name="action" value="add-to-cart">
+	<input type="hidden" name="itemID" value="{{ page.itemid }}">
+	
+	{% include 'util/bootstrap/form/input-group-array.twig' with {
+		'inputgroup': {
+			'addclasses': ['input-group-clear-input'],
+			'elements': [
+				{
+					'type': 'input',
+					'data': {
+						'name': 'qty',
+						'type': 'number',
+						'addclasses': ['text-right', 'collapse'],
+						'attributes': {
+							'aria-label':  'Quantity To Add',
+						}
+					}
+				},
+				{
+					'type': 'button',
+					'useSpanAppend': true,
+					'useSpanPrepend': false,
+					'data': {
+						'type': 'submit',
+						'colorclass': CSS.colors.buttons.getClass('submit'),
+						'text': html.iconType({'type': 'cart'}) ~ 'Add To Cart',
+					}
+				}
+			]
+		}
+	} %}
+</form>

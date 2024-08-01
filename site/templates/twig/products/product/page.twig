@@ -1,0 +1,23 @@
+{% import "util/macros/html.twig" as html %}
+
+
+<section class="bar pt-4">
+	<div class="heading">
+		<h2>{{ page.title }}</h2>
+	</div>
+	<p class="lead">{{ page.itemdescription }}</p>
+	<div class="box">
+		<div class="row">
+			<div class="col-sm-6"></div>
+			<div class="col-sm-6">
+				<h2>${{ page.sellprice|currency }}</h2>
+				
+				{% if config.app.allowOrdering %}
+					<div class="col-8 col-sm-6 px-0">
+						{% include 'products/product/form-add-to-cart.twig' %}
+					</div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</section>
