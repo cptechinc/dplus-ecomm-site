@@ -27,14 +27,13 @@ class PwComponents extends AbstractController {
 		if (self::validatePwRole() === false) {
 			return false;
 		}
-		Pages\Site::install();
-		
+	
 		$results = [
 			'templates' => self::rebuildTemplates(),
-			'pages' => [
-				'site' => Pages\Site::$results
-			]
+			'pages' => ['site' => []]
 		];
+		Pages\Site::install();
+		$results['pages']['site'] = Pages\Site::$results;
 		return $results;
 	}
 
