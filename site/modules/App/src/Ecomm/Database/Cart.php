@@ -94,6 +94,18 @@ class Cart extends AbstractQueryWrapper {
 	 */
 	public function all($sessionID = '') {
 		$q = $this->querySession($sessionID);
+		$q->filterByItemid('', '!=');
 		return $q->find();
+	}
+
+	/**
+	 * Return Number of Items In cart
+	 * @param  string $sessionID
+	 * @return int
+	 */
+	public function countItems($sessionID = '') {
+		$q = $this->querySession($sessionID);
+		$q->filterByItemid('', '!=');
+		return $q->count();
 	}
 }

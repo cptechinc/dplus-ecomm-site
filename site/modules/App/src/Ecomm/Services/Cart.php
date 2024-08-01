@@ -71,6 +71,7 @@ class Cart extends AbstractEcommCrudService {
 	public function items() {
 		return $this->table->all($this->sessionID);
 	}
+
 	/**
 	 * Return the Qty for Item ID
 	 * @param  string $itemID
@@ -78,6 +79,14 @@ class Cart extends AbstractEcommCrudService {
 	 */
 	public function itemidQty($itemID) {
 		return $this->table->itemidQty($this->sessionID, $itemID);
+	}
+
+	/**
+	 * Return the number of cart items
+	 * @return int
+	 */
+	public function countItems() {
+		return $this->table->countItems($this->sessionID);
 	}
 
 /* =============================================================
