@@ -30,6 +30,55 @@ if (document.readyState === "complete" || (document.readyState !== "loading" && 
 	document.addEventListener("DOMContentLoaded", callback);
 }
 
+$.fn.extend({
+	loadin: function(href, callback) {
+		let parent = $(this);
+		parent.html('<div></div>');
+
+		let element = parent.find('div');
+		console.log('loading ' + href + " into " +  parent.returnelementdescription());
+		element.load(href, function() {
+			// init_datepicker();
+			callback();
+		});
+	},
+	returnelementdescription: function() {
+		let element = $(this);
+		let tag = element[0].tagName.toLowerCase();
+		let classes = '';
+		let id = '';
+		if (element.attr('class')) {
+			classes = element.attr('class').replace(' ', '.');
+		}
+		if (element.attr('id')) {
+			id = element.attr('id');
+		}
+		let string = tag;
+		if (classes) {
+			if (classes.length) {
+				string += '.'+classes;
+			}
+		}
+		if (id) {
+			if (id.length) {
+				string += '#'+id;
+			}
+		}
+		return string;
+	},
+	formValues: function() {
+		let form = $(this);
+		if (form[0].tagName != 'FORM') {
+			return false;
+		}
+		let values = form.serializeArray().reduce(function(obj, item) {
+			obj[item.name] = item.value;
+			return obj;
+		}, {});
+		return values;
+	},
+});
+
 /*==============================================================
 	STRING FUNCTIONS
 =============================================================*/
