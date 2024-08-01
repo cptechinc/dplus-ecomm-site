@@ -20,6 +20,7 @@ class App extends WireData implements Module {
 
 		$this->ecommDB = new WireData();
 		$this->ecommDB->states = Ecomm\Database\States::instance();
+		$this->ecommDB->cart   = Ecomm\Database\Cart::instance();
 	}
 
 	public static function getModuleInfo() {
