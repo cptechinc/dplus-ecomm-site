@@ -8,18 +8,6 @@ use App\Pw\Pages\AbstractPageBuilder;
  */
 class Site extends AbstractPageBuilder {
 	const PAGES = [
-		'config' => [
-			'name'     => 'config',
-			'title'    => 'Config',
-			'template' => 'site-config',
-			'parentSelector'   => '/',
-		],
-		'products' => [
-			'name'     => 'products',
-			'title'    => 'Products',
-			'template' => 'products',
-			'parentSelector'   => '/',
-		],
 		'admin-site' => [
 			'name'     => 'admin',
 			'title'    => 'Site Administration',
@@ -43,6 +31,18 @@ class Site extends AbstractPageBuilder {
 			'title'    => 'JSON',
 			'template' => 'ajax-json',
 			'parentSelector'   => '/ajax/',
+		],
+		'config' => [
+			'name'     => 'config',
+			'title'    => 'Config',
+			'template' => 'site-config',
+			'parentSelector'   => '/',
+		],
+		'products' => [
+			'name'     => 'products',
+			'title'    => 'Products',
+			'template' => 'products',
+			'parentSelector'   => '/',
 		],
 	];
 }
