@@ -10,6 +10,9 @@ use Dplus\Abstracts\AbstractFilterData;
  *
  * @property string $sortby   Field to Sort By
  * @property string $sortdir  Direction to Sort By
+ * @property string $query     Search Query
+ * @property string $useWildcardSearch           Use Wildcard Search?
+ * @property string $useWildcardSearchUppercase  Use Wildcard Search In Uppercase?
  */
 class FilterData extends AbstractFilterData {
 	const DEFAULT_SORTBY    = 'itemid';
@@ -27,5 +30,8 @@ class FilterData extends AbstractFilterData {
 	public function setFromWireInputData(WireInputData $input) {
 		$this->sortby   = $input->text('orderBy');
 		$this->sortdir  = $input->text('sortDir');
+		$this->query    = $input->text('q');
+		$this->useWildcardSearch = $input->bool('useWildcardSearch');
+		$this->useWildcardSearchUppercase = $input->bool('useWildcardSearchUppercase');
 	}
 }
