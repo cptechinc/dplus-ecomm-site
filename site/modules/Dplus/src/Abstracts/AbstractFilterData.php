@@ -11,6 +11,9 @@ use ProcessWire\WireInputData;
  * @property int    $limit     Number of Results to return
  * @property string $sortby    Field to Sort by
  * @property string $sortdir   Sort Direction
+ * @property string $query     Search Query
+ * @property string $useWildcardSearch  Use Wildcard Search?
+ * @property string $useWildcardSearchUppercase  Use Wildcard Search In Uppercase?
  */
 abstract class AbstractFilterData extends WireData {
 	const FIELDS_FILTERABLE = [];
@@ -22,6 +25,9 @@ abstract class AbstractFilterData extends WireData {
 		$this->limit   = 0;
 		$this->sortby  = '';
 		$this->sortdir = '';
+		$this->query   = '';
+		$this->useWildcardSearch = false;
+		$this->useWildcardSearchUppercase = false;
 	}
 
 	/**
