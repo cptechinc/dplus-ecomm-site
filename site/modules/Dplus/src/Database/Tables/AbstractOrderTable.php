@@ -76,7 +76,7 @@ abstract class AbstractOrderTable extends AbstractQueryWrapper {
 	 * Return Results Paginated
 	 * @return PropelModelPager[Record]
 	 */
-	public function findPaginatedByFilterData(SalesOrder\FilterData $data) {
+	public function findPaginatedByFilterData(AbstractFilterData $data) {
 		$q = $this->queryFilteredByFilterData($data);
 		$this->applyOrderByFilterData($q, $data);
 		return $q->paginate($data->pagenbr, $data->limit);
