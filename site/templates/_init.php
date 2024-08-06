@@ -66,6 +66,7 @@ if ($input->get->offsetExists('action') === false && $page->template->name != 'j
 	$scripts->append($fh->getHashUrl('scripts/classes/Alerts.js'));
 	$scripts->append($fh->getHashUrl('scripts/classes/Form.js'));
 	$scripts->append($fh->getHashUrl('scripts/classes/SimpleForm.js'));
+	$scripts->append($fh->getHashUrl('scripts/classes/abstracts/Requests.js'));
 	$scripts->append($fh->getHashUrl('scripts/sweetalert-setup.js'));
 	$scripts->append($fh->getHashUrl('scripts/front.js'));
 	$scripts->append($fh->getHashUrl('scripts/custom.js'));

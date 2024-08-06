@@ -31,6 +31,7 @@ class Search extends AbstractController {
 
 		$results = self::findSearchResults($data);
 		Pricing::instance()->sendRequestForMultiple($results->explode('itemid'));
+		self::appendJs($data);
 		return self::display($data, $results);
 	}
 
@@ -92,6 +93,28 @@ class Search extends AbstractController {
 /* =============================================================
 	8. Supplemental
 ============================================================= */
+	/**
+	 * Return List of Script filepaths to be appended
+	 * @param  WireData $data
+	 * @return array
+	 */
+	protected static function getJsScriptPaths(WireData $data) {
+		$jsPath = 'scripts/pages/products/search/';
+		$filenames = ['classes/Requests.js', 'page.js'];
+		$scripts = [];
+
+		foreach ($filenames as $filename) {
+			$scripts[] = $jsPath . $filename;
+		}
+		return $scripts;
+	}
+
+	protected static function appendJs(WireData $data, $scripts = []) {
+		self::appendJsJqueryValiudate();
+
+		$scripts = self::getJsScriptPaths($data);
+		parent::appendJs($data, $scripts);
+	}
 	
 /* =============================================================
 	9. Hooks / Object Decorating
