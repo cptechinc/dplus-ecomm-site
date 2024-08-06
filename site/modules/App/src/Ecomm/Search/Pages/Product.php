@@ -5,6 +5,8 @@ use App\Ecomm\Util\PwSelectors;
 /**
  * Product
  * Fetches Pages that match search criteria and / or have item IDs
+ * 
+ * @property array $itemIDs
  */
 class Product extends AbstractSearch {
 	public function __construct() {
@@ -21,6 +23,6 @@ class Product extends AbstractSearch {
 	 * @return string
 	 */
 	public function selector() {
-		return PwSelectors\Product::searchWithItemids($this->sanitizer($this->keyword), $this->itemIDs);
+		return PwSelectors\Product::searchWithItemids($this->sanitizer->text($this->keyword), $this->itemIDs);
 	}
 }
