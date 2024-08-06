@@ -45,7 +45,7 @@ class Product extends AbstractPwSelectors {
 	 */
 	public static function search($search) {
 		$t = self::TEMPLATE;
-		return "template=$t,itemid|desc|title%=$search";
+		return "template=$t,itemid|itemdescription|title%=$search";
 	}
 	
 	/**
