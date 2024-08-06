@@ -4,7 +4,7 @@ $(function() {
 /* =============================================================
 	JQuery Validation
 ============================================================= */
-	$('#addProductToCartForm').validate({
+	$('.addProductToCartForm').validate({
 		rules: {},
 		submitHandler: function(form) {
 			let jForm = $(form);
@@ -27,5 +27,4 @@ $(function() {
 			});
 		}
 	});
-
 });
