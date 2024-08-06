@@ -22,6 +22,7 @@ class TemplatesInstaller extends ParentInstaller {
 		'account'     => Templates\Account::class,
 		'product'     => Templates\Product::class,
 		'products'    => Templates\Products::class,
+		'products-search'    => Templates\ProductsSearch::class,
 		'site-config' => Templates\SiteConfig::class,
 	];
 }
