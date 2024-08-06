@@ -108,3 +108,7 @@ label.invalid-feedback {
 .fuelux .datepicker-calendar-footer {
 	border-radius: 0;
 }
+
+.product .text h3 {
+	min-height: 0;
+}
