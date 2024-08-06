@@ -1,0 +1,44 @@
+{% import "util/macros/html.twig" as html %}
+
+<form action="{{ pages.get('template=products-search').url }}" method="GET">
+	{% include 'util/bootstrap/form/input-group-array.twig' with {
+		'inputgroup': {
+			'addclasses': ['input-group-clear-input'],
+			'elements': [
+				{
+					'type': 'input',
+					'data': {
+						'name': 'q',
+						'attributes': {
+							'aria-label':  'Search Query',
+						}
+					}
+				},
+				{
+					'type': 'button',
+					'useSpanAppend': true,
+					'useSpanPrepend': false,
+					'data': {
+						'colorclass': css.colors.buttons.getClass('transparent'),
+						'text': html.iconType({'type': 'close'}),
+						'addclasses': ['clear-input-group-input', 'collapse'],
+						'attributes': {
+							'style': 'margin-left: -2rem; z-index: 100;',
+							'tabindex': -1,
+						}
+					}
+				},
+				{
+					'type': 'button',
+					'useSpanAppend': true,
+					'useSpanPrepend': false,
+					'data': {
+						'type': 'submit',
+						'colorclass': CSS.colors.buttons.getClass('submit'),
+						'text': html.iconType({'type': 'search'}),
+					}
+				}
+			]
+		}
+	} %}
+</form>

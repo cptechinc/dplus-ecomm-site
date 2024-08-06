@@ -1,0 +1,10 @@
+<h3>{{ results.getTotal() }} Results for: {{ input.get.text('q') }}</h3>
+
+{% if browseragent.isMobile() == false %}
+	{% include 'products/search/results/desktop.twig' %}
+{% endif %}
+
+{% if browseragent.isMobile() %}
+	{% include 'products/search/results/mobile.twig' %}
+{% endif %}
+

@@ -109,6 +109,13 @@ label.invalid-feedback {
 	border-radius: 0;
 }
 
+/*==============================================================
+	Product Search Styles
+==============================================================*/
 .product .text h3 {
 	min-height: 0;
+}
+
+.products .product .description {
+	min-height: 60px;
 }
