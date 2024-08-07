@@ -2,6 +2,7 @@
 // Propel ORM Library
 	// use Propel\Runtime\ActiveQuery\ModelCriteria as AbstractQuery;
 use Propel\Runtime\ActiveRecord\ActiveRecordInterface as AbstractRecord;
+use Propel\Runtime\Collection\ObjectCollection;
 // Dplus Models
 use ShipviaQuery as Query, Shipvia as Record;
 // Dplus
@@ -78,6 +79,15 @@ abstract class AbstractCodeTable extends AbstractQueryWrapper {
 		return $r->description;
 	}
 
+	/**
+	 * Return All Codes
+	 * NOTE: skips cache
+	 * @return ObjectCollection
+	 */
+	public function all() {
+		return $this->query()->find();
+	}
+
 /* =============================================================
 	Query Functions
 ============================================================= */
@@ -109,6 +119,14 @@ abstract class AbstractCodeTable extends AbstractQueryWrapper {
 	 */
 	public function fetchFromDb($code) {
 		return $this->queryCode($code)->findOne();
+	}
+
+	/**
+	 * Return the Number of Records
+	 * @return int
+	 */
+	public function countInDb() {
+		return $this->query()->count();
 	}
 
 /* =============================================================
