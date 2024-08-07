@@ -1,0 +1,11 @@
+{% import "util/macros/html.twig" as html %}
+
+<section class="bar pt-4">
+	<div class="heading">
+		<h2>{{ page.get('headline|title') }}</h2>
+	</div>
+
+	<div>
+		{% include 'products/item-groups/list.twig' %}
+	</div>
+</section>

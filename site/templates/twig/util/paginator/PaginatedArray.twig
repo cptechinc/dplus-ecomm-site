@@ -1,0 +1,45 @@
+{#
+	var                    Description / Instance of
+	-------------------------------------------------
+	results                ProcessWire\PaginatedArray
+#}
+{% set limit = results.getLimit() ? results.getLimit() : 1 %}
+{% set totalpages = limit == 1 ? 1 : (results.getTotal() / limit)|round(0, 'ceil') %}
+
+<div class="d-flex w-100 justify-content-between paginator">
+	<div></div>
+
+	<div>
+		<ul class="pagination">
+			<li class="page-item {{ input.pageNum == 1 ? 'disabled' : '' }}">
+				<a href="{{ input.paginateUrl(input.pageNum - 1, {'includeQueryString': true})  }}" class="page-link paginator-link" aria-label="Previous">
+					<span aria-hidden="true">&laquo;</span>
+				</a>
+			</li>
+			<li class="page-item {{ (input.pageNum == i) ? 'active' : '' }}">
+				<div class="dropdown">
+					<a class="page-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Page {{ input.pageNum }} of {{ totalpages }}
+					</a>
+
+					<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+						{% for i in 1..totalpages  %}
+							{% if i > 0 %}
+								<a class="dropdown-item paginator-link {{ input.pageNum == i ? 'active' : '' }}" href="{{ input.paginateUrl(i, {'includeQueryString': true}) }}">
+									{{ i }}
+								</a>
+							{% endif %}
+						{% endfor %}
+					</div>
+				</div>
+			</li>
+			<li class="page-item {{ input.pageNum == totalpages ? 'disabled' : '' }}">
+				<a href="{{ input.paginateUrl(input.pageNum + 1, {'includeQueryString': true}) }}" aria-label="Next" class="page-link paginator-link">
+					<span aria-hidden="true">&raquo;</span>
+				</a>
+			</li>
+		</ul>
+	</div>
+
+	<div></div>
+</div>

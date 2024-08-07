@@ -1,0 +1,27 @@
+{% import "util/macros/html.twig" as html %}
+
+<div class="products-big">
+	<div class="row products">
+		{% for itemgroup in itemgroups %}
+		<div class="col-3">
+			<div class="product">
+				{% if 100 == 1 %}
+				<div class="image">
+					<a href="{{ itemgroup.url }}">
+						<img src="img/product1.jpg" alt="" class="img-fluid image1">
+					</a>
+				</div>
+				{% endif %}
+				<div class="text text-left">
+					<h3 class="h5 mb-1">
+						<a href="{{ itemgroup.url }}">{{ itemgroup.dplusid }}</a>
+					</h3>
+					<div class="description">
+						{{ itemgroup.dplusdescription }}
+					</div>
+				</div>
+			</div>
+		</div>
+	{% endfor %}
+	</div>
+</div>
