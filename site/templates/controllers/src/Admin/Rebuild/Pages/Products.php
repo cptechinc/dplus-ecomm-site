@@ -35,6 +35,7 @@ class Products extends AbstractJsonController {
 		if ($data->itemID != '') {
 			return self::rebuildOne($data);
 		}
+		return self::rebuildAll($data);
 	}
 
 	private static function rebuildOne(WireData $data) {
@@ -49,6 +50,14 @@ class Products extends AbstractJsonController {
 		$result->success = Installer::installOneFromRecord($item);
 		$result->error = $result->success === false;
 		$result->msg = $result->success ? "Item Page '$data->itemID' installed" : "Item Page '$data->itemID' not installed";
+		return $result->data;
+	}
+
+	private static function rebuildAll(WireData $data) {
+		$result = new ResultData();
+		$result->success = boolval(Installer::install());
+		$result->error = $result->success === false;
+		$result->msg = "Installed " . sizeof(Installer::$results) . " Item Pages";
 		return $result->data;
 	}
 
