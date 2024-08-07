@@ -14,4 +14,5 @@ class ProductsItemGroups extends AbstractTemplate {
 	const ALLOW_CHILDREN    = true;
 	const ALLOWED_PARENT_TEMPLATES = ['products'];
 	const ALLOWED_CHILD_TEMPLATES  = ['products-item-group'];
+	const ALLOW_PAGINATION  = true;
 }
