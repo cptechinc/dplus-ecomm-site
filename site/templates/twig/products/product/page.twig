@@ -15,6 +15,9 @@
 					<div class="mb-2">
 						{{ html.badge({'type': page.qtyInStock > 0 ? 'success' : 'warning', 'text': page.qtyInStock > 0 ? 'In Stock' : 'Not In Stock'}) }}
 					</div>
+				{% endif %}
+
+				{% if config.site.showQtyInStock %}
 					<div class="mb-2">
 						<h3>In Stock: {{ page.qtyInStock }}</h3>
 					</div>
