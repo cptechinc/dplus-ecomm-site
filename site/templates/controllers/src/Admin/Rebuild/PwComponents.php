@@ -2,6 +2,7 @@
 // ProcessWire
 use ProcessWire\WireData;
 // App
+use App\Ecomm\Pages\FieldsInstaller;
 use App\Ecomm\Pages\TemplatesInstaller;
 use App\Ecomm\Pages\Pages;
 // Controllers
@@ -29,8 +30,9 @@ class PwComponents extends AbstractController {
 		}
 	
 		$results = [
+			'fields'    => self::rebuildFields(),
 			'templates' => self::rebuildTemplates(),
-			'pages' => ['site' => []]
+			'pages'     => ['site' => []]
 		];
 		Pages\Site::install();
 		$results['pages']['site'] = Pages\Site::$results;
@@ -39,6 +41,10 @@ class PwComponents extends AbstractController {
 
 /* =============================================================
 	2. Validations / Permissions / Initializations
+============================================================= */
+
+/* =============================================================
+	3. Data Fetching / Requests / Retrieval
 ============================================================= */
 	protected static function rebuildTemplates()  {
 		$templates = new TemplatesInstaller();
@@ -49,9 +55,11 @@ class PwComponents extends AbstractController {
 		return $results;
 	}
 
-/* =============================================================
-	3. Data Fetching / Requests / Retrieval
-============================================================= */
+
+	protected static function rebuildFields() {
+		$results = FieldsInstaller::install();
+		return $results->getArray();
+	}
 
 /* =============================================================
 	4. URLs
@@ -61,16 +69,10 @@ class PwComponents extends AbstractController {
 /* =============================================================
 	5. Displays
 ============================================================= */
-	private static function display(WireData $data) {
-		return self::render($data);
-	}
 
 /* =============================================================
 	6. HTML Rendering
 ============================================================= */
-	private static function render(WireData $data) {
-		return self::getTwig()->render('admin/page.twig');
-	}
 
 /* =============================================================
 	7. Class / Module Getters
