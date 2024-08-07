@@ -17,17 +17,18 @@ class FieldsInstaller {
 	];
 
 	/**
-	 * RInstall Fields
-	 * @return WireArray
+	 * Install Fields
+	 * @return WireArray[array]
 	 */
 	public static function install() {
 		$results = new WireArray();
 
 		foreach (static::MAP as $key => $class) {
+			/** @var Fields\AbstractField $class */
 			$data = new WireData();
-			$data->name = $key;
+			$data->name    = $key;
 			$data->success = $class::install();
-			$results->set($key, $data);
+			$results->set($key, $data->success);
 		}
 		return $results;
 	}
