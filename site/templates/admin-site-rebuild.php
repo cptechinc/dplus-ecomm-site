@@ -5,6 +5,7 @@ $routes = [
 	['GET', 'pw-components', Rebuild\PwComponents::class, 'index'],
 	'pages' => [
 		['GET', 'products', Rebuild\Pages\Products::class, 'index'],
+		['GET', 'products-item-groups', Rebuild\Pages\ProductsItemGroups::class, 'index'],
 	],
 ];
 $router = new Mvc\Routers\Json();
