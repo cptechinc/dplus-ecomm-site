@@ -15,6 +15,7 @@ class FieldsInstaller extends ParentInstaller {
 	const MAP = [
 		Fields\ItemDescription::NAME  => Fields\ItemDescription::class,
 		Fields\DisplayName::NAME      => Fields\DisplayName::class,
+		Fields\DplusDescription::NAME => Fields\DplusDescription::class,
 		Fields\Dplusid::NAME          => Fields\Dplusid::class,
 		Fields\Itemid::NAME           => Fields\Itemid::class,
 		Fields\SiteIcon::NAME         => Fields\SiteIcon::class,
