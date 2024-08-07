@@ -3,7 +3,6 @@
 use Purl\Url as Purl;
 use Purl\Query as PurlQuery;
 // ProcessWire
-use ProcessWire\WireData;
 use ProcessWire\WireInput as PwWireInput;
 // App
 use App\Urls\PurlPaginator;
@@ -11,23 +10,39 @@ use App\Urls\PurlPaginator;
 /**
  * WireInput
  * Adds Hooks for WireInput
- * 
- * @static self $instance
  */
-class WireInput extends WireData {
-	private static $instance;
-
+class WireInput extends AbstractStaticHooksAdder {
 /* =============================================================
-	Constructors / Inits
+	Hooks
 ============================================================= */
-	/** @return self */
-	public static function instance() {
-		if (empty(self::$instance)) {
-			self::$instance = new self();
-		}
-		return self::$instance;
+	public static function addHooks() {
+		$m = self::pwModuleApp();
+
+		$m->addHook('WireInput::paginateUrl', function($event) {
+			$input    = $event->object;
+			$pagenbr = $event->arguments(0);
+			$options = $event->arguments(1);
+			if (empty($options)) {
+				$options = [];
+			}
+			$options['pagenbr'] = $pagenbr;
+			$event->return = self::paginateUrl($input, $options);
+		});
+
+		$m->addHook('WireInput::sortUrl', function($event) {
+			$input    = $event->object;
+			$column = $event->arguments(0);
+			$options = $event->arguments(1);
+			if (empty($options)) {
+				$options = [];
+			}
+			$event->return = self::sortUrl($input, $column, $options);
+		});
 	}
 	
+/* =============================================================
+	Supplemental
+============================================================= */
 	/**
 	 * Paginate Url with options
 	 * @param PwWireInput $input
@@ -36,7 +51,7 @@ class WireInput extends WireData {
 	 * 	                   - `pagenbr`           (int) : Page Number. (default=1)
 	 * @return string
 	 */
-	public function paginateUrl(PwWireInput $input, $options = []) {
+	public static function paginateUrl(PwWireInput $input, $options = []) {
 		$defaults = [
 			'includeQueryString' => true,
 			'pagenbr'            => 1,
@@ -75,9 +90,9 @@ class WireInput extends WireData {
 	 * @param  array       $options
 	 * @return string
 	 */
-	public function sortUrl(PwWireInput $input, $column, $options = []) {
+	public static function sortUrl(PwWireInput $input, $column, $options = []) {
 		$options['includeQueryString'] = true;
-		$url = new Purl($this->paginateUrl($input, $options));
+		$url = new Purl(self::paginateUrl($input, $options));
 		$direction = 'ASC';
 		
 		if ($url->query->has('orderBy') === false) {
@@ -97,39 +112,5 @@ class WireInput extends WireData {
 		$url->query->set('orderBy', $column);
 		$url->query->set('sortDir', $direction);
 		return $url->getUrl();
-	}
-
-/* =============================================================
-	Hooks
-============================================================= */
-	public function addHooks() {
-		$this->addHook('WireInput::paginateUrl', function($event) {
-			$input    = $event->object;
-			$pagenbr = $event->arguments(0);
-			$options = $event->arguments(1);
-			if (empty($options)) {
-				$options = [];
-			}
-			$options['pagenbr'] = $pagenbr;
-			$event->return = $this->paginateUrl($input, $options);
-		});
-
-		$this->addHook('WireInput::sortUrl', function($event) {
-			$input    = $event->object;
-			$column = $event->arguments(0);
-			$options = $event->arguments(1);
-			if (empty($options)) {
-				$options = [];
-			}
-			$event->return = $this->sortUrl($input, $column, $options);
-		});
-
-		$this->addHook('WireInput::reloadMenuPermissionsUrl', function($event) {
-			/** @var PwWireInput */
-			$input    = $event->object;
-			$url = new Purl($input->url(['withQueryString' => true]));
-			$url->query->set('reloadMenuPermissions', 'true');
-			$event->return = $url->getUrl();
-		});
 	}
 }

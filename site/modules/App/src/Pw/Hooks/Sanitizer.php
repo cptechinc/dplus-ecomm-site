@@ -1,34 +1,18 @@
 <?php namespace App\Pw\Hooks;
 // ProcessWire
 use ProcessWire\HookEvent;
-use ProcessWire\WireData;
-	// use ProcessWire\Sanitizer as PwSanitizer;
+use ProcessWire\Sanitizer as PwSanitizer;
 
 /**
  * Sanitizer
  * Adds Hooks for Sanitizer
- * 
- * @static self $instance
  */
-class Sanitizer extends WireData {
-	private static $instance;
-	
-/* =============================================================
-	Constructors / Inits
-============================================================= */
-	/** @return self */
-	public static function instance() {
-		if (empty(self::$instance)) {
-			self::$instance = new self();
-		}
-		return self::$instance;
-	}
-
+class Sanitizer extends AbstractStaticHooksAdder {
 /* =============================================================
 	Hooks
 ============================================================= */
-	public function addHooks() {
-		$sanitizer = $this->sanitizer;
+	public static function addHooks() {
+		$sanitizer = self::pwSanitizer();
 		
 		$sanitizer->addHook('yn', function(HookEvent $event) {
 			$value = strtoupper($event->arguments(0));
@@ -58,5 +42,16 @@ class Sanitizer extends WireData {
 			}
 			$event->return = $col;
 		});
+	}
+
+/* =============================================================
+	Supplemental
+============================================================= */
+	/**
+	 * Return Sanitizer
+	 * @return PwSanitizer
+	 */
+	private static function pwSanitizer() {
+		return self::pw('sanitizer');
 	}
 }

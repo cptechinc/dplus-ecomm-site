@@ -8,21 +8,8 @@ use App\Ecomm\Services\Login as LoginService;
 /**
  * User
  * Add hooks for User
- * 
- * @static self $instance
  */
-class User extends WireData {
-	private static $instance;
-
-/* =============================================================
-	Constructors / Inits
-============================================================= */
-	public static function instance() {
-		if (empty(self::$instance)) {
-			self::$instance = new self();
-		}
-		return self::$instance;
-	}
+class User extends AbstractStaticHooksAdder {
 
 /* =============================================================
 	Hooks
@@ -31,8 +18,10 @@ class User extends WireData {
 	 * Add hooks to get URLs
 	 * @return void
 	 */
-	public function addHooks() {
-		$this->addHook("User::isLoggedInEcomm", function($event) {
+	public static function addHooks() {
+		$m = self::pwModuleApp();
+
+		$m->addHook("User::isLoggedInEcomm", function($event) {
 			/** @var PwUser */
 			$user = $event->object;
 			$event->return = LoginService::instance()->isLoggedIn();

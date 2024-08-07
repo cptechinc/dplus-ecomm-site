@@ -11,11 +11,14 @@ use App\Pw\Hooks;
  */
 class App extends WireData implements Module {
 	public function init() {
-		Hooks\ApiUrls::instance()->addHooks();
-		Hooks\WireInput::instance()->addHooks();
-		Hooks\Sanitizer::instance()->addHooks();
-		Hooks\Session::instance()->addHooks();
-		Hooks\User::instance()->addHooks();
+		Hooks\ApiUrls::addHooks();
+		Hooks\Sanitizer::addHooks();
+		Hooks\Session::addHooks();
+		Hooks\User::addHooks();
+		Hooks\WireInput::addHooks();
+		
+		
+		
 		Ecomm\Pages\Hooks\PageProduct::instance()->addHooks();
 
 		$this->ecommDB = new WireData();
