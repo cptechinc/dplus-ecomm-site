@@ -1,6 +1,6 @@
 <?php namespace App\Ecomm\Search\Pages;
 // ProcessWire
-use ProcessWire\Pages;
+use ProcessWire\PageArray;
 use ProcessWire\WireData;
 
 /**
@@ -65,7 +65,7 @@ abstract class AbstractSearch extends WireData {
 		$selector = $this->selector();
 		$start = 0;
 		if ($page > 1) {
-			$start = $page * $limit;
+			$start = $page * $limit - $limit;
 		}
 		$selector .= ",start=$start,limit=$limit";
 		return $selector;
