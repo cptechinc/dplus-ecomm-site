@@ -56,5 +56,11 @@ class Site extends AbstractPageBuilder {
 			'template' => 'products-search',
 			'parentSelector'   => '/products/',
 		],
+		'products-item-groups' => [
+			'name'     => 'groups',
+			'title'    => 'Product Groups',
+			'template' => 'products-item-groups',
+			'parentSelector'   => '/products/',
+		],
 	];
 }

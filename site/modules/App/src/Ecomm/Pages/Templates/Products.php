@@ -13,5 +13,5 @@ class Products extends AbstractTemplate {
 	const IS_SINGLE_USE     = true;
 	const ALLOW_CHILDREN    = true;
 	const ALLOWED_PARENT_TEMPLATES = [];
-	const ALLOWED_CHILD_TEMPLATES  = ['product'];
+	const ALLOWED_CHILD_TEMPLATES  = ['product', 'products-item-groups'];
 }
