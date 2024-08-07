@@ -34,7 +34,7 @@ abstract class AbstractDplusRecordInstaller extends AbstractStaticPwInstaller {
 		$filter->limit = static::RECORDSPERLOOP;
 		$results = [];
 
-		for ($i = 1; $i < $nbrOfPages; $i++) {
+		for ($i = 1; $i <= $nbrOfPages; $i++) {
 			$filter->pagenbr = $i;
 			$list = $TABLE->findPaginatedByFilterData($filter);
 			$listResults = static::installPropelModelPagerList($list);
@@ -64,7 +64,7 @@ abstract class AbstractDplusRecordInstaller extends AbstractStaticPwInstaller {
 	 * @return bool
 	 */
 	public static function installOneFromRecord(AbstractRecord $r) {
-		if (static::exists($r->itemid)) {
+		if (static::exists($r->id)) {
 			return static::update($r);
 		}
 		return static::create($r);
@@ -93,7 +93,7 @@ abstract class AbstractDplusRecordInstaller extends AbstractStaticPwInstaller {
 	 * @return bool
 	 */
 	public static function update(AbstractRecord $r) {
-		$page = static::page($r->itemid);
+		$page = static::page($r->id);
 
 		if ($page->id == 0) {
 			return static::create($r);
