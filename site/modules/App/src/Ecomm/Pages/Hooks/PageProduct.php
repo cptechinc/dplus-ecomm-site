@@ -105,7 +105,7 @@ class PageProduct extends WireData {
 				$event->return = $page->aQtyInStock;
 				return true;
 			}
-			$page->aQtyInStock = $page->pricing->price;
+			$page->aQtyInStock = $page->pricing->qty;
 			return $page->aQtyInStock;
 		});
 	}
