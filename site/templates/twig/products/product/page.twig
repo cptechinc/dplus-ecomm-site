@@ -1,6 +1,5 @@
 {% import "util/macros/html.twig" as html %}
 
-
 <section class="bar pt-4">
 	<div class="heading">
 		<h2>{{ page.title }}</h2>
@@ -11,6 +10,15 @@
 			<div class="col-sm-6"></div>
 			<div class="col-sm-6">
 				<h2>${{ page.sellprice|currency }}</h2>
+
+				{% if config.site.showInStock %}
+					<div class="mb-2">
+						{{ html.badge({'type': page.qtyInStock > 0 ? 'success' : 'warning', 'text': page.qtyInStock > 0 ? 'In Stock' : 'Not In Stock'}) }}
+					</div>
+					<div class="mb-2">
+						<h3>In Stock: {{ page.qtyInStock }}</h3>
+					</div>
+				{% endif %}
 				
 				{% if config.app.allowOrdering %}
 					<div class="col-8 col-sm-6 px-0">
