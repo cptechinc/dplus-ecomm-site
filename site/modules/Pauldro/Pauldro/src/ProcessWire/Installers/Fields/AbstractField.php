@@ -1,23 +1,23 @@
 <?php namespace Pauldro\ProcessWire\Installers\Fields;
 // ProcessWire
 use ProcessWire\Field;
-use ProcessWire\ProcessWire;
+use ProcessWire\Fields;
+// Pauldro ProcessWire
+use Pauldro\ProcessWire\AbstractStaticPwClass;
 
 /**
  * AbstractField
  * Template for creating / updating field
  * 
- * @static ProcessWire $pw ProcesWire Instance
+ * @static ProcessWire $pw ProcessWire Instance
  */
-abstract class AbstractField {
+abstract class AbstractField extends AbstractStaticPwClass {
 	const NAME        = '';
 	const LABEL       = '';
 	const DESCRIPTION = '';
 	const NOTES       = '';
 	const TYPE        = 'text';
 	const PW_TYPE     = 'text';
-
-	protected static $pw;
 
 	/**
 	 * Install Field
@@ -37,7 +37,7 @@ abstract class AbstractField {
 	 * @return Field|null
 	 */
 	public static function fieldFromDatabase() {
-		return self::pw('fields')->get(static::NAME);
+		return self::pwFields()->get(static::NAME);
 	}
 
 	/**
@@ -62,14 +62,10 @@ abstract class AbstractField {
 	}
 
 	/**
-	 * Return the current ProcessWire Wire Instance
-	 * @param  string            $var   Wire Object
-	 * @return ProcessWire|mixed
+	 * Return ProcessWire Fields
+	 * @return Fields
 	 */
-	protected static function pw($var = '') {
-		if (empty(self::$pw)) {
-			self::$pw = ProcessWire::getCurrentInstance();
-		}
-		return $var ? self::$pw->wire($var) : self::$pw;
+	protected static function pwFields() {
+		return self::pw('fields');
 	}
 }
