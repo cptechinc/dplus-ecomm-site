@@ -8,3 +8,7 @@
 	{% include 'products/search/results/mobile.twig' %}
 {% endif %}
 
+<div class="mt-3">
+	{% include 'util/paginator/PaginatedArray.twig' with {'results': results} %}
+</div>
+

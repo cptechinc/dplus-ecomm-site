@@ -13,4 +13,5 @@ class ProductsSearch extends AbstractTemplate {
 	const IS_SINGLE_USE     = true;
 	const ALLOW_CHILDREN    = false;
 	const ALLOWED_PARENT_TEMPLATES = ['products'];
+	const ALLOW_PAGINATION  = true;
 }
