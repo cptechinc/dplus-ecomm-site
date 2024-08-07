@@ -23,6 +23,7 @@ class TemplatesInstaller extends ParentInstaller {
 		'product'     => Templates\Product::class,
 		'products'    => Templates\Products::class,
 		'products-item-groups'    => Templates\ProductsItemGroups::class,
+		'products-item-group'     => Templates\ProductsItemGroup::class,
 		'products-search'    => Templates\ProductsSearch::class,
 		'site-config' => Templates\SiteConfig::class,
 	];
