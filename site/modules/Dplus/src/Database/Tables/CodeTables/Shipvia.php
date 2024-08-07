@@ -1,11 +1,11 @@
 <?php namespace  Dplus\Database\Tables\CodeTables;
 // Propel ORM Library
 	// use Propel\Runtime\ActiveQuery\ModelCriteria as AbstractQuery;
-use Propel\Runtime\ActiveRecord\ActiveRecordInterface as AbstractRecord;
+	// use Propel\Runtime\ActiveRecord\ActiveRecordInterface as AbstractRecord;
 // Dplus Models
 use ShipviaQuery as Query, Shipvia as Record;
 // Dplus
-use Dplus\Abstracts\AbstractQueryWrapper;
+	// use Dplus\Abstracts\AbstractQueryWrapper;
 use Dplus\Database\Tables\AbstractCodeTable;
 
 /**
