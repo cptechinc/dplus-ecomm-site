@@ -3,8 +3,8 @@
 $config->js('config', [
 	'ajax' => [
 		'urls' => [
-			'lookup' => $page->searchLookupUrl(''),
-			'json'   => $page->jsonApiUrl(''),
+			'lookup' => $pages->searchLookupUrl(''),
+			'json'   => $pages->jsonApiUrl(''),
 		]
 	],
 ]);
