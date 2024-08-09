@@ -1,5 +1,5 @@
 <?php
-use Controllers\Product;
+use Controllers\Products\Product;
 
 $routes = [
 	['GET',  '', Product::class, 'index'],
