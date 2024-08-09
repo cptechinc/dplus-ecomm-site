@@ -1,0 +1,11 @@
+{% import "util/macros/html.twig" as html %}
+
+<section class="bar pt-4">
+	<div class="heading">
+		<h2>{{ page.title }}</h2>
+	</div>
+	<p class="lead">{{ page.dplusdescription }}</p>
+	<div class="box">
+		{% include 'products/item-groups/group/product-list.twig' %}
+	</div>
+</section>
