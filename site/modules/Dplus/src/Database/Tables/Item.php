@@ -34,7 +34,7 @@ class Item extends AbstractQueryWrapper {
 ============================================================= */
 	/**
 	 * Return Query Filtered By Order Number
-	 * @param  int   $itemID
+	 * @param  string  $itemID
 	 * @return Query
 	 */
 	public function queryItemid($itemID) {
@@ -46,7 +46,7 @@ class Item extends AbstractQueryWrapper {
 ============================================================= */
 	/**
 	 * Return if Item Exists
-	 * @param  int $itemID
+	 * @param  string $itemID
 	 * @return bool
 	 */
 	public function exists($itemID) {
@@ -77,6 +77,18 @@ class Item extends AbstractQueryWrapper {
 	 */
 	public function itemidsByWildcardSearch(AbstractFilterData $data) {
 		$q = $this->queryWildcardSearch($data->query, $data->useWildcardSearchUppercase);
+		$q->select(Record::aliasproperty('itemid'));
+		return $q->find()->toArray();
+	}
+
+	/**
+	 * Return Item IDs that have itemgroupcode
+	 * @param  string $id
+	 * @return array[string]
+	 */
+	public function itemidsByInvGroup($id) {
+		$q = $this->query();
+		$q->filterByItemgroup($id);
 		$q->select(Record::aliasproperty('itemid'));
 		return $q->find()->toArray();
 	}
