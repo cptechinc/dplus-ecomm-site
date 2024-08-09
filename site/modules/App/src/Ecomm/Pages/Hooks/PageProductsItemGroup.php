@@ -5,26 +5,15 @@ use ProcessWire\Page;
 use ProcessWire\WireData;
 // Dplus
 use Dplus\Database\Tables\CodeTables\ItemGroup as ItemGroupTable;
-
+// App
+use App\Ecomm\Pages\Templates\ProductsItemGroup as Template;
+use App\Pw\Hooks\AbstractStaticHooksAdder;
 
 /**
- * Product
- * Add hooks for Product
- * 
- * @static self $instance
+ * PageProductsItemGroup
+ * Add hooks for Products Item Group Page
  */
-class PageProduct extends WireData {
-	private static $instance;
-
-/* =============================================================
-	Constructors / Inits
-============================================================= */
-	public static function instance() {
-		if (empty(self::$instance)) {
-			self::$instance = new self();
-		}
-		return self::$instance;
-	}
+class PageProductsItemGroup extends AbstractStaticHooksAdder {
 
 /* =============================================================
 	Hooks
@@ -33,8 +22,11 @@ class PageProduct extends WireData {
 	 * Add hooks to get URLs
 	 * @return void
 	 */
-	public function addHooks() {
-		$this->addHookProperty("Page(template=products-item-group)::invgroup", function(HookEvent $event) {
+	public static function addHooks() {
+		$m = self::pwModuleApp();
+		$tpl = Template::NAME;
+
+		$m->addHookProperty("Page(template=$tpl)::invgroup", function(HookEvent $event) {
 			/** @var Page */
 			$page = $event->object;
 			

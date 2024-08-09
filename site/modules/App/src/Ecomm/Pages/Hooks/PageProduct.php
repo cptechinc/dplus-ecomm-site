@@ -2,32 +2,19 @@
 // ProcessWire
 use ProcessWire\HookEvent;
 use ProcessWire\Page;
-use ProcessWire\WireData;
 // Dplus
 use Dplus\Database\Tables\Item as ItemTable;
 // App
+use App\Ecomm\Pages\Templates\Product as Template;
 use App\Ecomm\Services\Product\Pricing as PricingService;
+use App\Pw\Hooks\AbstractStaticHooksAdder;
 
 
 /**
  * Product
  * Add hooks for Product
- * 
- * @static self $instance
  */
-class PageProduct extends WireData {
-	private static $instance;
-
-/* =============================================================
-	Constructors / Inits
-============================================================= */
-	public static function instance() {
-		if (empty(self::$instance)) {
-			self::$instance = new self();
-		}
-		return self::$instance;
-	}
-
+class PageProduct extends AbstractStaticHooksAdder {
 /* =============================================================
 	Hooks
 ============================================================= */	
@@ -35,15 +22,18 @@ class PageProduct extends WireData {
 	 * Add hooks to get URLs
 	 * @return void
 	 */
-	public function addHooks() {
-		$this->addHook("Page(template=product)::requestPricing", function(HookEvent $event) {
+	public static function addHooks() {
+		$m = self::pwModuleApp();
+		$tpl = Template::NAME;
+
+		$m->addHook("Page(template=$tpl)::requestPricing", function(HookEvent $event) {
 			/** @var Page */
 			$page = $event->object;
 			$SERVICE = PricingService::instance();
 			$event->return = $SERVICE->sendRequestForOne($page->itemid);
 		});
 
-		$this->addHookProperty("Page(template=product)::pricing", function(HookEvent $event) {
+		$m->addHookProperty("Page(template=$tpl)::pricing", function(HookEvent $event) {
 			/** @var Page */
 			$page = $event->object;
 			$SERVICE = PricingService::instance();
@@ -56,7 +46,7 @@ class PageProduct extends WireData {
 			$event->return  = $page->aPricing;
 		});
 
-		$this->addHookProperty("Page(template=product)::itm", function(HookEvent $event) {
+		$m->addHookProperty("Page(template=$tpl)::itm", function(HookEvent $event) {
 			/** @var Page */
 			$page = $event->object;
 			
@@ -69,7 +59,7 @@ class PageProduct extends WireData {
 			$event->return = $page->aItm;
 		});
 
-		$this->addHookProperty("Page(template=product)::listprice", function(HookEvent $event) {
+		$m->addHookProperty("Page(template=$tpl)::listprice", function(HookEvent $event) {
 			/** @var Page */
 			$page = $event->object;
 
@@ -81,7 +71,7 @@ class PageProduct extends WireData {
 			$event->return = $page->aListprice;
 		});
 
-		$this->addHookProperty("Page(template=product)::sellprice", function(HookEvent $event) {
+		$m->addHookProperty("Page(template=$tpl)::sellprice", function(HookEvent $event) {
 			/** @var Page */
 			$page = $event->object;
 
@@ -98,7 +88,7 @@ class PageProduct extends WireData {
 			$event->return    = $page->aSellprice;
 		});
 
-		$this->addHookProperty("Page(template=product)::qtyInStock", function(HookEvent $event) {
+		$m->addHookProperty("Page(template=$tpl)::qtyInStock", function(HookEvent $event) {
 			/** @var Page */
 			$page = $event->object;
 			if ($page->has('aQtyInStock')) {
