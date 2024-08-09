@@ -8,14 +8,16 @@ use App\Pw\Roles;
  * App
  * Container for Application Config Data
  * 
- * @property bool $requireLogin  Require Login to view Site?
- * @property bool $useDpay       Use Dpay?
- * @property bool $allowOrdering Allow User to Order Items
+ * @property bool $requireLogin             Require Login to view Site?
+ * @property bool $useDpay                  Use Dpay?
+ * @property bool $allowOrdering            Allow User to Order Items
+ * @property bool $requireLoginToOrder      Require Login to Order Items
  */
 class App extends AbstractConfig {
 	public function __construct() {
 		$this->requireLogin  = false;
 		$this->useDpay       = false;
 		$this->allowOrdering = false;
+		$this->requireLoginToOrder = false;
 	}
 }

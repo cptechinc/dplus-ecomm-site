@@ -18,4 +18,29 @@ class App extends AbstractConfigInitializer {
 	public function new() {
 		return new Configs\App();
 	}
+
+	/**
+	 * Update config
+	 * @param  Configs\App $config
+	 * @return void
+	 */
+	protected function hydrateConfig(Configs\AbstractConfig $config) {
+		$this->updateAllowOrdering($config);
+	}
+
+	/**
+	 * Update Allow Ordering Value
+	 * @param  Configs\App $config
+	 * @return bool
+	 */
+	private function updateAllowOrdering(Configs\App $config) {
+		if ($config->allowOrdering === false) {
+			return false;
+		}
+		if ($this->user->isLoggedinEcomm() === false) {
+			$config->allowOrdering = false;
+			return false;
+		}
+		return true;
+	}
 }
