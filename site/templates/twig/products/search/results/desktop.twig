@@ -19,9 +19,11 @@
 						{{ result.itemdescription }}
 					</div>
 					<p class="price text-right">${{ result.sellprice|currency }}</p>
-					<div>
-						{% include 'products/search/results/form-add-to-cart.twig' with {'itemID': result.itemid} %}
-					</div>
+					{% if config.app.allowOrdering %}
+						<div>
+							{% include 'products/search/results/form-add-to-cart.twig' with {'itemID': result.itemid} %}
+						</div>
+					{% endif %}
 				</div>
 			</div>
 		</div>
