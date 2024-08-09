@@ -55,8 +55,9 @@ class Product extends AbstractPwSelectors {
 	 */
 	public static function itemids(array $itemIDs) {
 		$t = self::TEMPLATE;
-		$itemids  = implode('|', $itemIDs);
-		$itemids = self::pwSanitizer()->selectorValue($itemids);
+		$itemids = implode('|', $itemIDs);
+		// TODO: sanitize each element for selector value
+		// $itemids = self::pwSanitizer()->selectorValue($itemids);
 		return "template=$t, itemid=$itemids";
 	}
 }
