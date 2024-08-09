@@ -1,7 +1,8 @@
 <?php namespace App\Ecomm\PageInstallers;
 // Propel ORM Library
-use Propel\Runtime\Util\PropelModelPager;
 use Propel\Runtime\ActiveRecord\ActiveRecordInterface as AbstractRecord;
+use Propel\Runtime\Collection\ObjectCollection;
+use Propel\Runtime\Util\PropelModelPager;
 // ProcessWire
 use ProcessWire\Page;
 use ProcessWire\Pages;
@@ -10,8 +11,6 @@ use Pauldro\ProcessWire\Installers\AbstractStaticPwInstaller;
 // Dplus
 use Dplus\Abstracts\AbstractFilterData;
 use Dplus\Abstracts\AbstractQueryWrapper;
-
-
 
 /**
  * AbstractDplusRecordInstaller
@@ -49,7 +48,21 @@ abstract class AbstractDplusRecordInstaller extends AbstractStaticPwInstaller {
 	 * @param  PropelModelPager[AbstractRecord] $list
 	 * @return array
 	 */
-	protected static function installPropelModelPagerList(PropelModelPager $list) {
+	public static function installPropelModelPagerList(PropelModelPager $list) {
+		$results = [];
+		
+		foreach ($list as $item) {
+			$results[$item->id] = static::installOneFromRecord($item);
+		}
+		return $results;
+	}
+
+	/**
+	 * Install Pages
+	 * @param  ObjectCollection[AbstractRecord] $list
+	 * @return array
+	 */
+	public static function installPropelObjectCollection(ObjectCollection $list) {
 		$results = [];
 		
 		foreach ($list as $item) {

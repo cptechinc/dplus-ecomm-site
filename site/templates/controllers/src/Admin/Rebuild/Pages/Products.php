@@ -3,6 +3,7 @@
 use ProcessWire\WireData;
 // Dplus
 use Dplus\Database\Tables\Item as ItemTable;
+use Dplus\Database\Tables\CodeTables\ItemGroup as ItemGroupTable;
 // App
 use App\Ecomm\PageInstallers\Products\AbstractInstaller as Installer;
 use App\Util\Data\JsonResultData as ResultData;
@@ -23,7 +24,7 @@ class Products extends AbstractJsonController {
 	1. Indexes
 ============================================================= */
 	public static function index(WireData $data) {
-		self::sanitizeParametersShort($data,  ['itemID|string']);
+		self::sanitizeParametersShort($data,  ['itemID|string', 'itemgroup|string']);
 
 		if (self::validatePwRole() === false) {
 			$result = new ResultData();
@@ -34,6 +35,9 @@ class Products extends AbstractJsonController {
 	
 		if ($data->itemID != '') {
 			return self::rebuildOne($data);
+		}
+		if ($data->itemgroup != '') {
+			return self::rebuildByItemGroup($data);
 		}
 		return self::rebuildAll($data);
 	}
@@ -61,6 +65,22 @@ class Products extends AbstractJsonController {
 		return $result->data;
 	}
 
+	private static function rebuildByItemGroup(WireData $data) {
+		$result = new ResultData();
+
+		if (ItemGroupTable::instance()->exists($data->itemgroup) === false) {
+			$result->error = true;
+			$result->msg = "Item Group '$data->itemgroup' not found";
+			return $result->data;
+		}
+		$ITEMS = ItemTable::instance();
+		$items = $ITEMS->findByItemids($ITEMS->itemidsByInvGroup($data->itemgroup));
+		$result->success = boolval(Installer::installPropelObjectCollection($items));
+		$result->error = $result->success === false;
+		$result->msg = "Installed " . sizeof(Installer::$results) . " Item Pages";
+		return $result->data;
+	}
+
 /* =============================================================
 	2. Validations / Permissions / Initializations
 ============================================================= */
@@ -68,6 +88,15 @@ class Products extends AbstractJsonController {
 /* =============================================================
 	3. Data Fetching / Requests / Retrieval
 ============================================================= */
+	/**
+	 * Return ItemIDs that are associated with ItemGroup
+	 * @param  string $id
+	 * @return array
+	 */
+	private static function findItemidsByItemGroup($id) {
+		return ItemTable::instance()->itemidsByInvGroup($id);
+	}
+
 
 /* =============================================================
 	4. URLs

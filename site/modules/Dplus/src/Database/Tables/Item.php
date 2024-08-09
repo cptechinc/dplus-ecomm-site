@@ -1,5 +1,6 @@
 <?php namespace  Dplus\Database\Tables;
 // Propel ORM Library
+use Propel\Runtime\Collection\ObjectCollection;
 	// use Propel\Runtime\ActiveQuery\ModelCriteria as AbstractQuery;
 	// use Propel\Runtime\Util\PropelModelPager;
 // Dplus Models
@@ -91,6 +92,17 @@ class Item extends AbstractQueryWrapper {
 		$q->filterByItemgroup($id);
 		$q->select(Record::aliasproperty('itemid'));
 		return $q->find()->toArray();
+	}
+
+	/**
+	 * Return Items that match Item IDs
+	 * @param  array $ids
+	 * @return ObjectCollection
+	 */
+	public function findByItemids(array $ids) {
+		$q = $this->query();
+		$q->filterByItemid($ids);
+		return $q->find();
 	}
 
 /* =============================================================
