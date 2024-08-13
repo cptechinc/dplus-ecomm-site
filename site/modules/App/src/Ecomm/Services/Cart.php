@@ -116,11 +116,14 @@ class Cart extends AbstractEcommCrudService {
 			case 'remove-from-cart':
 				return $this->processRemoveFromCart($input);
 				break;
+			case 'update-item-qty':
+				return $this->processUpdateItemQty($input);
+				break;
 		}
 	}
 
 	/**
-	 * Parse Cart, send Request
+	 * Parse Add to Cart
 	 * @param  WireInputData $input
 	 * @return bool
 	 */
@@ -147,11 +150,25 @@ class Cart extends AbstractEcommCrudService {
 		return $this->exists($data->itemID) === false;
 	}
 
+	/**
+	 * Parse Update Item's Qty
+	 * @param  WireInputData $input
+	 * @return bool
+	 */
+	private function processUpdateItemQty(WireInputData $input) {
+		$data = new WireData();
+		$data->itemID = $input->string('itemID');
+		$data->qty    = $input->int('qty', ['min' => 1]);
+		$this->requestUpdateItemQty($data);
+		$afterQty = $this->itemidQty($data->itemID);
+		return $afterQty == $data->qty;
+	}
+
 /* =============================================================
 	Dplus Requests
 ============================================================= */
 	/**
-	 * Write Add to Cart Request File
+	 * Request Add Item to Cart
 	 * @param  WireData $data
 	 * @return bool
 	 */
@@ -161,12 +178,22 @@ class Cart extends AbstractEcommCrudService {
 	}
 
 	/**
-	 * Write Remove from Cart Request File
+	 * Request Remove Item from Cart
 	 * @param  WireData $data
 	 * @return bool
 	 */
 	private function requestRemoveFromCart(WireData $data) {
 		$rqst =  ['ADDTOCART', "ITEMID=$data->itemID", "QTY=0"];
+		return $this->writeRqstUpdateDplus($rqst);
+	}
+
+	/**
+	 * Request Item Qty Update
+	 * @param  WireData $data
+	 * @return bool
+	 */
+	private function requestUpdateItemQty(WireData $data) {
+		$rqst =  ['ADDTOCART', "ITEMID=$data->itemID", "QTY=$data->qty"];
 		return $this->writeRqstUpdateDplus($rqst);
 	}
 }

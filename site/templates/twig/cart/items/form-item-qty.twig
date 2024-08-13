@@ -1,0 +1,6 @@
+<form action="{{ input.paginateUrl(1) }}" method="POST">
+	<input type="hidden" name="action" value="update-item-qty">
+	<input type="hidden" name="linenbr" value="{{ item.linenbr}}">
+	<input type="hidden" name="itemID" value="{{ item.itemid }}">
+	<input type="number" class="form-control form-control-sm item-qty" name="qty" value="{{ item.qty|number_format(0) }}" required>
+</form>

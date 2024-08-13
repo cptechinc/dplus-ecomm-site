@@ -28,7 +28,7 @@ class Cart extends AbstractController {
 		}
 
 		self::initPageHooks();
-		// self::appendJs($data);
+		self::appendJs($data);
 		$items = Service::instance()->items();
 		return self::display($data, $items);
 	}
@@ -89,23 +89,23 @@ class Cart extends AbstractController {
 	 * @param  WireData $data
 	 * @return array
 	 */
-	// protected static function getJsScriptPaths(WireData $data) {
-	// 	$jsPath = 'scripts/pages/cart/';
-	// 	$filenames = ['classes/Requests.js', 'page.js'];
-	// 	$scripts = [];
+	protected static function getJsScriptPaths(WireData $data) {
+		$jsPath = 'scripts/pages/cart/';
+		$filenames = ['page.js'];
+		$scripts = [];
 
-	// 	foreach ($filenames as $filename) {
-	// 		$scripts[] = $jsPath . $filename;
-	// 	}
-	// 	return $scripts;
-	// }
+		foreach ($filenames as $filename) {
+			$scripts[] = $jsPath . $filename;
+		}
+		return $scripts;
+	}
 
-	// protected static function appendJs(WireData $data, $scripts = []) {
-	// 	self::appendJsJqueryValiudate();
+	protected static function appendJs(WireData $data, $scripts = []) {
+		// self::appendJsJqueryValiudate();
 
-	// 	$scripts = self::getJsScriptPaths($data);
-	// 	parent::appendJs($data, $scripts);
-	// }
+		$scripts = self::getJsScriptPaths($data);
+		parent::appendJs($data, $scripts);
+	}
 
 /* =============================================================
 	9. Hooks / Object Decorating

@@ -20,7 +20,9 @@
 						<b>{{ item.itemid }}</b><br>
 						{{ item.desc1 }}
 					</div>
-					<div class="col-1 text-right">{{ item.qty|number_format(0) }}</div>
+					<div class="col-1 text-right">
+						{% include 'cart/items/form-item-qty.twig' %}
+					</div>
 					<div class="col-2 text-right">${{ item.price|currency }}</div>
 					<div class="col-2 text-right">${{ item.amount|currency }}</div>
 					<div class="col-2 text-right">
