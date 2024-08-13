@@ -1,9 +1,11 @@
 <?php namespace ProcessWire;
 
-// include_once(__DIR__.'/vendor/autoload.php');
+include_once(__DIR__.'/vendor/autoload.php');
 
-// Dplus
-use Dplus\Database;
+// Dotenv
+use Dotenv;
+// Dpay
+use Dpay\Db\Database;
 
 /**
  * Dpay
@@ -11,8 +13,20 @@ use Dplus\Database;
  */
 class Dpay extends WireData implements Module {
 	public function init() {
-		
+		$this->initEnv();
+		$this->initDb();
 	}
+
+	public function initEnv() {
+		$env = Dotenv\Dotenv::createImmutable(__DIR__);
+		$env->load();
+	}
+
+	public function initDb() {
+		Database::connect();
+	}
+
+
 
 	public static function getModuleInfo() {
 		$infoArray = array(
