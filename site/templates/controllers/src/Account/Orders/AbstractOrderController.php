@@ -4,12 +4,13 @@ use Propel\Runtime\ActiveRecord\ActiveRecordInterface as AbstractOrder;
 // ProcessWire
 use ProcessWire\HookEvent;
 use ProcessWire\WireData;
+// Dpay
+use Dpay\Db\Tables\PaymentLinks;
 // Dplus
 use Dplus\Database\Tables\AbstractOrderTable;
 use Dplus\Docm\Finders\SalesOrder as DOCM;
 // Controllers
 use Controllers\Abstracts\AbstractController;
-
 
 /**
  * AbstractOrderController
@@ -181,6 +182,14 @@ abstract class AbstractOrderController extends AbstractController {
 
 		$m->addHook("$selector::findOrderDocuments", function(HookEvent $event) {
 			$event->return = DOCM::find($event->arguments(0));
+		});
+
+		$m->addHook("$selector::hasPaymentLink", function(HookEvent $event) {
+			$event->return = PaymentLinks::instance()->existsByOrdn($event->arguments(0));
+		});
+
+		$m->addHook("$selector::fetchPaymentLink", function(HookEvent $event) {
+			$event->return = PaymentLinks::instance()->recordByOrdn($event->arguments(0));
 		});
 	}
 }
