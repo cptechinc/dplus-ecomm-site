@@ -35,5 +35,13 @@
 {% endblock %}
 	
 {% block totals %}
-	
+	{% for total in totals  %}
+		<div class="list-group-item py-1 {{ browseragent.isMobile() ? 'px-2' : '' }}">
+			<div class="row">
+				<div class="col-6"></div>
+				<div class="col-3 text-right text-bold">{{ total.label }}</div>
+				<div class="col-3 text-right">${{ total.amount|currency }}</div>
+			</div>
+		</div>
+	{% endfor %}
 {% endblock %}

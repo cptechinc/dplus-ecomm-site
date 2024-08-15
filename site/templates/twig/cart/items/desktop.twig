@@ -12,7 +12,7 @@
 		{% endblock %}
 	</div>
 
-	{% for item in items %}
+	{% for item in cart.items %}
 		<div class="list-group-item {{ browseragent.isMobile() ? 'px-2' : '' }}">
 			{% block item_display %}
 				<div class="row">
@@ -34,8 +34,36 @@
 			{% endblock %}
 		</div>
 	{% endfor %}
+
+	{% set totals = {
+		'subtotal': {
+			'label': 'Subtotal',
+			'amount': cart.totals.subtotal,
+		},
+		'shipping': {
+			'label': 'Shipping',
+			'amount': cart.totals.shipping,
+		},
+		'tax': {
+			'label': 'Tax',
+			'amount': cart.totals.tax,
+		},
+		'total': {
+			'label': 'Total',
+			'amount': cart.totals.total(),
+		},
+	} %}
 	
 	{% block totals %}
-		
+		{% for total in totals  %}
+			<div class="list-group-item py-1 {{ browseragent.isMobile() ? 'px-2' : '' }}">
+				<div class="row">
+					<div class="col-5"></div>
+					<div class="col-1 text-right"></div>
+					<div class="col-2 text-right text-bold">{{ total.label }}</div>
+					<div class="col-2 text-right">${{ total.amount|currency }}</div>
+				</div>
+			</div>
+		{% endfor %}
 	{% endblock %}
 </div>

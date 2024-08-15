@@ -1,0 +1,33 @@
+{% import "util/macros/html.twig" as html %}
+
+<div class="products-big">
+	<div class="row products">
+		{% for result in results %}
+		<div class="col-6">
+			<div class="product">
+				{% if 100 == 1 %}
+				<div class="image">
+					<a href="{{ result.url }}">
+						<img src="img/product1.jpg" alt="" class="img-fluid image1">
+					</a>
+				</div>
+				{% endif %}
+				<div class="text text-left">
+					<h3 class="h5 mb-1">
+						<a href="{{ result.url }}">{{ result.itemid }}</a>
+					</h3>
+					<div class="description">
+						{{ result.itemdescription }}
+					</div>
+					<p class="price text-right">${{ result.sellprice|currency }}</p>
+					{% if config.app.allowOrdering %}
+						<div>
+							{% include 'products/search/results/form-add-to-cart.twig' with {'itemID': result.itemid} %}
+						</div>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	{% endfor %}
+	</div>
+</div>
