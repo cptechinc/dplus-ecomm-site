@@ -100,6 +100,29 @@ class Cart extends AbstractEcommCrudService {
 		return $this->table->countItems($this->sessionID);
 	}
 
+	/**
+	 * Return the number of cart items
+	 * @return WireData
+	 */
+	public function totals() {
+		$data = new Cart\Data\Totals();
+		$data->subtotal = $this->table->subtotal($this->sessionID);
+		$data->shipping = $this->table->shipping($this->sessionID);
+		$data->tax      = $this->table->taxAmount($this->sessionID);
+		return $data;
+	}
+
+	/**
+	 * Return Cart Data
+	 * @return Cart\Data\Cart
+	 */
+	public function cart() {
+		$cart = new Cart\Data\Cart();
+		$cart->items  = $this->items();
+		$cart->totals = $this->totals();
+		return $cart;
+	}
+
 /* =============================================================
 	CRUD Processing
 ============================================================= */
