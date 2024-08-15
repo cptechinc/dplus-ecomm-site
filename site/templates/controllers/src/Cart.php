@@ -14,7 +14,7 @@ use ProcessWire\HookEvent;
  */
 class Cart extends AbstractOrderingController {
 	const SESSION_NS = 'cart';
-	const TEMPLATE = 'cart';
+	const TEMPLATE   = 'cart';
 
 /* =============================================================
 	1. Indexes
@@ -37,7 +37,7 @@ class Cart extends AbstractOrderingController {
 	}
 
 	public static function process(WireData $data) {
-		if (self::init()) {
+		if (self::init() === false) {
 			return false;
 		}
 		$fields = ['action|text', 'itemID|string', 'qty|int'];
