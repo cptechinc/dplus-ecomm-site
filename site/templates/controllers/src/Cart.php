@@ -3,6 +3,7 @@
 use ProcessWire\WireData;
 // App
 use App\Ecomm\Services\Cart as Service;
+use App\Ecomm\Services\Cart\Data;
 // Controllers
 use Controllers\Abstracts\AbstractController;
 use ProcessWire\HookEvent;
@@ -29,8 +30,8 @@ class Cart extends AbstractController {
 
 		self::initPageHooks();
 		self::appendJs($data);
-		$items = Service::instance()->items();
-		return self::display($data, $items);
+		$cart = Service::instance()->cart();
+		return self::display($data, $cart);
 	}
 
 	public static function process(WireData $data) {
@@ -66,15 +67,15 @@ class Cart extends AbstractController {
 /* =============================================================
 	5. Displays
 ============================================================= */
-	private static function display(WireData $data, ObjectCollection $items) {
-		return self::render($data, $items);
+	private static function display(WireData $data, Data\Cart $cart) {
+		return self::render($data, $cart);
 	}
 
 /* =============================================================
 	6. HTML Rendering
 ============================================================= */
-	private static function render(WireData $data, ObjectCollection $items) {
-		return self::getTwig()->render('cart/page.twig', ['items' => $items]);
+	private static function render(WireData $data, Data\Cart $cart) {
+		return self::getTwig()->render('cart/page.twig', ['cart' => $cart]);
 	}
 
 /* =============================================================
