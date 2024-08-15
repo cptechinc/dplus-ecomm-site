@@ -5,5 +5,11 @@
 		<h2>{{ page.title }}</h2>
 	</div>
 	
-	{% include 'cart/items.twig' %}
+	<div class="mb-2">
+		{% include 'cart/items.twig' %}
+	</div>
+
+	<a href="#" class="btn btn-block {{ CSS.colors.buttons.getClass('submit') }} text-white">
+		{{ html.iconType({'type': 'cart'}) }} Checkout
+	</a>
 </section>
