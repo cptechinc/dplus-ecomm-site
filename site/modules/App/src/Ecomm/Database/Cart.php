@@ -14,10 +14,10 @@ use Dplus\Abstracts\AbstractQueryWrapper;
  * @static self  $instance
  */
 class Cart extends AbstractQueryWrapper {
-	const MODEL              = 'Cart';
-	const MODEL_KEY          = 'sessionid,itemid';
-	const MODEL_TABLE        = 'pricing';
-	const DESCRIPTION        = 'Ecomm session pricing table';
+	const MODEL 			 = 'Cart';
+	const MODEL_KEY 		 = 'sessionid,itemid';
+	const MODEL_TABLE		 = 'pricing';
+	const DESCRIPTION		 = 'Ecomm session pricing table';
 	const YN_TRUE = 'Y';
 
 	protected static $instance;
@@ -107,5 +107,42 @@ class Cart extends AbstractQueryWrapper {
 		$q = $this->querySession($sessionID);
 		$q->filterByItemid('', '!=');
 		return $q->count();
+	}
+
+	/**
+	 * Return Tax Amount
+	 * @param  string $sessionID
+	 * @return float
+	 */
+	public function taxAmount($sessionID = '') {
+		$q = $this->querySession($sessionID);
+		$q->filterByDesc1('TAX');
+		$q->select('amount');
+		return floatval($q->findOne());
+	}
+
+	/**
+	 * Return Subtotal
+	 * @param  string $sessionID
+	 * @return float
+	 */
+	public function subtotal($sessionID = '') {
+		$q = $this->querySession($sessionID);
+		$q->filterByDesc1('ITEM SUBTOTAL');
+		$q->select('amount');
+		return floatval($q->findOne());
+	}
+
+	/**
+	 * Return Shipping Cost
+	 * @param  string $sessionID
+	 * @return float
+	 */
+	public function shipping($sessionID = '') {
+		$q = $this->querySession($sessionID);
+		$q->filterByDesc1('FREIGHT');
+		$q->filterByAmount('99999.99', '!=');
+		$q->select('amount');
+		return floatval($q->findOne());
 	}
 }
