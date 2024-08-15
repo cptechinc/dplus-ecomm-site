@@ -92,6 +92,29 @@ abstract class AbstractController extends ParentController {
 		return false;
 	}
 
+	/**
+	 * Return if Ordering is allowed Via config
+	 * @param  WireData|null $data
+	 * @return bool
+	 */
+	protected static function isOrderingAllowed(WireData $data = null) {
+		/** @var AppConfig */
+		$config = self::pw('config')->app;
+		return $config->allowOrdering;
+	}
+
+	/**
+	 * Check if ordering is allowed, if so redirect to home page
+	 * @return bool
+	 */
+	protected static function initOrdering(WireData $data = null) {
+		if (self::isOrderingAllowed() === false) {
+			self::getPwSession()->redirect(self::pw('pages')->get('/')->url, $http301=false);
+			return false;
+		}
+		return true;
+	}
+
 /* =============================================================
 	3. Data Fetching / Requests / Retrieval
 ============================================================= */

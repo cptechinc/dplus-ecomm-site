@@ -5,15 +5,14 @@ use ProcessWire\WireData;
 use App\Ecomm\Services\Cart as Service;
 use App\Ecomm\Services\Cart\Data;
 // Controllers
-use Controllers\Abstracts\AbstractController;
+use Controllers\Abstracts\AbstractOrderingController;
 use ProcessWire\HookEvent;
-use Propel\Runtime\Collection\ObjectCollection;
 
 /**
  * Cart
  * Handles Cart Page
  */
-class Cart extends AbstractController {
+class Cart extends AbstractOrderingController {
 	const SESSION_NS = 'cart';
 	const TEMPLATE = 'cart';
 
@@ -21,6 +20,9 @@ class Cart extends AbstractController {
 	1. Indexes
 ============================================================= */
 	public static function index(WireData $data) {
+		if (self::init() === false) {
+			return false;
+		}
 		$fields = ['action|text'];
 		self::sanitizeParametersShort($data, $fields);
 		
@@ -35,6 +37,9 @@ class Cart extends AbstractController {
 	}
 
 	public static function process(WireData $data) {
+		if (self::init()) {
+			return false;
+		}
 		$fields = ['action|text', 'itemID|string', 'qty|int'];
 		self::sanitizeParametersShort($data, $fields);
 
