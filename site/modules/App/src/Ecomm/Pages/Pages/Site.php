@@ -38,6 +38,12 @@ class Site extends AbstractPageBuilder {
 			'template' => 'cart',
 			'parentSelector'   => '/',
 		],
+		'checkout' => [
+			'name'     => 'checkout',
+			'title'    => 'Checkout',
+			'template' => 'checkout',
+			'parentSelector'   => '/',
+		],
 		'config' => [
 			'name'     => 'config',
 			'title'    => 'Config',

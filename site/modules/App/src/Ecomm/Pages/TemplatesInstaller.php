@@ -18,6 +18,7 @@ class TemplatesInstaller extends ParentInstaller {
 		'admin-site'  => Templates\AdminSite::class,
 		'admin-site-rebuild' => Templates\AdminSiteRebuild::class,
 		'cart'        => Templates\Cart::class,
+		'checkout'    => Templates\Checkout::class,
 		'login'       => Templates\Login::class,
 		'account'     => Templates\Account::class,
 		'product'     => Templates\Product::class,
