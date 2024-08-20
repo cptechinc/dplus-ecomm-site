@@ -3,6 +3,7 @@
 use Billing;
 // ProcessWire
 use ProcessWire\WireData;
+use ProcessWire\WireInputData;
 
 /**
  * Form
@@ -61,10 +62,19 @@ class Form extends WireData {
 		$this->trackChanges(true);
 	}
 
+	/**
+	 * Return if Record has an Error
+	 * @return bool
+	 */
 	public function hasError() {
 		return $this->error;
 	}
 
+	/**
+	 * Set Values from Billing Record
+	 * @param  Billing $b
+	 * @return void
+	 */
 	public function setFromBilling(Billing $b) {
 		foreach (self::BILLING_KEYMAP as $thisField => $bField) {
 			$this->$thisField = $b->$bField;
