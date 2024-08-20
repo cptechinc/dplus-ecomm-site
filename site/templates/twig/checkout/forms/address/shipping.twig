@@ -1,0 +1,32 @@
+<h3>Shipping</h3>
+
+<div class="form-group">
+	<label for="shiptoname">Name <span class="text-required text-size-1p2rem text-bold">*</span></label>
+	{% include 'checkout/forms/abstract/inputs/x-textfield.twig' with {'name': 'shiptoname', 'value': form.shiptoname, 'required': true, 'autocomplete': 'shiping name'} %}
+</div>
+<div class="form-group">
+	<label for="shiptocompany">Organization </label>
+	{% include 'checkout/forms/abstract/inputs/x-textfield.twig' with {'name': 'shiptocompany', 'value': form.shiptocompany, 'required': false, 'autocomplete': 'shiping organization'} %}
+</div>
+<div class="form-group">
+	<label for="shiptoaddress1">Address <span class="text-required text-size-1p2rem text-bold">*</span></label>
+	{% include 'checkout/forms/abstract/inputs/x-addressx.twig' with {'name': 'shiptoaddress1', 'value': form.shiptoaddress1, 'required': true, 'autocomplete': 'shiping street-address'} %}
+</div>
+<div class="form-group">
+	<label for="shiptoaddress2">Address2</label>
+	{% include 'checkout/forms/abstract/inputs/x-addressx.twig' with {'name': 'shiptoaddress2', 'value': form.shiptoaddress2, 'required': true, 'autocomplete': 'shiping address-line2'} %}
+</div>
+<div class="row">
+	<div class="col-sm-4">
+		<label for="shiptocity">City <span class="text-required text-size-1p2rem text-bold">*</span></label>
+		{% include 'checkout/forms/abstract/inputs/x-textfield.twig' with {'name': 'shiptocity', 'value': form.shiptocity, 'required': true, 'autocomplete': 'shiping address-level2'} %}
+	</div>
+	<div class="col-sm-4">
+		<label for="shiptostate">State <span class="text-required text-size-1p2rem text-bold">*</span></label>
+		{% include 'checkout/forms/abstract/inputs/x-addressx.twig' with {'name': 'shiptostate', 'value': form.shiptostate, 'required': true, 'autocomplete': 'shiping address-level1'} %}
+	</div>
+	<div class="col-sm-4">
+		<label for="shiptozip">Zip <span class="text-required text-size-1p2rem text-bold">*</span></label>
+		{% include 'checkout/forms/abstract/inputs/x-textfield.twig' with {'name': 'shiptozip', 'value': form.shiptozip, 'required': true, 'autocomplete': 'shiping postal-code'} %}
+	</div>
+</div>

@@ -1,0 +1,14 @@
+
+{% import "util/macros/html.twig" as html %}
+
+{% if form.hasError() %}
+	<div class="mb-3">
+		{{ html.alert({'type': 'danger', 'icon': {'type': 'warning'}, 'title': form.errormsg}) }}
+	</div>
+{% endif %}
+
+<form action="{{ page.url }}" method="POST" id="{{ id ? id : 'billing-form' }}">
+	{% block fields %}
+
+	{% endblock %}
+</form>

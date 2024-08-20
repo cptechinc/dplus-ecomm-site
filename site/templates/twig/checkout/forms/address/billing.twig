@@ -1,0 +1,32 @@
+<h3>Billing</h3>
+
+<div class="form-group">
+	<label for="billtoname">Name <span class="text-required text-size-1p2rem text-bold">*</span></label>
+	{% include 'checkout/forms/abstract/inputs/x-textfield.twig' with {'name': 'billtoname', 'value': form.billtoname, 'required': true, 'autocomplete': 'billing name'} %}
+</div>
+<div class="form-group">
+	<label for="billtocompany">Organization </label>
+	{% include 'checkout/forms/abstract/inputs/x-textfield.twig' with {'name': 'billtocompany', 'value': form.billtocompany, 'required': false, 'autocomplete': 'billing organization'} %}
+</div>
+<div class="form-group">
+	<label for="billtoaddress1">Address <span class="text-required text-size-1p2rem text-bold">*</span></label>
+	{% include 'checkout/forms/abstract/inputs/x-addressx.twig' with {'name': 'billtoaddress1', 'value': form.billtoaddress1, 'required': true, 'autocomplete': 'billing street-address'} %}
+</div>
+<div class="form-group">
+	<label for="billtoaddress2">Address2</label>
+	{% include 'checkout/forms/abstract/inputs/x-addressx.twig' with {'name': 'billtoaddress2', 'value': form.billtoaddress2, 'required': true, 'autocomplete': 'billing address-line2'} %}
+</div>
+<div class="row">
+	<div class="col-sm-4">
+		<label for="billtocity">City <span class="text-required text-size-1p2rem text-bold">*</span></label>
+		{% include 'checkout/forms/abstract/inputs/x-textfield.twig' with {'name': 'billtocity', 'value': form.billtocity, 'required': true, 'autocomplete': 'billing address-level2'} %}
+	</div>
+	<div class="col-sm-4">
+		<label for="billtostate">State <span class="text-required text-size-1p2rem text-bold">*</span></label>
+		{% include 'checkout/forms/abstract/inputs/x-addressx.twig' with {'name': 'billtostate', 'value': form.billtostate, 'required': true, 'autocomplete': 'billing address-level1'} %}
+	</div>
+	<div class="col-sm-4">
+		<label for="billtozip">Zip <span class="text-required text-size-1p2rem text-bold">*</span></label>
+		{% include 'checkout/forms/abstract/inputs/x-textfield.twig' with {'name': 'billtozip', 'value': form.billtozip, 'required': true, 'autocomplete': 'billing postal-code'} %}
+	</div>
+</div>

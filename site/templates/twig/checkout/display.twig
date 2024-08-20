@@ -1,0 +1,28 @@
+{% import "util/macros/html.twig" as html %}
+
+{% set checkoutSteps = page.checkoutSteps() %}
+{% set stepsCompleted = session.getFor('checkout', 'steps') %}
+{% set currentStep = stepsCompleted.index + 1 %}
+
+<div class="accordion" id="accordionCheckout">
+	{% for step in checkoutSteps %}
+		<div class="card checkout-step mb-0" data-step="{{ loop.index }}">
+			<div class="card-header" id="{{ step.id }}-heading">
+				<h2 class="mb-0">
+					<a href="#{{ step.id }}-body" class="btn-block text-left" type="button" data-toggle="collapse" data-target="#{{ step.id }}-body" aria-expanded="{{ loop.index == 1 ? 'true' : 'false'}}" aria-controls="#{{ step.id }}-body">
+						<i aria-hidden="true" class="{{ CSS.icons.getClass('complete') }} text-success success-icon collapse {{ stepsCompleted.data[step.id] == true ? 'show' : ''}}"></i> 
+						{{ loop.index }}. {{ html.iconType({'type': step.icon}) }} {{ step.title }}
+					</a>
+				</h2>
+			</div>
+
+			<div id="{{ step.id }}-body" class="collapse {{ loop.index == currentStep ? 'show' : ''}}" aria-labelledby="{{ step.id }}-heading" data-parent="#accordionCheckout">
+				<div class="card-body pt-2">
+					{% if TWIGLOADER.exists('checkout/forms/' ~  step.id ~ '.twig') %}
+						{% include 'checkout/forms/' ~  step.id ~ '.twig' %}
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	{% endfor %}
+</div>
