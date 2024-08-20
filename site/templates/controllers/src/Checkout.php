@@ -44,11 +44,11 @@ class Checkout extends AbstractOrderingController {
 		if (self::init() === false) {
 			return false;
 		}
-		$fields = ['action|text', 'itemID|string', 'qty|int'];
+		$fields = ['action|text'];
 		self::sanitizeParametersShort($data, $fields);
 
-		$CART = Service::instance();
-		$CART->process($data);
+		$SERVICE = Service::instance();
+		$SERVICE->process($data);
 
 		self::getPwSession()->redirect(self::url(), $http301=false);
 		return true;
