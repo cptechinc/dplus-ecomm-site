@@ -23,7 +23,7 @@
 	</div>
 	<div class="col-sm-4">
 		<label for="billtostate">State <span class="text-required text-size-1p2rem text-bold">*</span></label>
-		{% include 'checkout/forms/abstract/inputs/x-addressx.twig' with {'name': 'billtostate', 'value': form.billtostate, 'required': true, 'autocomplete': 'billing address-level1'} %}
+		{% include 'checkout/forms/abstract/inputs/x-state.twig' with {'name': 'billtostate', 'value': form.billtostate, 'required': true, 'autocomplete': 'billing address-level1'} %}
 	</div>
 	<div class="col-sm-4">
 		<label for="billtozip">Zip <span class="text-required text-size-1p2rem text-bold">*</span></label>
