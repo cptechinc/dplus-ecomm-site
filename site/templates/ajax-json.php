@@ -1,5 +1,6 @@
 <?php
 use Controllers\Ajax\Json\Cart;
+use Controllers\Ajax\Json\Checkout;
 
 $routes = [
 	'cart' => [
@@ -7,6 +8,10 @@ $routes = [
 			['GET', '', Cart::class, 'addToCart'],
 			['POST', '', Cart::class, 'addToCart'],
 		]
+	],
+	'checkout' => [
+		['GET', '', Checkout::class, 'process'],
+		['POST', '', Checkout::class, 'process'],
 	]
 ];
 $router = new Mvc\Routers\Json();
