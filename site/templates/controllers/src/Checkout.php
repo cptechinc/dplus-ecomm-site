@@ -48,13 +48,15 @@ class Checkout extends AbstractOrderingController {
 		self::sanitizeParametersShort($data, $fields);
 
 		$SERVICE = Service::instance();
-		$SERVICE->process($data);
+		$data->success = $SERVICE->process($data);
+		self::updateCompletedStepsAfterProcessing($data);
 
 		self::getPwSession()->redirect(self::url(), $http301=false);
 		return true;
 	}
 
 	private static function checkout(WireData $data) {
+		self::initCompletedSteps();
 		$form = self::fetchFormData($data);
 	
 		self::initPageHooks();
@@ -81,6 +83,23 @@ class Checkout extends AbstractOrderingController {
 			self::getPwSession()->redirect(Cart::url(), $http301=false);
 			return false;
 		}
+		return true;
+	}
+
+	/**
+	 * Initialize Completed Steps DAta
+	 * @return bool
+	 */
+	public static function initCompletedSteps() {
+		if (empty(self::getSessionVar('steps')) === false) {
+			return true;
+		}
+		$steps = new WireData();
+		$steps->address  = false;
+		$steps->shipping = false;
+		$steps->payment  = false;
+		$steps->index    = 0;
+		self::setSessionVar('steps', $steps->data);
 		return true;
 	}
 
@@ -119,6 +138,24 @@ class Checkout extends AbstractOrderingController {
 		return $steps;
 	}
 
+	/**
+	 * Return Completed Steps from Session
+	 * @return WireData
+	 */
+	public static function fetchCompletedSteps() {
+		$steps = new WireData();
+		$steps->address  = false;
+		$steps->shipping = false;
+		$steps->payment  = false;
+		$steps->index    = 0;
+		$data = self::getSessionVar('steps');
+
+		if (empty($data)) {
+			return $steps;
+		}
+		$steps->setArray($data);
+		return $steps;
+	}
 
 /* =============================================================
 	4. URLs
@@ -154,8 +191,8 @@ class Checkout extends AbstractOrderingController {
 	 * @return array
 	 */
 	protected static function getJsScriptPaths(WireData $data) {
-		$jsPath = 'scripts/pages/cart/';
-		$filenames = ['page.js'];
+		$jsPath = 'scripts/pages/checkout/';
+		$filenames = ['classes/Requests.js', 'address/classes/Form.js', 'address/form.js'];
 		$scripts = [];
 
 		foreach ($filenames as $filename) {
@@ -165,10 +202,34 @@ class Checkout extends AbstractOrderingController {
 	}
 
 	protected static function appendJs(WireData $data, $scripts = []) {
-		// self::appendJsJqueryValiudate();
+		self::appendJsJqueryValiudate();
 
 		$scripts = self::getJsScriptPaths($data);
 		parent::appendJs($data, $scripts);
+	}
+
+	/**
+	 * Update Completed Steps after Processing
+	 * @param  WireData $data
+	 * @return bool
+	 */
+	public static function updateCompletedStepsAfterProcessing(WireData $data) {
+		if (empty($data->success)) {
+			return false;
+		}
+
+		$steps = self::fetchCheckoutSteps();
+		$completed = self::fetchCompletedSteps();
+		$stepsKeys = $steps->getKeys();
+		
+		switch($data->action) {
+			case 'update-address':
+				$completed->address = true;
+				$completed->index = array_search('address', $stepsKeys) + 1;
+				self::setSessionVar('steps', $completed->data);
+				return true;
+				break;
+		}
 	}
 
 /* =============================================================
