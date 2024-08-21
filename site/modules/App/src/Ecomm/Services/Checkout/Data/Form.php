@@ -37,9 +37,12 @@ use ProcessWire\WireInputData;
  * @property string $notes          Order Notes
  * // Payment
  * @property string $termscodetype  Terms Type
+ * @property string $paymentmethod  Payment Method
+ * @property string $cclast4        Last 4 Digits of Credit Card
  */
 class Form extends WireData {
 	const DEFAULT_TERMSCODETYPE = 'STD';
+	const DEFAULT_PAYMENTMETHOD = 'cc';
 	const FIELDS_STRING = [
 		'billtoname', 'billtocompany',
 		'billtoaddress1', 'billtoaddress2',
@@ -49,7 +52,8 @@ class Form extends WireData {
 		'shiptocity', 'shiptostate', 'shiptozip',
 		'phonenbr', 'email',
 		'custpo', 'shipviacode', 'notes',
-		'termscodetype'
+		'termscodetype', 'paymentmethod',
+		'cclast4',
 	];
 	const BILLING_KEYMAP = [
 		'errormsg'       => 'ermes',
@@ -75,9 +79,15 @@ class Form extends WireData {
 		'shipcomplete'   => 'shipcom',
 		'custpo'         => 'pono',
 		'termscodetype'  => 'termtype',
+		'paymentmethod'  => 'paytype'
 	];
 	const BOOL_YN_FIELDS = [
 		'shipcomplete'
+	];
+	const OPTIONS_PAYMENTMETHODS = [
+		'bill' => 'Bill to Account',
+		'cc'   => 'Credit Card',
+		'cod'  => 'Collect on Delivery'
 	];
 
 /* =============================================================
@@ -90,6 +100,8 @@ class Form extends WireData {
 		$this->error = false;
 		$this->shipcomplete = true;
 		$this->termscodetype = self::DEFAULT_TERMSCODETYPE;
+		$this->paymentmethod = self::DEFAULT_PAYMENTMETHOD;
+		$this->cclast4 = '';
 		$this->trackChanges(true);
 	}
 
@@ -110,6 +122,10 @@ class Form extends WireData {
 			$this->$thisField = $b->$bField;
 		}
 		$this->error = $b->error == 'Y';
+
+		if ($this->paymentmethod == '') {
+			$this->paymentmethod = self::DEFAULT_PAYMENTMETHOD;
+		}
 	}
 
 /* =============================================================
@@ -121,5 +137,37 @@ class Form extends WireData {
 	 */
 	public function hasError() {
 		return $this->error;
+	}
+
+	/**
+	 * Return if Terms Code Type is Standard
+	 * @return bool
+	 */
+	public function hasStdTerms() {
+		return $this->termscodetype == self::DEFAULT_TERMSCODETYPE;
+	}
+
+	/**
+	 * Return if Payment method is Bill-to-Account
+	 * @return bool
+	 */
+	public function isPaymentmethodBill() {
+		return $this->paymentmethod == 'bill';
+	}
+
+	/**
+	 * Return if Payment method is Credit Card
+	 * @return bool
+	 */
+	public function isPaymentmethodCreditCard() {
+		return $this->paymentmethod != 'bill' && $this->paymentmethod != 'cod';
+	}
+
+	/**
+	 * Return if Credit Card is on file
+	 * @return bool
+	 */
+	public function hasCreditCard() {
+		return $this->cclast4 != '';
 	}
 }
