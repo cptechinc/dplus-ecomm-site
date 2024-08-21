@@ -192,7 +192,7 @@ class Checkout extends AbstractOrderingController {
 	 */
 	protected static function getJsScriptPaths(WireData $data) {
 		$jsPath = 'scripts/pages/checkout/';
-		$filenames = ['classes/Requests.js', 'address/classes/Form.js', 'address/form.js'];
+		$filenames = ['classes/Requests.js', 'address/classes/Form.js', 'address/form.js', 'shipping/form.js'];
 		$scripts = [];
 
 		foreach ($filenames as $filename) {
