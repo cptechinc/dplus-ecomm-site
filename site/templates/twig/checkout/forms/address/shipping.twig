@@ -26,15 +26,15 @@
 	{% include 'checkout/forms/abstract/inputs/x-addressx.twig' with {'name': 'shiptoaddress2', 'value': form.shiptoaddress2, 'required': false, 'autocomplete': 'shiping address-line2'} %}
 </div>
 <div class="row">
-	<div class="col-sm-4">
+	<div class="col-sm-7">
 		<label for="shiptocity">City <span class="text-required text-size-1p2rem text-bold">*</span></label>
 		{% include 'checkout/forms/abstract/inputs/x-textfield.twig' with {'name': 'shiptocity', 'value': form.shiptocity, 'required': true, 'autocomplete': 'shiping address-level2'} %}
 	</div>
-	<div class="col-sm-4">
+	<div class="col-sm-2">
 		<label for="shiptostate">State <span class="text-required text-size-1p2rem text-bold">*</span></label>
 		{% include 'checkout/forms/abstract/inputs/x-state.twig' with {'name': 'shiptostate', 'value': form.shiptostate, 'required': true, 'autocomplete': 'shiping address-level1'} %}
 	</div>
-	<div class="col-sm-4">
+	<div class="col-sm-3">
 		<label for="shiptozip">Zip <span class="text-required text-size-1p2rem text-bold">*</span></label>
 		{% include 'checkout/forms/abstract/inputs/x-textfield.twig' with {'name': 'shiptozip', 'value': form.shiptozip, 'required': true, 'autocomplete': 'shiping postal-code'} %}
 	</div>

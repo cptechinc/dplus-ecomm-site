@@ -17,15 +17,15 @@
 	{% include 'checkout/forms/abstract/inputs/x-addressx.twig' with {'name': 'billtoaddress2', 'value': form.billtoaddress2, 'required': false, 'autocomplete': 'billing address-line2'} %}
 </div>
 <div class="row">
-	<div class="col-sm-4">
+	<div class="col-sm-7">
 		<label for="billtocity">City <span class="text-required text-size-1p2rem text-bold">*</span></label>
 		{% include 'checkout/forms/abstract/inputs/x-textfield.twig' with {'name': 'billtocity', 'value': form.billtocity, 'required': true, 'autocomplete': 'billing address-level2'} %}
 	</div>
-	<div class="col-sm-4">
+	<div class="col-sm-2">
 		<label for="billtostate">State <span class="text-required text-size-1p2rem text-bold">*</span></label>
 		{% include 'checkout/forms/abstract/inputs/x-state.twig' with {'name': 'billtostate', 'value': form.billtostate, 'required': true, 'autocomplete': 'billing address-level1'} %}
 	</div>
-	<div class="col-sm-4">
+	<div class="col-sm-3">
 		<label for="billtozip">Zip <span class="text-required text-size-1p2rem text-bold">*</span></label>
 		{% include 'checkout/forms/abstract/inputs/x-textfield.twig' with {'name': 'billtozip', 'value': form.billtozip, 'required': true, 'autocomplete': 'billing postal-code'} %}
 	</div>
