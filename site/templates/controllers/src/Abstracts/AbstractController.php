@@ -3,6 +3,7 @@
 use ReflectionClass;
 // Twig
 use Twig\Environment as Twig;
+use Twig\Loader\FilesystemLoader as TwigLoader;
 // ProcessWire
 use ProcessWire\Config as PwConfig;
 use ProcessWire\Page;
@@ -140,6 +141,14 @@ abstract class AbstractController extends ParentController {
 	 */
 	protected static function getTwig() {
 		return self::pw('modules')->get('Twig')->twig;
+	}
+
+	/**
+	 * Return Twig Renderer
+	 * @return TwigLoader
+	 */
+	protected static function getTwigLoader() {
+		return self::pw('modules')->get('Twig')->loader;
 	}
 
 	/**
