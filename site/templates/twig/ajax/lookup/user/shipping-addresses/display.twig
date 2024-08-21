@@ -1,0 +1,5 @@
+{% if session.isLoggedInEcomm() == false %}
+
+{% else %}
+	{% include 'ajax/lookup/user/shipping-addresses/list.twig' %}
+{% endif %}

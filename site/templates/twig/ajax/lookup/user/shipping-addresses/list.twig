@@ -1,0 +1,55 @@
+{% set customer = user.customer %}
+
+
+<div class="list-group">
+	{% set data = {
+		'id': '',
+		'company': customer.name,
+		'contact': customer.contact ? customer.contact : customer.name,
+		'address1': customer.address1,
+		'address2': customer.address2,
+		'city': customer.city,
+		'state': customer.state,
+		'zip': customer.zip,
+	} %}
+	<a href="#" class="list-group-item list-group-item-action shipping-address-option" data-json="{{ data|json_encode }}">
+		<h5 class="mb-1">{{ customer.address1 }}</h5>
+		<address class="mb-1">
+			<span class="company">{{ customer.name }}</span>
+			<span class="name">{{ customer.contact ? customer.contact : customer.name }}</span> <br>
+			<span class="address1">{{ customer.address1 }}</span> <br>
+			<span class="address2">{{ customer.address2 }}</span>
+			{% if customer.address2 %}
+				<br>
+			{% endif %}
+			<span class="city">{{ customer.city }}</span>, <span class="state">{{ customer.state }}</span> <span class="zip">{{ customer.zip }}</span>
+		</address>
+	</a>
+	
+	{% for shipto in customer.getShiptos() if shipto.address1 != '' %}
+		{% set data = {
+			'id': '',
+			'company': shipto.name,
+			'contact': shipto.contact ? shipto.contact : shipto.name,
+			'address1': shipto.address1,
+			'address2': shipto.address2,
+			'city': shipto.city,
+			'state': shipto.state,
+			'zip': shipto.zip,
+		} %}
+
+		<a href="#" class="list-group-item list-group-item-action shipping-address-option" data-json="{{ data|json_encode }}">
+			<h5 class="mb-1">{{ shipto.address }}</h5>
+			<address class="mb-1">
+				<span class="company">{{ shipto.name }}</span>
+				<span class="name">{{ shipto.contact ? shipto.contact : shipto.name }}</span> <br>
+				<span class="address1">{{ shipto.address }}</span> <br>
+				<span class="address2">{{ shipto.address2 }}</span>
+				{% if shipto.address2 %}
+					<br>
+				{% endif %}
+				<span class="city">{{ shipto.city }}</span>, <span class="state">{{ shipto.state }}</span> <span class="zip">{{ shipto.zip }}</span>
+			</address>
+		</a>
+	{% endfor %}
+</div>
