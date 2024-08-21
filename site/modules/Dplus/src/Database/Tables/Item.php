@@ -11,7 +11,7 @@ use Dplus\Abstracts\AbstractFilterData;
 
 /**
  * Item
- * Template for reading Records from Item table
+ * Reads Records from Item table
  * 
  * @method Query query()
  * @method Query queryFilteredByFilterData(Item\FilterData $data)
