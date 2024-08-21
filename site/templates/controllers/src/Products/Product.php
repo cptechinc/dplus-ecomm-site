@@ -1,8 +1,6 @@
 <?php namespace Controllers\Products;
 // ProcessWire
 use ProcessWire\WireData;
-// App
-use App\Ecomm\Services\Cart;
 // Controllers
 use Controllers\Abstracts\AbstractController;
 
