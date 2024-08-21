@@ -88,7 +88,6 @@ abstract class AbstractCodeTable extends AbstractQueryWrapper {
 		return $this->query()->find();
 	}
 
-
 	/**
 	 * Return the Number of Records
 	 * @return int
