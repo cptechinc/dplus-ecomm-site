@@ -49,7 +49,7 @@ class Form extends WireData {
 		'shiptocity', 'shiptostate', 'shiptozip',
 		'phonenbr', 'email',
 		'custpo', 'shipviacode', 'notes',
-		'termscodetype',
+		'termscodetype'
 	];
 	const BILLING_KEYMAP = [
 		'errormsg'       => 'ermes',
@@ -80,24 +80,22 @@ class Form extends WireData {
 		'shipcomplete'
 	];
 
+/* =============================================================
+	Constructors / Inits
+============================================================= */
 	public function __construct() {
 		foreach (self::FIELDS_STRING as $field) {
 			$this->$field = '';
 		}
 		$this->error = false;
-		$this->shipcomplete  = true;
+		$this->shipcomplete = true;
 		$this->termscodetype = self::DEFAULT_TERMSCODETYPE;
 		$this->trackChanges(true);
 	}
 
-	/**
-	 * Return if Record has an Error
-	 * @return bool
-	 */
-	public function hasError() {
-		return $this->error;
-	}
-
+/* =============================================================
+	Setters
+============================================================= */
 	/**
 	 * Set Values from Billing Record
 	 * @param  Billing $b
@@ -112,5 +110,16 @@ class Form extends WireData {
 			$this->$thisField = $b->$bField;
 		}
 		$this->error = $b->error == 'Y';
+	}
+
+/* =============================================================
+	Getters
+============================================================= */
+	/**
+	 * Return if Record has an Error
+	 * @return bool
+	 */
+	public function hasError() {
+		return $this->error;
 	}
 }
