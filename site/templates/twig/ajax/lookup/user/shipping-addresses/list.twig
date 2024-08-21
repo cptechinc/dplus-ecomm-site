@@ -4,8 +4,10 @@
 <div class="list-group">
 	{% set data = {
 		'id': '',
+		'shiptoid': '',
 		'company': customer.name,
 		'contact': customer.contact ? customer.contact : customer.name,
+		'name': customer.contact ? customer.contact : customer.name,
 		'address1': customer.address1,
 		'address2': customer.address2,
 		'city': customer.city,
@@ -28,9 +30,11 @@
 	
 	{% for shipto in customer.getShiptos() if shipto.address1 != '' %}
 		{% set data = {
-			'id': '',
+			'id': shipto.id,
+			'shiptoid': shipto.id,
 			'company': shipto.name,
 			'contact': shipto.contact ? shipto.contact : shipto.name,
+			'name': shipto.contact ? shipto.contact : shipto.name,
 			'address1': shipto.address1,
 			'address2': shipto.address2,
 			'city': shipto.city,
