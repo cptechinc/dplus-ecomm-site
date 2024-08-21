@@ -1,4 +1,4 @@
-<?php namespace  Dplus\Database\Tables\CodeTables;
+<?php namespace Dplus\Database\Tables\CodeTables;
 // Propel ORM Library
 	// use Propel\Runtime\ActiveQuery\ModelCriteria as AbstractQuery;
 	// use Propel\Runtime\ActiveRecord\ActiveRecordInterface as AbstractRecord;
