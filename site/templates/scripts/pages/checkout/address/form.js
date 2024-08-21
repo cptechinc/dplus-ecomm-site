@@ -9,6 +9,13 @@ $(function() {
 		addressForm.copyBillingAddressToShipping();
 	});
 
+	$("body").on('click', '#ajax-modal .shipping-address-option', function(e) {
+		let button = $(this);
+		let modal = button.closest('.modal');
+		addressForm.fillShippingAddressFromJson(button.data('json'));
+		modal.modal('hide');
+	});
+
 /*==============================================================
 	Jquery Validate LISTENERS
 =============================================================*/
