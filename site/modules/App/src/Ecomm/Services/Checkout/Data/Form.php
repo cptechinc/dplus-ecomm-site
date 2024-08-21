@@ -27,16 +27,25 @@ use ProcessWire\WireInputData;
  * @property string $shiptocity     Ship-To Address City
  * @property string $shiptostate    Ship-To Address State
  * @property string $shiptozip      Ship-To Address Zip
+ * // Contact
+ * @property string $phonenbr       Contact Phone Number
+ * @property string $email          Contact E-mail
+ * // Shipping
+ * @property bool   $shipcomplete   Ship Order complete?
+ * @property string $custpo         Customer Refereence / PO #
+ * @property string $shipviacod e   Ship-Via
+ * @property string $notes          Order Notes
  */
 class Form extends WireData {
 	const FIELDS_STRING = [
 		'billtoname', 'billtocompany',
 		'billtoaddress1', 'billtoaddress2',
 		'billtocity', 'billtostate', 'billtozip',
-		'shiptoname', 'shiptocompany',
+		'shiptoid', 'shiptoname', 'shiptocompany',
 		'shiptoaddress1', 'shiptoaddress2',
 		'shiptocity', 'shiptostate', 'shiptozip',
-		'shiptoid'
+		'phonenbr', 'email',
+		'custpo', 'shipviacode', 'notes'
 	];
 	const BILLING_KEYMAP = [
 		'errormsg'       => 'ermes',
@@ -55,6 +64,15 @@ class Form extends WireData {
 		'shiptocity'     => 'shiptocity',
 		'shiptostate'    => 'shiptostate',
 		'shiptozip'      => 'shiptozip',
+		'phonenbr'       => 'phone',
+		'email'          => 'email',
+		'shipviacode'    => 'shipmeth',
+		'notes'          => 'note',
+		'shipcomplete'   => 'shipcom',
+		'custpo'         => 'pono',
+	];
+	const BOOL_YN_FIELDS = [
+		'shipcomplete'
 	];
 
 	public function __construct() {
@@ -62,6 +80,7 @@ class Form extends WireData {
 			$this->$field = '';
 		}
 		$this->error = false;
+		$this->shipcomplete = true;
 		$this->trackChanges(true);
 	}
 
@@ -80,6 +99,10 @@ class Form extends WireData {
 	 */
 	public function setFromBilling(Billing $b) {
 		foreach (self::BILLING_KEYMAP as $thisField => $bField) {
+			if (in_array($thisField, self::BOOL_YN_FIELDS)) {
+				$this->$thisField = $b->$bField == 'Y';
+				continue;
+			}
 			$this->$thisField = $b->$bField;
 		}
 		$this->error = $b->error == 'Y';

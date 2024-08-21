@@ -229,6 +229,12 @@ class Checkout extends AbstractOrderingController {
 				self::setSessionVar('steps', $completed->data);
 				return true;
 				break;
+			case 'update-shipping':
+				$completed->shipping = true;
+				$completed->index = array_search('shipping', $stepsKeys) + 1;
+				self::setSessionVar('steps', $completed->data);
+				return true;
+				break;
 		}
 	}
 

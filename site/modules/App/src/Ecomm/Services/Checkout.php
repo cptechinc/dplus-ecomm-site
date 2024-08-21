@@ -1,11 +1,11 @@
 <?php namespace App\Ecomm\Services;
-// Propel ORM Library
-use Propel\Runtime\Collection\ObjectCollection;
 // Dpluso Model
 use Billing as BillingRecord;
 // ProcessWire
 use ProcessWire\WireData;
 use ProcessWire\WireInputData;
+// Dplus
+use Dplus\Database\Tables\CodeTables\Shipvia as ShipviaTable;
 // App
 use App\Ecomm\Abstracts\Services\AbstractEcommCrudService;
 use App\Ecomm\Database\Billing as CheckoutTable;
@@ -97,6 +97,9 @@ class Checkout extends AbstractEcommCrudService {
 			case 'update-address':
 				return $this->processUpdateAddress($input);
 				break;
+			case 'update-shipping':
+				return $this->processUpdateShipping($input);
+				break;
 		}
 	}
 
@@ -123,6 +126,18 @@ class Checkout extends AbstractEcommCrudService {
 		return $this->updateBilling($form);
 	}
 
+	/**
+	 * Handle Update Shipping Request
+	 * @param  WireInputData $input
+	 * @return bool
+	 */
+	private function processUpdateShipping(WireInputData $input) {
+		$form = $this->form();
+		$form->resetTrackChanges();
+		$this->updateFormShippingFields($input, $form);
+		return $this->updateBilling($form);
+	}
+
 /* =============================================================
 	Form Updates
 ============================================================= */
@@ -146,6 +161,28 @@ class Checkout extends AbstractEcommCrudService {
 		return true;
 	}
 
+	/**
+	 * Update Shipping fields
+	 * @param  WireInputData      $input
+	 * @param  Checkout\Data\Form $form
+	 * @return bool
+	 */
+	private function updateFormShippingFields(WireInputData $input, Checkout\Data\Form $form) {
+		if ($input->email('email')) {
+			$form->email = $input->email('email') ? $input->email('email') : $form->email;
+		}
+		$form->custpo = $input->string('custpo');
+		$form->notes  = $input->textarea('notes');
+		$form->shipcomplete = $input->ynbool('shipcomplete');
+		$form->phonenbr     = $input->phoneUS('phonenbr');
+
+		$SHIPVIAS = ShipviaTable::instance();
+		if ($SHIPVIAS->exists($input->text('shipviacode'))) {
+			$form->shipviacode = $input->text('shipviacode');
+		}
+		return true;
+	}
+
 /* =============================================================
 	Billing Updates
 ============================================================= */
@@ -165,6 +202,10 @@ class Checkout extends AbstractEcommCrudService {
 			}
 			$field = $form::BILLING_KEYMAP[$fieldname];
 			$setField = 'set' . ucfirst($field);
+			if (in_array($fieldname, $form::BOOL_YN_FIELDS)) {
+				$billing->$setField($form->$fieldname == 'Y');
+				continue;
+			}
 			$billing->$setField($form->$fieldname);
 		}
 		return $billing->isModified() ? boolval($billing->save()) : true;
