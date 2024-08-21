@@ -15,6 +15,10 @@ class Sanitizer extends AbstractStaticHooksAdder {
 		$sanitizer = self::pwSanitizer();
 		
 		$sanitizer->addHook('yn', function(HookEvent $event) {
+			if (is_bool($event->arguments(0))) {
+				$event->return = boolval($event->arguments(0)) === true ? 'Y' : 'N';
+				return true;
+			}
 			$value = strtoupper($event->arguments(0));
 			$event->return = $value == 'Y' ? 'Y' : 'N';
 		});
@@ -41,6 +45,13 @@ class Sanitizer extends AbstractStaticHooksAdder {
 				return true;
 			}
 			$event->return = $col;
+		});
+
+		$sanitizer->addHook('phoneUS', function(HookEvent $event) {
+			$sanitizer = $event->object;
+			$value = $event->arguments(0);
+			$phone = preg_replace('^\(?([0-9]{3})\)?[-.●]?([0-9]{3})[-.●]?([0-9]{4})$^', '$1-$2-$3' , $value);
+			$event->return = $phone;
 		});
 	}
 
