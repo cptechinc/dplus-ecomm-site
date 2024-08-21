@@ -1,0 +1,13 @@
+<h3>Shipping Details</h3>
+
+<div class="form-group">
+	<label for="custpo">Purchase Order Number</label>
+	{% include 'checkout/forms/abstract/inputs/x-textfield.twig' with {'name': 'custpo',  'value': form.custpo, 'required': false} %}
+</div>
+<div class="form-group">
+	<label for="email">Ship-Via <span class="text-required text-size-1p2rem text-bold">*</span></label>
+	{% include 'checkout/forms/shipping/inputs/shipviacode.twig' %}
+</div>
+<div class="form-group">
+	{% include 'util/bootstrap/form/checkbox-custom.twig' with {'input': {'name': 'shipcomplete', 'value': 'Y', 'label': 'Ship Complete?', 'attributes': {'selected': form.shipcomplete}}} %}
+</div>

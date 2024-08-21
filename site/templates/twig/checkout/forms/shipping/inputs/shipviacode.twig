@@ -1,0 +1,8 @@
+{% set shipvias = DPLUS.db.fetch('shipvia').all() %}
+
+<select class="selectpicker form-control show-tick" name="shipviacode" description="Ship Via" title="Choose" autocomplete="{{ autocomplete }}" data-jqv="true" required>
+	<option value=""></option>
+	{% for shipvia in shipvias %}
+		<option value="{{ shipvia.code }}" title="{{ shipvia.description }}" {{ shipvia.code == form.shipviacode ? 'selected' : ''}}>{{ shipvia.description }}</option>
+	{% endfor %}
+</select>

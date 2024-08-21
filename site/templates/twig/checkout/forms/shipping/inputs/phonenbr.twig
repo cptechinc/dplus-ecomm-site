@@ -1,0 +1,14 @@
+{% include 'util/bootstrap/form/input.twig' with {
+	'input': {
+		'name': 'phonenbr',
+		'value': form.phonenbr,
+		'addclasses': ['format-phone-us'],
+		'attributes': {
+			'inputmode': 'numeric',
+			'placeholder': '',
+			'aria-label':  "Phone number",
+			'autocomplete': 'tel',
+			'required': true,
+		}
+	}
+} %}

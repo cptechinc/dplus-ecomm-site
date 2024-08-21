@@ -1,0 +1,14 @@
+<h3>Contact</h3>
+
+<div class="form-group">
+	<label for="phonenbr">Phone <span class="text-required text-size-1p2rem text-bold">*</span></label>
+	{% include 'checkout/forms/shipping/inputs/phonenbr.twig' %}
+</div>
+<div class="form-group">
+	<label for="email">Email <span class="text-required text-size-1p2rem text-bold">*</span></label>
+	{% include 'checkout/forms/abstract/inputs/x-textfield.twig' with {'name': 'email', 'type': 'email', 'value': form.email, 'required': true, 'autocomplete': 'email'} %}
+</div>
+<div class="form-group">
+	<label for="notes">Notes</label>
+	{% include 'util/bootstrap/form/textarea.twig' with {'textarea': {'name': 'notes', 'value': form.notes}} %}
+</div>

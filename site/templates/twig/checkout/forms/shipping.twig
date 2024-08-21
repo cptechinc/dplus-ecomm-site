@@ -1,0 +1,30 @@
+{% set id = 'shippingForm' %}
+
+{% extends 'checkout/forms/form-abstract.twig' %}
+
+{% import "util/macros/html.twig" as html %}
+
+{% block fields %}
+	<input type="hidden" name="action" value="update-shipping">
+
+	<p class="form-text mb-1">
+		Required fields are marked with <span class="text-required text-size-1p2rem">*</span>
+	</p>
+
+	<div class="row mb-3">
+		<div class="col-sm-6 form-group">
+			{% include 'checkout/forms/shipping/contact.twig' %}
+		</div>
+		<div class="col-sm-6">
+			{% include 'checkout/forms/shipping/shipping.twig' %}
+		</div>
+	</div>
+
+	<div class="pb-2">
+		<div class="text-right">
+			<button type="submit" class="btn btn-success">
+				Continue to {{ checkoutSteps.getNext(step).title }} {{ html.iconType({'type': 'arrow-right'}) }}
+			</button>
+		</div>
+	</div>
+{% endblock %}
