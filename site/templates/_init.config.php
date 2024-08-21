@@ -3,6 +3,7 @@ use App\Configs\Init as InitConfigs;
 
 InitConfigs\App::instance()->init();
 InitConfigs\Account::instance()->init();
+InitConfigs\Checkout::instance()->init();
 InitConfigs\Register::instance()->init();
 InitConfigs\Site::instance()->init();
 
