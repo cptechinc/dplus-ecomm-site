@@ -77,6 +77,57 @@ $.fn.extend({
 		}, {});
 		return values;
 	},
+	resizeModal: function(size) {
+		if ($(this).hasClass('modal')){
+			var modal_dialog = $(this).find('.modal-dialog');
+			var modal_size = '';
+
+			var regex_modal = /(modal-)/;
+			var regex_modal_size = /(modal-)(sm|md|lg|xl)/;
+			var regex_sizes = /(sm|md|lg|xl)/;
+
+			if (regex_modal_size.test(size)) {
+				modal_size = size;
+			} else {
+				if (regex_sizes.test(size)) {
+
+				} else {
+					size = 'md';
+				}
+				modal_size = 'modal-' + size;
+			}
+
+			if (regex_modal_size.test(modal_dialog.attr('class'))) {
+				var attrclass = modal_dialog.attr('class');
+				attrclass = attrclass.replace(regex_modal_size, modal_size);
+				modal_dialog.attr('class', attrclass);
+			} else {
+				modal_dialog.addClass(modal_size);
+			}
+		}
+	},
+	makeScrollable: function(makeScrollable) {
+		if ($(this).hasClass('modal') === false) {
+			return false;
+		}
+		let dialog = $(this).find('.modal-dialog');
+		dialog.removeClass('modal-dialog-scrollable');
+		
+		if (makeScrollable === true || makeScrollable == 'true') {
+			dialog.addClass('modal-dialog-scrollable');
+		}
+	},
+	initDatepickers() {
+		$(this).find('.datepicker').each(function(index) {
+			let container = $(this);
+			let val = container.find('input.date-input').val();
+	
+			container.datepicker({
+				date: val,
+				allowPastDates: true,
+			});
+		});
+	}
 });
 
 /*==============================================================
