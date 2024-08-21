@@ -35,8 +35,11 @@ use ProcessWire\WireInputData;
  * @property string $custpo         Customer Refereence / PO #
  * @property string $shipviacod e   Ship-Via
  * @property string $notes          Order Notes
+ * // Payment
+ * @property string $termscodetype  Terms Type
  */
 class Form extends WireData {
+	const DEFAULT_TERMSCODETYPE = 'STD';
 	const FIELDS_STRING = [
 		'billtoname', 'billtocompany',
 		'billtoaddress1', 'billtoaddress2',
@@ -45,7 +48,8 @@ class Form extends WireData {
 		'shiptoaddress1', 'shiptoaddress2',
 		'shiptocity', 'shiptostate', 'shiptozip',
 		'phonenbr', 'email',
-		'custpo', 'shipviacode', 'notes'
+		'custpo', 'shipviacode', 'notes',
+		'termscodetype',
 	];
 	const BILLING_KEYMAP = [
 		'errormsg'       => 'ermes',
@@ -70,6 +74,7 @@ class Form extends WireData {
 		'notes'          => 'note',
 		'shipcomplete'   => 'shipcom',
 		'custpo'         => 'pono',
+		'termscodetype'  => 'termtype',
 	];
 	const BOOL_YN_FIELDS = [
 		'shipcomplete'
@@ -80,7 +85,8 @@ class Form extends WireData {
 			$this->$field = '';
 		}
 		$this->error = false;
-		$this->shipcomplete = true;
+		$this->shipcomplete  = true;
+		$this->termscodetype = self::DEFAULT_TERMSCODETYPE;
 		$this->trackChanges(true);
 	}
 
