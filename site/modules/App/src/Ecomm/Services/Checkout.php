@@ -60,6 +60,7 @@ class Checkout extends AbstractEcommCrudService {
 			return $this->billing;
 		}
 		$this->billing = $this->billingFromDb();
+		$this->billing->setSalt($this->config->billingSalt);
 		return $this->billing;
 	}
 
