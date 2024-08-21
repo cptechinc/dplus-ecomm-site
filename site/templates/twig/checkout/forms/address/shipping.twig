@@ -1,11 +1,28 @@
+{% import "util/macros/html.twig" as html %}
+
 <div class="form-row">
-	<div class="col-sm-6">
+	<div class="col-sm-3">
 		<h3>Shipping</h3>
 	</div>
-	<div class="col-sm-6">
+	<div class="col-sm-9">
 		<button type="button" class="btn btn-sm btn-primary use-billing-address">
 			Use Billing Address
 		</button>
+		&nbsp;
+		{% set buttonData = {
+			'type': 'button', 
+			'size': 'sm',
+			'colorclass': 'primary', 
+			'text': 'Shipping Addresses',
+			'attributes': {
+				'title': 'Shipping Addresses',
+				'data-toggle': 'modal',
+				'data-target': '#ajax-modal',
+				'data-lookupurl': pages.searchLookupUrl('lookup/user/shipping-addresses/'),
+				'data-modal-allow-scrollable': 'true',
+			}
+		} %}
+		{{ html.button(buttonData) }}
 	</div>
 </div>
 
