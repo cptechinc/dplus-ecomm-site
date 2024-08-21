@@ -41,3 +41,8 @@
 	<a href="{{ data.href }}" class="link {{ data.textclasses ? data.textclasses|join(' ') }}">{{ data.text }}</a>
 {% endmacro %}
 
+{% macro button(data) %}
+	{% include 'util/bootstrap/html/button.twig' with {'button': data} %}
+{% endmacro %}
+
+
