@@ -1,7 +1,9 @@
 <?php namespace App\Pw\Hooks;
 // ProcessWire
 use ProcessWire\User as PwUser;
-use ProcessWire\WireData;
+	// use ProcessWire\WireData;
+// Dplus
+use Dplus\Database\Tables\Customer as CustomerTable;
 // App
 use App\Ecomm\Services\Login as LoginService;
 
@@ -25,6 +27,30 @@ class User extends AbstractStaticHooksAdder {
 			/** @var PwUser */
 			$user = $event->object;
 			$event->return = LoginService::instance()->isLoggedIn();
+		});
+
+		$m->addHookProperty("User::customer", function($event) {
+			/** @var PwUser */
+			$user = $event->object;
+
+			if ($user->has('aCustomer')) {
+				$event->return = $user->aCustomer;
+				return true;
+			}
+
+			if ($user->isLoggedInEcomm() === false) {
+				return false;
+			}
+			/** @var LoginService\Data\SessionUser */
+			$session = $user->wire('session')->get('ecuser');
+			$customer = CustomerTable::instance()->findOne($session->custid);
+
+			if (empty($customer)) {
+				return false;
+			}
+			$user->aCustomer = $customer;
+			$event->return = $user->aCustomer;
+			return true;
 		});
 	}
 }
