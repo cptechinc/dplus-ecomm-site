@@ -19,6 +19,7 @@ use ProcessWire\WireInputData;
  * @property string $billtostate    Bill-To Address State
  * @property string $billtozip      Bill-To Address Zip
  * // Ship-To
+ * @property string $shiptoid       Ship-To ID
  * @property string $shiptoname     Ship-To Name
  * @property string $shiptocompany  Ship-To Company
  * @property string $shiptoaddress1 Ship-To Address Line 1
@@ -35,6 +36,7 @@ class Form extends WireData {
 		'shiptoname', 'shiptocompany',
 		'shiptoaddress1', 'shiptoaddress2',
 		'shiptocity', 'shiptostate', 'shiptozip',
+		'shiptoid'
 	];
 	const BILLING_KEYMAP = [
 		'errormsg'       => 'ermes',
@@ -45,6 +47,7 @@ class Form extends WireData {
 		'billtocity'     => 'billtocity',
 		'billtostate'    => 'billtostate',
 		'billtozip'      => 'billtozip',
+		'shiptoid'       => 'shiptoid',
 		'shiptoname'     => 'shiptoname',
 		'shiptocompany'  => 'shiptocompany',
 		'shiptoaddress1' => 'shiptoaddress1',

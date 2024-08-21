@@ -142,6 +142,7 @@ class Checkout extends AbstractEcommCrudService {
 				$form->$field = $input->text($field);
 			}
 		}
+		$form->shiptoid = $input->text('shiptoid');
 		return true;
 	}
 
