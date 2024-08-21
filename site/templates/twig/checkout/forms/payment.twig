@@ -1,0 +1,35 @@
+{% set id = 'paymentForm' %}
+
+{% extends 'checkout/forms/form-abstract.twig' %}
+
+{% import "util/macros/html.twig" as html %}
+
+{% block fields %}
+	<input type="hidden" name="action" value="update-payment">
+	<input type="hidden" name="cardtype" value="{{ form.hasCreditCard() ? form.paymentmethod : '' }}">
+
+	<p class="form-text mb-1">
+		Required fields are marked with <span class="text-required text-size-1p2rem">*</span>
+	</p>
+
+	<div class="row">
+		<div class="col-sm-3">
+			<div class="form-group">
+			<label for="paymentmethod">Payment Method <span class="text-required text-size-1p2rem text-bold">*</span></label>
+				{% include 'checkout/forms/payment/inputs/paymentmethod.twig' %}
+			</div>
+		</div>
+		<div class="col-sm-9">
+			{% include 'checkout/forms/payment/creditcard.twig' %}
+		</div>
+	</div>
+
+
+	<div class="pb-2">
+		<div class="text-right">
+			<button type="submit" class="btn btn-success">
+				Continue to {{ checkoutSteps.getNext(step).title }} {{ html.iconType({'type': 'arrow-right'}) }}
+			</button>
+		</div>
+	</div>
+{% endblock %}

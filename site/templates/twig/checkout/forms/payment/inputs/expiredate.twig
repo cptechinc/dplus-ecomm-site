@@ -1,0 +1,11 @@
+{% include 'util/bootstrap/form/input.twig' with {
+	'input': {
+		'name': 'expiredate',
+		'type': 'tel',
+		'attributes': {
+			'required': true,
+			'autocomplete': 'cc-exp',
+			'placeholder': 'MM / YY'
+		}
+	}
+} %}

@@ -1,0 +1,13 @@
+<fieldset class="credit-card-fields {{ form.isPaymentmethodCreditCard() ? '' : 'collapse' }}">
+	<legend>Credit Card</legend>
+
+	<div class="collapse {{ form.hasCreditCard() ?'show' : '' }}">
+		{# include 'checkout/payment/provided-card.twig' #}
+
+		<h3 class="text-center">
+			-- OR --
+		</h3>
+	</div>
+
+	{% include 'checkout/forms/payment/creditcard/new-card.twig' %}
+</fieldset>

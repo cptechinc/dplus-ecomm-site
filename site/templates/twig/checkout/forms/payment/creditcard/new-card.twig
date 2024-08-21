@@ -1,0 +1,29 @@
+<div class="row">
+	<div class="col-sm-6">
+		<div class="form-group">
+			<label for="cardnumber">Card Number <span class="text-required text-size-1p2rem">*</span></label>
+			{% include 'checkout/forms/payment/inputs/cardnumber.twig' %}
+		</div>
+	</div>
+	<div class="col-sm-3">
+		<div class="form-group">
+			<label for="expiredate">Expiration Date <span class="text-required text-size-1p2rem">*</span></label>
+			<div class="col-sm-9 px-0">
+				{% include 'checkout/forms/payment/inputs/expiredate.twig' %}
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-2">
+		<div class="form-group">
+			<label for="cvc">CVC <span class="text-required text-size-1p2rem">*</span></label>
+			<div class="col-sm-9 px-0">
+				{% include 'checkout/forms/payment/inputs/cvc.twig' %}
+			</div>
+		</div>
+	</div>
+</div>
+<p>
+	{% for type, description in config.checkout.allowedCreditCards %}
+		<img src="{{ config.urls.files ~ 'images/payment/' ~ type ~ '.png' }}" data-type="{{ type }}" class="credit-card-image collapse show">&nbsp;
+	{% endfor %}
+</p>

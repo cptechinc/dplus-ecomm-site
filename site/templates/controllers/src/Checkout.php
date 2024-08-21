@@ -61,6 +61,7 @@ class Checkout extends AbstractOrderingController {
 	
 		self::initPageHooks();
 		self::appendJs($data);
+		self::addVarsToJsVars($data);
 		return self::display($data, $form);
 	}
 
@@ -192,7 +193,12 @@ class Checkout extends AbstractOrderingController {
 	 */
 	protected static function getJsScriptPaths(WireData $data) {
 		$jsPath = 'scripts/pages/checkout/';
-		$filenames = ['classes/Requests.js', 'address/classes/Form.js', 'address/form.js', 'shipping/form.js'];
+		$filenames = [
+			'classes/Requests.js', 
+			'address/classes/Form.js', 'address/form.js',
+			'payment/classes/Form.js', 'payment/form.js',
+			'shipping/form.js'
+		];
 		$scripts = [];
 
 		foreach ($filenames as $filename) {
@@ -203,6 +209,7 @@ class Checkout extends AbstractOrderingController {
 
 	protected static function appendJs(WireData $data, $scripts = []) {
 		self::appendJsJqueryValiudate();
+		self::appendJsJqueryPayment();
 
 		$scripts = self::getJsScriptPaths($data);
 		parent::appendJs($data, $scripts);
@@ -236,6 +243,47 @@ class Checkout extends AbstractOrderingController {
 				return true;
 				break;
 		}
+	}
+
+	/**
+	 * Append jQuery Payment scripts
+	 * @return bool
+	 */
+	public static function appendJsJqueryPayment() {
+		$fh     = self::getFileHasher();
+		$config = self::getPwConfig();
+
+		$config->scripts->append($fh->getHashUrl('vendor/jquery.payment/jquery.payment.js'));
+		return true;
+	}
+
+	/**
+	 * Add Variables to JS Vars Array
+	 * @param  WireData $data
+	 * @return void
+	 */
+	protected static function addVarsToJsVars(WireData $data) {
+		$jsVars = self::pw('config')->js('vars');
+		$jsVars['CHECKOUT'] = static::checkoutJsVarsArray($data);
+		self::pw('config')->js('vars', $jsVars);
+	}
+
+	/**
+	 * Return Array for JS vars for CodeTable
+	 * @param  WireData $data
+	 * @return array
+	 */
+	protected static function checkoutJsVarsArray(WireData $data) {
+		$config = self::getPwConfig();
+		
+		return [
+			'config' => [
+				'allowedcardtypes' => $config->checkout->allowedCreditCards->getArray(),
+				'fields' => [
+					// 'binid' => ['blankid' => $SOP::BLANK_BIN_ALIAS]
+				]
+			]
+		];
 	}
 
 /* =============================================================

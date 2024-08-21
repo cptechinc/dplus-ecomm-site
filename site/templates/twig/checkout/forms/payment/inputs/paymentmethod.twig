@@ -1,0 +1,11 @@
+{% set methods = config.checkout.allowedPaymentMethods %}
+
+<select class="selectpicker form-control show-tick" name="paymentmethod" description="Payment Method" title="Choose" autocomplete="{{ autocomplete }}" data-jqv="true" required>
+	{% for method, description in methods %}
+		{% if method == 'bill' and form.hasStdTerms() == false %}
+
+		{% else  %}
+			<option value="{{ method }}" title="{{ description }}" {{ method == form.paymentmethod ? 'selected' : ''}}>{{ description }}</option>
+		{% endif %}
+	{% endfor %}
+</select>

@@ -1,0 +1,10 @@
+{% include 'util/bootstrap/form/input.twig' with {
+	'input': {
+		'name': 'cardnumber',
+		'type': 'tel',
+		'attributes': {
+			'required': true,
+			'autocomplete': 'cc-number',
+		}
+	}
+} %}
