@@ -13,7 +13,7 @@ class Checkout extends AbstractConfig {
 	const ALLOWED_PAYMENTMETHODS = [
 		'bill' => 'Bill to Account',
 		'cc'   => 'Credit Card',
-		'cod'  =>'Collect on Delivery'
+		'cod'  => 'Collect on Delivery'
 	];
 	const ALLOWED_CREDITCARDS = [
 		'amex'       => 'American Express',
