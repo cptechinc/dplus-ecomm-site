@@ -23,7 +23,7 @@ $(function() {
 	}, "Invalid Credit Card Number");
 
 	jQuery.validator.addMethod("expiredate", function(value, element) {
-		return this.optional(element) || paymentForm.validateExpiration();
+		return this.optional(element) || paymentForm.validateExpiredate();
 	}, "Invalid Date");
 
 	jQuery.validator.addMethod("cvc", function(value, element) {
