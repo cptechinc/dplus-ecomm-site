@@ -1,0 +1,11 @@
+<div class="custom-control custom-checkbox">
+	<input type="checkbox" class="custom-control-input" id="useprovidedcard" name="usesavedcard" value="Y">
+
+	<label class="custom-control-label" for="useprovidedcard">
+		Use {{ config.checkout.allowedCreditCards.get(form.cardtype) }} (x{{ form.cclast4 }}) card?
+
+		{% if form.cardtype %}
+			<img src="{{ config.urls.files ~ 'images/payment/' ~ form.cardtype ~ '.png' }}" class="credit-card-image" height="30">
+		{% endif %}
+	</label>
+</div>
