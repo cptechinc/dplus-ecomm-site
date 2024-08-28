@@ -98,6 +98,9 @@ class Checkout extends AbstractEcommCrudService {
 			case 'update-address':
 				return $this->processUpdateAddress($input);
 				break;
+			case 'update-payment':
+				return $this->processUpdatePayment($input);
+				break;
 			case 'update-shipping':
 				return $this->processUpdateShipping($input);
 				break;
@@ -124,6 +127,18 @@ class Checkout extends AbstractEcommCrudService {
 		$form = $this->form();
 		$form->resetTrackChanges();
 		$this->updateFormAddressFields($input, $form);
+		return $this->updateBilling($form);
+	}
+
+	/**
+	 * Handle Update Payment Request
+	 * @param  WireInputData $input
+	 * @return bool
+	 */
+	private function processUpdatePayment(WireInputData $input) {
+		$form = $this->form();
+		$form->resetTrackChanges();
+		$this->updateFormPaymentFields($input, $form);
 		return $this->updateBilling($form);
 	}
 
@@ -159,6 +174,37 @@ class Checkout extends AbstractEcommCrudService {
 			}
 		}
 		$form->shiptoid = $input->text('shiptoid');
+		return true;
+	}
+
+	/**
+	 * Update Payment fields
+	 * @param  WireInputData      $input
+	 * @param  Checkout\Data\Form $form
+	 * @return bool
+	 */
+	private function updateFormPaymentFields(WireInputData $input, Checkout\Data\Form $form) {
+		$paymentmethod = $input->text('paymentmethod');
+
+		$isValidPaymentMethod = array_key_exists($paymentmethod, $form::OPTIONS_PAYMENTMETHODS);
+		$isValidCreditCard = $this->config->checkout->allowedCreditCards->has($input->text('cardtype'));
+
+		if ($isValidPaymentMethod === false && $isValidCreditCard === false) {
+			return false;
+		}
+
+		$form->paymentmethod = $paymentmethod;
+
+		if ($form->isPaymentmethodCreditCard() === false) {
+			return true;
+		}
+		if ($input->ynbool('usesavedcard')) {
+			return true;
+		}
+		$form->paymentmethod = $input->text('cardtype');
+		$form->cardnumber = $input->text('cardnumber', ['stripSpace' => true]);
+		$form->cvc        = $input->text('cvc');
+		$form->expiredate = $input->cardDate('expiredate');
 		return true;
 	}
 
@@ -209,7 +255,16 @@ class Checkout extends AbstractEcommCrudService {
 			}
 			$billing->$setField($form->$fieldname);
 		}
-		return $billing->isModified() ? boolval($billing->save()) : true;
+		$saved = $billing->isModified() ? boolval($billing->save()) : true;
+
+		if ($saved === false) {
+			return false;
+		}
+
+		if (in_array('cardnumber', $changedFields)) {
+			$billing->encryptPayment();
+		}
+		return true;
 	}
 
 /* =============================================================

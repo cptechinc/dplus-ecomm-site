@@ -39,6 +39,10 @@ use ProcessWire\WireInputData;
  * @property string $termscodetype  Terms Type
  * @property string $paymentmethod  Payment Method
  * @property string $cclast4        Last 4 Digits of Credit Card
+ * @property string $cardnumber     Card Number *** only used from User Input ***
+ * @property string $expiredate     Card Expiry Date *** only used from User Input ***
+ * @property string $cvc            Card Validation / Security Code *** only used from User Input ***
+ * @property string $cardtype       Card Type
  */
 class Form extends WireData {
 	const DEFAULT_TERMSCODETYPE = 'STD';
@@ -53,7 +57,7 @@ class Form extends WireData {
 		'phonenbr', 'email',
 		'custpo', 'shipviacode', 'notes',
 		'termscodetype', 'paymentmethod',
-		'cclast4',
+		'cclast4', 'cardnumber', 'expiredate', 'cvc', 'cardtype'
 	];
 	const BILLING_KEYMAP = [
 		'errormsg'       => 'ermes',
@@ -79,7 +83,10 @@ class Form extends WireData {
 		'shipcomplete'   => 'shipcom',
 		'custpo'         => 'pono',
 		'termscodetype'  => 'termtype',
-		'paymentmethod'  => 'paytype'
+		'paymentmethod'  => 'paytype',
+		'cardnumber'     => 'ccno',
+		'expiredate'     => 'xpdate',
+		'cvc'            => 'vc',
 	];
 	const BOOL_YN_FIELDS = [
 		'shipcomplete'
@@ -88,6 +95,9 @@ class Form extends WireData {
 		'bill' => 'Bill to Account',
 		'cc'   => 'Credit Card',
 		'cod'  => 'Collect on Delivery'
+	];
+	const CREDITCARD_FIELDS = [
+		'cardnumber', 'expiredate', 'cvc'
 	];
 
 /* =============================================================
@@ -101,7 +111,6 @@ class Form extends WireData {
 		$this->shipcomplete = true;
 		$this->termscodetype = self::DEFAULT_TERMSCODETYPE;
 		$this->paymentmethod = self::DEFAULT_PAYMENTMETHOD;
-		$this->cclast4 = '';
 		$this->trackChanges(true);
 	}
 
@@ -125,6 +134,22 @@ class Form extends WireData {
 
 		if ($this->paymentmethod == '') {
 			$this->paymentmethod = self::DEFAULT_PAYMENTMETHOD;
+		}
+		$this->setPaymentFieldsFromBilling($b);
+	}
+
+	/**
+	 * Set Payment Fields
+	 * @param  Billing $b
+	 * @return void
+	 */
+	private function setPaymentFieldsFromBilling(Billing $b) {
+		$last4 = $b->cardLast4();
+		$this->cclast4 = $last4 ? $last4 : '';
+
+		if (array_key_exists($this->paymentmethod, self::OPTIONS_PAYMENTMETHODS) === false) {
+			$this->cardtype = $this->paymentmethod;
+			$this->paymentmethod = 'cc';
 		}
 	}
 
@@ -170,4 +195,5 @@ class Form extends WireData {
 	public function hasCreditCard() {
 		return $this->cclast4 != '';
 	}
+	
 }
