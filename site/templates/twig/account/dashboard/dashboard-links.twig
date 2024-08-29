@@ -1,18 +1,20 @@
 {% import "util/macros/html.twig" as html %}
 
 <div class="row">
-	<div class="col-sm-3 col-6 mb-3">
-		<div class="card">
-			<a href="{{ page.changePasswordUrl() }}" target="_self">
-				<div class="card-body">
-					<h1 class="text-center mb-1">
-						{{ html.iconType({'type': 'lock', 'addclasses': ['fa-2x']}) }}
-					</h1>
-					<p class="card-text font-weight-bold text-center">Change Password</p>
-				</div>
-			</a>
+	{% if config.app.allowOrdering %}
+		<div class="col-sm-3 col-6 mb-3">
+			<div class="card">
+				<a href="{{ pages.get('template=cart').url }}" target="_self">
+					<div class="card-body">
+						<h1 class="text-center mb-1">
+							{{ html.iconType({'type': 'cart', 'addclasses': ['fa-2x']}) }}
+						</h1>
+						<p class="card-text font-weight-bold text-center">Cart</p>
+					</div>
+				</a>
+			</div>
 		</div>
-	</div>
+	{% endif %}
 	<div class="col-sm-3 col-6 mb-3">
 		<div class="card">
 			<a href="{{ page.ordersUrl() }}" target="_self">
@@ -33,6 +35,18 @@
 						{{ html.iconType({'type': 'list', 'addclasses': ['fa-2x']}) }}
 					</h1>
 					<p class="card-text font-weight-bold text-center">Sales History</p>
+				</div>
+			</a>
+		</div>
+	</div>
+	<div class="col-sm-3 col-6 mb-3">
+		<div class="card">
+			<a href="{{ page.changePasswordUrl() }}" target="_self">
+				<div class="card-body">
+					<h1 class="text-center mb-1">
+						{{ html.iconType({'type': 'lock', 'addclasses': ['fa-2x']}) }}
+					</h1>
+					<p class="card-text font-weight-bold text-center">Change Password</p>
 				</div>
 			</a>
 		</div>
