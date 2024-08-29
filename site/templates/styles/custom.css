@@ -141,3 +141,23 @@ label.invalid-feedback {
 .credit-card-image {
 	max-height: 40px;
 }
+
+/*==============================================================
+	Extra Button Styles
+==============================================================*/
+.btn-lavender {
+	color: #fff;
+	background-color: #735CDD;
+	border-color: #735CDD;
+}
+
+.btn-lavender:hover {
+	color: #fff;
+	background-color: #482BCA;
+	border-color: #482BCA;
+}
+
+.btn-lavender:focus, .btn-lavender.focus {
+	-webkit-box-shadow: 0 0 0 0.2rem rgba(70, 127, 191, 0.5);
+	box-shadow: 0 0 0 0.2rem rgba(70, 127, 191, 0.5);
+}
