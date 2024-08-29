@@ -5,6 +5,7 @@ use ProcessWire\Page;
 // Dplus
 use Dplus\Database\Tables\Item as ItemTable;
 // App
+use App\Ecomm\Database\Pricing as PricingTable;
 use App\Ecomm\Pages\Templates\Product as Template;
 use App\Ecomm\Services\Product\Pricing as PricingService;
 use App\Pw\Hooks\AbstractStaticHooksAdder;
@@ -98,5 +99,42 @@ class PageProduct extends AbstractStaticHooksAdder {
 			$page->aQtyInStock = $page->pricing->qty;
 			$event->return = $page->aQtyInStock;
 		});
+
+		$m->addHookProperty("Page(template=$tpl)::pricebreaks", function(HookEvent $event) {
+			/** @var Page */
+			$page = $event->object;
+
+			if ($page->has('aPricebreaks')) {
+				$event->return = $page->aPricebreaks;
+				return true;
+			}
+
+			$colPrice = 'priceprice';
+			$colQty   = 'priceqty';
+			$pricebreaks = [];
+
+			for ($i = 1; $i <= PricingTable::NBR_PRICEBREAKS; $i++) {
+				$colQtyBreak = $colQty . $i;
+				$colQtyPrice = $colPrice . $i;
+
+				if ($page->pricing->$colQtyBreak == 0) {
+					continue;
+				}
+				$pricebreaks[] = [
+					'qty' => $page->pricing->$colQtyBreak,
+					'price' => $page->pricing->$colQtyPrice
+				];
+			}
+
+			$page->aPricebreaks = $pricebreaks;
+			$event->return = $page->aPricebreaks;
+		});
+
+		$m->addHook("Page(template=$tpl)::hasPricebreaks", function(HookEvent $event) {
+			/** @var Page */
+			$page = $event->object;
+			$event->return = empty($page->pricebreaks) === false;
+		});
+
 	}
 }
