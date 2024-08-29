@@ -16,6 +16,7 @@ class Pricing extends AbstractQueryWrapper {
 	const MODEL_KEY          = 'sessionid,itemid';
 	const MODEL_TABLE        = 'pricing';
 	const DESCRIPTION        = 'Ecomm session pricing table';
+	const NBR_PRICEBREAKS    = 6;
 
 	protected static $instance;
 
