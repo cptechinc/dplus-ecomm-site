@@ -1,0 +1,27 @@
+<div class="row">
+	<div class="col-5">
+		<div class="input-parent">
+			{% include 'cart/form-add-to-cart/inputs/itemid.twig' %}
+
+			<div><span class="product-field" product-field="description"></span></div>
+		</div>
+	</div>
+	<div class="col-1">
+		{% include 'cart/form-add-to-cart/inputs/qty.twig' %}
+	</div>
+	<div class="col-2">
+		{% include 'cart/form-add-to-cart/inputs/price.twig' %}
+	</div>
+	<div class="col-2">
+		{% include 'cart/form-add-to-cart/inputs/amount.twig' %}
+	</div>
+	<div class="col-2">
+		{% include 'util/bootstrap/html/button.twig' with {
+			'button': {
+				'type': 'submit',
+				'colorclass': CSS.colors.buttons.getClass('submit'),
+				'text': html.iconType({'type': 'cart'}) ~ 'Add To Cart',
+			}
+		} %}
+	</div>
+</div>

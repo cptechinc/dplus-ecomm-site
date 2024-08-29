@@ -1,0 +1,12 @@
+{% include 'util/bootstrap/form/input.twig' with {
+	'input': {
+		'name': 'qty',
+		'size': 'sm',
+		'type': 'number',
+		'addclasses': ['text-right'],
+		'attributes': {
+			'inputmode': 'numeric',
+			'min': 1,
+		}
+	}
+} %}

@@ -1,0 +1,13 @@
+{% import "util/macros/html.twig" as html %}
+
+<form action="{{ input.url() }}" method="POST" id="addToCartForm">
+	<input type="hidden" name="action" value="add-to-cart">
+
+	{% if browseragent.isMobile() == false %}
+		{% include 'cart/form-add-to-cart/layout/desktop.twig' %}
+	{% endif %}
+
+	{% if browseragent.isMobile() %}
+		{% include 'cart/form-add-to-cart/layout/mobile.twig' %}
+	{% endif %}
+</form>

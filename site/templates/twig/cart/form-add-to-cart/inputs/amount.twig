@@ -1,0 +1,34 @@
+{% import "util/macros/html.twig" as html %}
+
+{% include 'util/bootstrap/form/input-group-array.twig' with {
+	'inputgroup': {
+		'type': 'prepend',
+		'size': 'sm',
+		'elements': [
+			{
+				'type': 'span',
+				'useSpanAppend': true,
+				'useSpanPrepend': false,
+				'data': {
+					'addclasses': ['bg-transparent', 'border-0'],
+					'colorclass': '',
+					'text': '$',
+				}
+			},
+			{
+				'type': 'input',
+				'data': {
+					'name': 'amount',
+					'value': 0.00,
+					'size': 'sm',
+					'type': 'number',
+					'inputclass': 'form-control-plaintext',
+					'addclasses': ['text-right'],
+					'attributes': {
+						'readonly': true,
+					}
+				}
+			},
+		]
+	}
+} %}

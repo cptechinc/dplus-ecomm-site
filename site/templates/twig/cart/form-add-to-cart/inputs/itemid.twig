@@ -1,0 +1,56 @@
+{% import "util/macros/html.twig" as html %}
+
+{% include 'util/bootstrap/form/input-group-array.twig' with {
+	'inputgroup': {
+		'type': 'prepend',
+		'size': 'sm',
+		'addclasses': ['input-group-clear-input'],
+		'elements': [
+			{
+				'type': 'button',
+				'useSpanAppend': true,
+				'useSpanPrepend': false,
+				'data': {
+					'colorclass': CSS.colors.buttons.getClass('lookup'),
+					'text': html.iconType({'type': 'lookup'}),
+					'attributes': {
+						'title': 'Search Items',
+						'data-toggle': 'modal',
+						'data-target': '#ajax-modal',
+						'data-lookupurl': pages.searchLookupUrl('min/items/'),
+						'data-input': '#itemID',
+						'tabindex': -1,
+					}
+				}
+			},
+			{
+				'type': 'input',
+				'data': {
+					'name': 'itemID',
+					'addclasses': ['text-monospace'],
+					'attributes': {
+						'placeholder': '',
+						'aria-label':  'Item ID',
+						'required': 'true',
+						'data-jqv': 'true',
+						'data-product': ''
+					}
+				}
+			},
+			{
+				'type': 'button',
+				'useSpanAppend': true,
+				'useSpanPrepend': false,
+				'data': {
+					'colorclass': CSS.colors.buttons.getClass('transparent'),
+					'text': html.iconType({'type': 'close'}),
+					'addclasses': ['clear-input-group-input', 'collapse'],
+					'attributes': {
+						'style': 'margin-left: -2rem; z-index: 100;',
+						'tabindex': -1,
+					}
+				}
+			}
+		]
+	}
+} %}

@@ -1,0 +1,21 @@
+<div class="form-row mb-2">
+	<div class="col-10">
+		<div class="input-parent">
+			<label for="itemID">Item ID</label>
+			{% include 'cart/form-add-to-cart/inputs/itemid.twig' %}
+		</div>
+	</div>
+	<div class="col-2 text-right">
+		<label for="qty">Qty</label>
+		{% include 'cart/form-add-to-cart/inputs/qty.twig' %}
+	</div>
+</div>
+<div class="form-row">
+	<div class="col-5 text-right"><b>Price:</b> 
+		{% include 'cart/form-add-to-cart/inputs/price.twig' %}
+	</div>
+	<div class="col-2 text-right"></div>
+	<div class="col-5 text-right"><b>Total:</b> 
+		{% include 'cart/form-add-to-cart/inputs/amount.twig' %}
+	</div>
+</div>
