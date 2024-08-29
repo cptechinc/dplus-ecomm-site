@@ -50,8 +50,16 @@ class Checkout extends AbstractOrderingController {
 		$SERVICE = Service::instance();
 		$data->success = $SERVICE->process($data);
 		self::updateCompletedStepsAfterProcessing($data);
+		$url = self::url();
 
-		self::getPwSession()->redirect(self::url(), $http301=false);
+		switch($data->action) {
+			case 'submit-order':
+				if ($data->success) {
+					$url = self::url() . 'confirmation/';
+				}
+				break;
+		}
+		self::getPwSession()->redirect($url, $http301=false);
 		return true;
 	}
 
@@ -169,14 +177,14 @@ class Checkout extends AbstractOrderingController {
 	5. Displays
 ============================================================= */
 	private static function display(WireData $data, Data\Form $form) {
-		return self::render($data, $form);
+		return self::render($data, $form, CartService::instance()->cart());
 	}
 
 /* =============================================================
 	6. HTML Rendering
 ============================================================= */
-	private static function render(WireData $data, Data\Form $form) {
-		return self::getTwig()->render('checkout/page.twig', ['form' => $form]);
+	private static function render(WireData $data, Data\Form $form, CartService\Data\Cart $cart) {
+		return self::getTwig()->render('checkout/page.twig', ['form' => $form, 'cart' => $cart]);
 	}
 
 /* =============================================================
@@ -302,6 +310,7 @@ class Checkout extends AbstractOrderingController {
 	 */
 	public static function initPageHooks($tplname = '') {
 		$selector = static::getPageHooksTemplateSelector($tplname);
+
 		$m = self::pw('modules')->get('App');
 
 		$m->addHook("$selector::checkoutSteps", function(HookEvent $event) {

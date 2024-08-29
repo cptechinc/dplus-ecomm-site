@@ -52,6 +52,14 @@ class Checkout extends AbstractEcommCrudService {
 	}
 
 	/**
+	 * Return if Checkout record exists
+	 * @return bool
+	 */
+	public function hasCheckoutOrdn() {
+		return $this->table->hasOrdn($this->sessionID);
+	}
+
+	/**
 	 * Return Billing Record
 	 * @return BillingRecord
 	 */
@@ -104,6 +112,9 @@ class Checkout extends AbstractEcommCrudService {
 			case 'update-shipping':
 				return $this->processUpdateShipping($input);
 				break;
+			case 'submit-order':
+				return $this->processSubmitOrder($input);
+				break;
 		}
 	}
 
@@ -152,6 +163,23 @@ class Checkout extends AbstractEcommCrudService {
 		$form->resetTrackChanges();
 		$this->updateFormShippingFields($input, $form);
 		return $this->updateBilling($form);
+	}
+
+	/**
+	 * Handle Order Submit
+	 * @param  WireInputData $input
+	 * @return bool
+	 */
+	private function processSubmitOrder(WireInputData $input) {
+		$form = $this->form();
+		$form->resetTrackChanges();
+
+		if ($this->updateBilling($form) === false) {
+			return false;
+		}
+		$this->requestOrderSubmit(new WireData());
+		$form = $this->form();
+		return $form->hasError();
 	}
 
 /* =============================================================
@@ -280,4 +308,13 @@ class Checkout extends AbstractEcommCrudService {
 		return $this->writeRqstUpdateDplus($rqst);
 	}
 
+	/**
+	 * Request Submit Order
+	 * @param  WireData $data
+	 * @return bool
+	 */
+	private function requestOrderSubmit(WireData $data) {
+		$rqst =  ['BILL'];
+		return $this->writeRqstUpdateDplus($rqst);
+	}
 }
