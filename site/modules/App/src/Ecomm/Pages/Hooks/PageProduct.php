@@ -84,7 +84,7 @@ class PageProduct extends AbstractStaticHooksAdder {
 				$event->return = $page->listprice;
 				return true;
 			}
-			$page->aSellprice = $page->listprice;
+			$page->aSellprice = $page->pricing->price;
 			$event->return    = $page->aSellprice;
 		});
 
@@ -96,7 +96,7 @@ class PageProduct extends AbstractStaticHooksAdder {
 				return true;
 			}
 			$page->aQtyInStock = $page->pricing->qty;
-			return $page->aQtyInStock;
+			$event->return = $page->aQtyInStock;
 		});
 	}
 }
