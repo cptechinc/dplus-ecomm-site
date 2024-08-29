@@ -97,7 +97,7 @@ class Cart extends AbstractOrderingController {
 	 */
 	protected static function getJsScriptPaths(WireData $data) {
 		$jsPath = 'scripts/pages/cart/';
-		$filenames = ['page.js'];
+		$filenames = ['classes/Requests.js', 'form-add-to-cart/classes/Form.js', 'form-add-to-cart/form.js', 'page.js'];
 		$scripts = [];
 
 		foreach ($filenames as $filename) {
@@ -107,7 +107,7 @@ class Cart extends AbstractOrderingController {
 	}
 
 	protected static function appendJs(WireData $data, $scripts = []) {
-		// self::appendJsJqueryValiudate();
+		self::appendJsJqueryValiudate();
 
 		$scripts = self::getJsScriptPaths($data);
 		parent::appendJs($data, $scripts);
