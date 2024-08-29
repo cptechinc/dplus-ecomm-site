@@ -16,10 +16,6 @@ class Pricing extends AbstractQueryWrapper {
 	const MODEL_KEY          = 'sessionid,itemid';
 	const MODEL_TABLE        = 'pricing';
 	const DESCRIPTION        = 'Ecomm session pricing table';
-	const YN_TRUE = 'Y';
-	const ERMES_FIRST_LOGIN = 'FIRST LOGIN';
-	const ERMES_EMAIL_SENT  = 'SendEmail';
-	const VALIDLOGIN_REGISTERED = 'R';
 
 	protected static $instance;
 
