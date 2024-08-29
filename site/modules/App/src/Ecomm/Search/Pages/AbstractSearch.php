@@ -1,5 +1,7 @@
 <?php namespace App\Ecomm\Search\Pages;
 // ProcessWire
+use ProcessWire\NullPage;
+use ProcessWire\Page;
 use ProcessWire\PageArray;
 use ProcessWire\WireData;
 
@@ -30,6 +32,14 @@ abstract class AbstractSearch extends WireData {
 	 */
 	public function find() {
 		return $this->pages->find($this->selector());
+	}
+
+	/**
+	 * Return First Search Result
+	 * @return Page|NullPage
+	 */
+	public function findOne() {
+		return $this->pages->get($this->selector());
 	}
 
 	/**
