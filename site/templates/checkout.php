@@ -4,6 +4,7 @@ use Controllers\Checkout;
 $routes = [
 	['GET',  '', Checkout::class, 'index'],
 	['POST', '', Checkout::class, 'process'],
+	['GET',  'success', Checkout\Success::class, 'index'],
 ];
 $router = new Mvc\Routers\Router();
 $router->setRoutes($routes);

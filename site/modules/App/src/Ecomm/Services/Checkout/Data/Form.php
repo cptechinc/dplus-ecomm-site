@@ -87,6 +87,7 @@ class Form extends WireData {
 		'cardnumber'     => 'ccno',
 		'expiredate'     => 'xpdate',
 		'cvc'            => 'vc',
+		'ordn'           => 'orders',
 	];
 	const BOOL_YN_FIELDS = [
 		'shipcomplete'
@@ -111,6 +112,7 @@ class Form extends WireData {
 		$this->shipcomplete = true;
 		$this->termscodetype = self::DEFAULT_TERMSCODETYPE;
 		$this->paymentmethod = self::DEFAULT_PAYMENTMETHOD;
+		$this->ordn = 0;
 		$this->trackChanges(true);
 	}
 
@@ -135,6 +137,7 @@ class Form extends WireData {
 		if ($this->paymentmethod == '') {
 			$this->paymentmethod = self::DEFAULT_PAYMENTMETHOD;
 		}
+		$this->ordn = intval($this->ordn);
 		$this->setPaymentFieldsFromBilling($b);
 	}
 

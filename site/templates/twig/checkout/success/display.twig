@@ -1,0 +1,16 @@
+{% import "util/macros/html.twig" as html %}
+
+<p class="mb-3">
+	Your Order (# {{ form.ordn }} has been placed. You will receive a confirmation email soon.
+</p>
+
+<div class="d-flex w-100 justify-content-between">
+	<a href="{{ page.orderUrl(form.ordn) }}" class="btn {{ CSS.colors.buttons.getClass('link') }}">
+		{{ html.iconType({'type': 'order'}) }} View Order
+	</a>
+	{% if session.isLoggedInEcomm() %}
+		<a href="{{ pages.dashboardUrl() }}" class="btn {{ CSS.colors.buttons.getClass('link') }}">
+			{{ html.iconType({'type': 'user-dashboard'}) }} Dashboard
+		</a>
+	{% endif %}
+</div>
