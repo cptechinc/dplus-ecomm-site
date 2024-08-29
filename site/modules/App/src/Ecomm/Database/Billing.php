@@ -77,6 +77,16 @@ class Billing extends AbstractQueryWrapper {
 		return boolval($q->count());
 	}
 
+	/**
+	 * Return if Record has Order #
+	 * @return bool
+	 */
+	public function hasOrdn($sessionID = '') {
+		$q = $this->querySession($sessionID);
+		$q->select('orders');
+		return intval($q->findOne()) > 0;
+	}
+
 /* =============================================================
 	Deletes
 ============================================================= */
