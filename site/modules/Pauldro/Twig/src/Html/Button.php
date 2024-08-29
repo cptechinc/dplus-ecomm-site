@@ -35,6 +35,7 @@ class Button extends AbstractElement {
 	 * @return string
 	 */
 	public function colorclass() {
+		return self::CLASS_PREFIX  . '-'  . str_replace(self::CLASS_PREFIX  . '-', '', $this->colorclass);
 		return self::CLASS_PREFIX  . '-' . ltrim($this->colorclass, self::CLASS_PREFIX . '-');
 	}
 
