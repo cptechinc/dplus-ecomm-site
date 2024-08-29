@@ -1,11 +1,16 @@
-<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+<p>
+	{{ pages.get('template=about-us').summary }}
+</p>
 <hr>
-<h4 class="h6">Join Our Monthly Newsletter</h4>
-<form>
-	<div class="input-group">
-		<input type="text" class="form-control">
-		<div class="input-group-append">
-		<button type="button" class="btn btn-secondary"><i class="fa fa-send"></i></button>
+{% if config.site.hasNewsletter %}
+	<h4 class="h6">Join Our Monthly Newsletter</h4>
+	
+	<form>
+		<div class="input-group">
+			<input type="text" class="form-control">
+			<div class="input-group-append">
+			<button type="button" class="btn btn-secondary"><i class="fa fa-send"></i></button>
+			</div>
 		</div>
-	</div>
-</form>
+	</form>
+{% endif %}
