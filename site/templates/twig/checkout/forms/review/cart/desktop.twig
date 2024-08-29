@@ -1,0 +1,62 @@
+{% import "util/macros/html.twig" as html %}
+
+<div class="list-group">
+	<div class="list-group-item {{ browseragent.isMobile() ? 'px-2' : '' }} bg-light text-bold">
+		{% block header_display %}
+			<div class="row">
+				<div class="col-5">Product</div>
+				<div class="col-2 text-right">Quantity</div>
+				<div class="col-2 text-right">Unit Price</div>
+				<div class="col-2 text-right">Total</div>
+			</div>
+		{% endblock %}
+	</div>
+
+	{% for item in cart.items %}
+		<div class="list-group-item {{ browseragent.isMobile() ? 'px-2' : '' }}">
+			{% block item_display %}
+				<div class="row">
+					<div class="col-5">
+						<b>{{ item.itemid }}</b><br>
+						{{ item.desc1 }}
+					</div>
+					<div class="col-2 text-right">{{ item.qty }}</div>
+					<div class="col-2 text-right">${{ item.price|currency }}</div>
+					<div class="col-2 text-right">${{ item.amount|currency }}</div>
+				</div>
+			{% endblock %}
+		</div>
+	{% endfor %}
+
+	{% set totals = {
+		'subtotal': {
+			'label': 'Subtotal',
+			'amount': cart.totals.subtotal,
+		},
+		'shipping': {
+			'label': 'Shipping',
+			'amount': cart.totals.shipping,
+		},
+		'tax': {
+			'label': 'Tax',
+			'amount': cart.totals.tax,
+		},
+		'total': {
+			'label': 'Total',
+			'amount': cart.totals.total(),
+		},
+	} %}
+	
+	{% block totals %}
+		{% for total in totals  %}
+			<div class="list-group-item py-1 {{ browseragent.isMobile() ? 'px-2' : '' }}">
+				<div class="row">
+					<div class="col-5"></div>
+					<div class="col-2 text-right"></div>
+					<div class="col-2 text-right text-bold">{{ total.label }}</div>
+					<div class="col-2 text-right">${{ total.amount|currency }}</div>
+				</div>
+			</div>
+		{% endfor %}
+	{% endblock %}
+</div>

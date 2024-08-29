@@ -1,0 +1,30 @@
+{% set id = 'submitOrderForm' %}
+
+{% extends 'checkout/forms/form-abstract.twig' %}
+
+{% import "util/macros/html.twig" as html %}
+
+{% block fields %}
+	<input type="hidden" name="action" value="submit-order">
+
+	<div class="pb-5">
+		<legend>Cart</legend>
+
+		<div class="mb-3">
+			{% include 'checkout/forms/review/cart.twig' %}
+		</div>
+
+		<div class="row">
+			<div class="col-6">
+				<a href="{{ pages.get('template=cart').url }}" class="btn btn-warning">
+					{{ html.iconType({'type': 'edit'}) }} Edit Cart
+				</a>
+			</div>
+			<div class="col-6 text-right">
+				<button type="submit" class="btn btn-success">
+					Submit Order {{ html.iconType({'type': 'arrow-right'}) }}
+				</button>
+			</div>
+		</div>
+	</div>
+{% endblock %}
