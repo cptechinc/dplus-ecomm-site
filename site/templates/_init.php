@@ -63,6 +63,7 @@ if ($input->get->offsetExists('action') === false && $page->template->name != 'j
 	$scripts->append($fh->getHashUrl('vendor/jquery.scrollto/jquery.scrollTo.min.js'));
 	$scripts->append($fh->getHashUrl('vendor/fuelux/js/fuelux.js'));
 	$scripts->append($fh->getHashUrl('vendor/sweetalert/js/sweetalert.min.js'));
+	$scripts->append($fh->getHashUrl('vendor/uri.js/uri.js'));
 	$scripts->append($fh->getHashUrl('scripts/classes/AjaxRequest.js'));
 	$scripts->append($fh->getHashUrl('scripts/classes/Alerts.js'));
 	$scripts->append($fh->getHashUrl('scripts/classes/Form.js'));
