@@ -8,7 +8,7 @@ use App\Css\Classes\AbstractCssLookup;
  */
 class Buttons extends AbstractCssLookup {
 	const MAP = [
-		'lookup' => 'btn-hotpink',
+		'lookup' => 'btn-lavender',
 		'save'   => 'btn-success',
 		'submit' => 'btn-success',
 		'link'   => 'btn-template-outlined',
