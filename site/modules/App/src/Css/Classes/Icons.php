@@ -47,6 +47,7 @@ class Icons extends AbstractCssLookup {
 		'nav-menu'	=> 'fa fa-align-justify',
 		'next'		=> 'bi bi-skip-end-fill',
 		'note'		=> 'fa fa-sticky-note',
+		'order'     => 'bi bi-receipt-cutoff',
 		'payment'	=> 'fa fa-money',
 		'phone' 	=> 'fa fa-phone',
 		'print' 	=> 'fa fa-print',
@@ -72,6 +73,7 @@ class Icons extends AbstractCssLookup {
 		'upload'	 => 'fa fa-cloud-upload',
 		'use'		 => 'fa fa-pencil',
 		'user-account' => 'bi bi-person-lines-fill',
+		'user-dashboard' => 'fa fa-address-card',
 		'warning'	=> 'fa fa-warning',
 
 		// Social
