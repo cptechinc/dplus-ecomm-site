@@ -13,6 +13,7 @@ use App\Ecomm\Pages\Templates;
  */
 class TemplatesInstaller extends ParentInstaller {
 	const TEMPLATE_CLASSES = [
+		'about-us'    => Templates\AboutUs::class,
 		'ajax'        => Templates\Ajax::class,
 		'ajax-json'   => Templates\AjaxJson::class,
 		'admin-site'  => Templates\AdminSite::class,

@@ -20,6 +20,7 @@ class FieldsInstaller extends ParentInstaller {
 		Fields\Itemid::NAME           => Fields\Itemid::class,
 		Fields\SiteIcon::NAME         => Fields\SiteIcon::class,
 		Fields\SiteIconImage::NAME    => Fields\SiteIconImage::class,
-		Fields\SiteLogoImage::NAME    => Fields\SiteLogoImage::class	
+		Fields\SiteLogoImage::NAME    => Fields\SiteLogoImage::class,
+		Fields\Summary::NAME          => Fields\Summary::class	
 	];
 }

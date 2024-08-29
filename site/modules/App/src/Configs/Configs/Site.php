@@ -11,6 +11,7 @@ use ProcessWire\WireArray;
  * @property string  $productImportFlag  Flag / Marker to find products from ITM
  * @property bool    $showInStock        Show product is in Stock?
  * @property bool    $showQtyInStock     Show Numeric Qty in Stock?
+ * @property bool    $hasNewsletter      Does Site have a newsletter?
  */
 class Site extends AbstractConfig {
 	public function __construct() {
@@ -19,5 +20,6 @@ class Site extends AbstractConfig {
 		$this->productImportFlag =  '';
 		$this->showInStock       = true;
 		$this->showQtyInStock    = true;
+		$this->hasNewsletter     = false;
 	}
 }

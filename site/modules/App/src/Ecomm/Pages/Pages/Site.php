@@ -8,6 +8,12 @@ use App\Pw\Pages\AbstractPageBuilder;
  */
 class Site extends AbstractPageBuilder {
 	const PAGES = [
+		'about-us' => [
+			'name'     => 'about-us',
+			'title'    => 'About Us',
+			'template' => 'about-us',
+			'parentSelector'   => '/',
+		],
 		'admin-site' => [
 			'name'     => 'admin',
 			'title'    => 'Site Administration',
