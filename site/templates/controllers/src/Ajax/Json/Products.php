@@ -1,5 +1,7 @@
 <?php namespace Controllers\Ajax\Json;
 // ProcessWire
+use ProcessWire\NullPage;
+use ProcessWire\Page;
 use ProcessWire\WireData;
 // App
 use App\Util\Data\JsonResultData as ResultData;
@@ -19,26 +21,118 @@ class Products extends AbstractJsonController {
 		$fields = ['itemID|string', 'jqv|bool'];
 		self::sanitizeParametersShort($data, $fields);
 
-		$result = new ResultData();
-		$result->action  = $data->action;
-		$result->itemID  = $data->itemID;
-		$result->qty     = $data->qty;
+		$data->action = 'validate-itemid';
+
+		$result = self::createResultData($data);
 
 		if (empty($data->itemID)) {
-			$result->error   = true;
-			$result->msg     = "Item ID was not provided";
+			self::setResultFailure($result, "Item ID was not provided");
 			return $data->jqv ? $result->msg : false;
 		}
 
-		$PAGES = new PagesSearcher();
-		$PAGES->itemIDs = [$data->itemID];
-		$result->success = $PAGES->count() > 0;
-		$result->error   = $result->success === false;
-		$result->msg     = $result->error ? "$data->itemID not found" : '';
+		$page = self::fetchProductPageByItemid($data);
 
-		if ($result->success) {
-			return true;
+		if ($page->id == 0) {
+			self::setResultFailure($result, "'$data->itemID' not found");
+			return $data->jqv ? $result->msg : false;
 		}
-		return $data->jqv ? $result->msg : false;
+		$result->success = true;
+		return true;
+	}
+
+	public static function getProductByItemid(WireData $data) {
+		$fields = ['itemID|string', 'jqv|bool'];
+		self::sanitizeParametersShort($data, $fields);
+
+		$result = self::createResultData($data);
+
+		if (empty($data->itemID)) {
+			self::setResultFailure($result, "Item ID was not provided");
+			return $result->data;
+		}
+
+		$page = self::fetchProductPageByItemid($data);
+
+		if ($page->id == 0) {
+			self::setResultFailure($result, "'$data->itemID' not found");
+			return $result->data;
+		}
+		$result->success = true;
+		$pData = self::parsePageData($page);
+		$result->product = $pData->data;
+		return $result->data;
+	}
+
+/* =============================================================
+	3. Data Fetching / Requests / Retrieval / Processing
+============================================================= */
+	/**
+	 * Return Product Page by Item ID
+	 * @param  WireData $data
+	 * @return Page|NullPage
+	 */
+	private static function fetchProductPageByItemid(WireData $data) {
+		$PAGES = self::createPageSearcher($data, [$data->itemID]);
+		return $PAGES->findOne();
+	}
+
+	/**
+	 * Set Result Failure
+	 * @param  ResultData $result
+	 * @param  string     $msg
+	 * @return void
+	 */
+	private static function setResultFailure(ResultData $result, $msg = '') {
+		$result->success = false;
+		$result->error   = true;
+		$result->msg     = $msg;
+	}
+
+	/**
+	 * Return Product Page Data
+	 * @param  Page $page
+	 * @return WireData
+	 */
+	private static function parsePageData(Page $page) {
+		$pData = new WireData();
+		$pData->itemid = $page->itemid;
+		$pData->description = $page->itemdescription;
+		$pData->itemdescription = $page->itemdescription;
+		$pData->listprice       = $page->listprice;
+		$pData->sellprice       = $page->sellprice;
+		$pData->qtyInStock      = $page->qtyInStock;
+		$pData->pricebreaks     = $page->pricebreaks;
+		return $pData;
+	}
+
+/* =============================================================
+	8. Supplemental
+============================================================= */
+	/**
+	 * Return PagesSearcher
+	 * @param  WireData $data
+	 * @param  array    $itemIDs
+	 * @return PagesSearcher
+	 */
+	private static function createPageSearcher(WireData $data, $itemIDs = []) {
+		$PAGES = new PagesSearcher();
+		$PAGES->itemIDs = $itemIDs;
+		return $PAGES;
+	}
+
+	/**
+	 * Create Result Data
+	 * @param  WireData $data
+	 * @return ResultData
+	 */
+	private static function createResultData(WireData $data) {
+		$result = new ResultData();
+		if ($data->has('action')) {
+			$result->action  = $data->action;
+		}
+		if ($data->has('itemID')) {
+			$result->itemID  = $data->itemID;
+		}
+		return $result;
 	}
 }

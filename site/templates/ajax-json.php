@@ -15,9 +15,12 @@ $routes = [
 		['POST', '', Checkout::class, 'process'],
 	],
 	'products' => [
+		'product' => [
+			['GET', 'itemid', Products::class, 'getProductByItemid'],
+		],
 		'validate' => [
 			['GET', 'itemid', Products::class, 'validateItemid'],
-		]
+		],
 	],
 ];
 $router = new Mvc\Routers\Json();
