@@ -1,0 +1,7 @@
+{% if browseragent.isMobile() == false %}
+	{% include 'ajax/lookup/products/add-to-cart/results/desktop.twig' %}
+{% endif %}
+
+{% if browseragent.isMobile() %}
+	{% include 'ajax/lookup/products/add-to-cart/results/mobile.twig' %}
+{% endif %}

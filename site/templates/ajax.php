@@ -3,6 +3,12 @@ use Controllers\Ajax\Lookup;
 
 $routes = [
 	'lookup' => [
+		'products' => [
+			'add-to-cart' => [
+				['GET', '', Lookup\Products::class, 'addToCart'],
+				['GET', 'page{pagenbr:\d+}', Lookup\Products::class, 'addToCart'],
+			]
+		],
 		'user' => [
 			'shipping-addresses' => [
 				['GET', '', Lookup\User::class, 'shippingAddresses'],

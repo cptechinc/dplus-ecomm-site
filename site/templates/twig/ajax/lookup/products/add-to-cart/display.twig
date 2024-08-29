@@ -1,0 +1,9 @@
+<div>
+	{% include 'ajax/lookup/form.twig' with {'placeholder': 'Search Products'} %}
+</div>
+
+{% include 'ajax/lookup/products/add-to-cart/results.twig' %}
+
+<div class="mt-3">
+	{% include 'util/paginator/PaginatedArray.twig' with {'results': results} %}
+</div>

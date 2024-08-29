@@ -1,0 +1,5 @@
+{% extends 'products/search/results/desktop.twig' %}
+
+{% block add_to_cart %}
+	<button type="button" class="btn {{ CSS.colors.buttons.getClass('submit') }} id-link" data-id="{{ result.itemid }}">Use</button>
+{% endblock %}

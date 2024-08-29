@@ -44,10 +44,11 @@ class Search extends AbstractController {
 ============================================================= */
 	/**
 	 * Return Paginated List of Results
+	 * NOTE: keep public for AJAX
 	 * @param  WireData $data
 	 * @return PaginatedArray
 	 */
-	private static function findSearchResults(WireData $data) {
+	public static function findSearchResults(WireData $data) {
 		if (empty($data->q)) {
 			return new PaginatedArray();
 		}

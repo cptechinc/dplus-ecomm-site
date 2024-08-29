@@ -1,0 +1,67 @@
+{% import "util/macros/html.twig" as html %}
+
+{% set placeholder = placeholder ? placeholder : 'Search Code, Description' %}
+
+{% set inputGroupSize = inputGroupSize == 'md' ? '' : 'sm' %}
+
+<div class="form-row mb-3">
+	<div class="col-3 col-sm-4 text-right">
+		{% if input.get.offsetExists('q') %}
+			<a href="{{ input.paginateUrl(1, {'includeQueryString': false}) }}" class="btn {{ inputGroupSize ? 'btn-' ~ inputGroupSize : '' }} btn-warning clear-search">
+				{{ html.iconType({type: 'exit'}) }} Clear {{ browseragent.isMobile() == false ? 'Search' }}
+			</a>
+		{% endif %}
+	</div>
+	<div class="col-9 col-sm-8">
+		<form action="{{ input.paginateUrl(1, {'includeQueryString': false}) }}" method="GET" class="allow-enterkey-submit" id="codes-search-form">
+			{% block hidden_inputs %}
+
+			{% endblock %}
+
+			{% include 'util/bootstrap/form/input-group-array.twig' with {
+				'inputgroup': {
+					'size': inputGroupSize,
+					'addclasses': ['input-group-clear-input'],
+					'elements': [
+						{
+							'type': 'input',
+							'data': {
+								'name': 'q',
+								'value': input.get.text('q'),
+								'addclasses': ['text-monospace'],
+								'attributes': {
+									'placeholder': placeholder,
+									'autofocus': autofocus,
+								}
+							}
+						},
+						{
+							'type': 'button',
+							'useSpanAppend': true,
+							'useSpanPrepend': false,
+							'data': {
+								'colorclass': CSS.colors.buttons.getClass('transparent'),
+								'text': html.iconType({'type': 'close'}),
+								'addclasses': ['clear-input-group-input', 'collapse', input.get.offsetExists('q') ? 'show' : ''],
+								'attributes': {
+									'style': 'margin-left: -2rem; z-index: 100;',
+									'tabindex': -1,
+								}
+							}
+						},
+						{
+							'type': 'button',
+							'useSpanAppend': true,
+							'useSpanPrepend': false,
+							'data': {
+								'type': 'submit',
+								'colorclass': CSS.colors.buttons.getClass('submit'),
+								'text': html.iconType({'type': 'search'}),
+							}
+						}
+					]
+				}
+			} %}
+		</form>
+	</div>
+</div>
