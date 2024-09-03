@@ -56,6 +56,12 @@ class Site extends AbstractPageBuilder {
 			'template' => 'site-config',
 			'parentSelector'   => '/',
 		],
+		'contact-us' => [
+			'name'     => 'contact-us',
+			'title'    => 'Contact Us',
+			'template' => 'contact-us',
+			'parentSelector'   => '/',
+		],
 		'products' => [
 			'name'     => 'products',
 			'title'    => 'Products',
