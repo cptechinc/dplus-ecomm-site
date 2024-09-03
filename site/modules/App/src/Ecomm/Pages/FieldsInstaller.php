@@ -13,6 +13,7 @@ use App\Ecomm\Pages\Fields;
  */
 class FieldsInstaller extends ParentInstaller {
 	const MAP = [
+		Fields\Body::NAME             => Fields\Body::class,
 		Fields\ItemDescription::NAME  => Fields\ItemDescription::class,
 		Fields\DisplayName::NAME      => Fields\DisplayName::class,
 		Fields\DplusDescription::NAME => Fields\DplusDescription::class,
