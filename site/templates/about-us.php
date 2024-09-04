@@ -2,8 +2,7 @@
 use Controllers\AboutUs;
 
 $routes = [
-	['GET',  '', AboutUs::class, 'index'],
-	['POST', '', AboutUs::class, 'process'],
+	['GET', '', AboutUs::class, 'index'],
 ];
 $router = new Mvc\Routers\Router();
 $router->setRoutes($routes);
