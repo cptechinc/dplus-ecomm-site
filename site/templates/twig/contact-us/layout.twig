@@ -1,0 +1,38 @@
+{% import "util/macros/html.twig" as html %}
+
+{% set aboutUs = pages.get('template=about-us') %}
+
+<div class="row">
+	<div class="col-sm-8">
+		<div class="mb-2">
+			{{ page.body|raw }}
+		</div>
+		{% include 'contact-us/form.twig' %}
+	</div>
+	<div class="col-sm-4">
+		<div class="mb-3">
+			<div class="heading mb-1">
+				<h3>{{ html.iconType({'type': 'email'}) }} Email</h3><br>
+			</div>
+			{% include 'contact-us/sections/email.twig' %}
+		</div>
+		<div class="mb-3">
+			<div class="heading mb-1">
+				<h3>{{ html.iconType({'type': 'phone'}) }} Phone</h3><br>
+			</div>
+			{% include 'contact-us/sections/phone.twig' %}
+		</div>
+		<div class="mb-3">
+			<div class="heading mb-1">
+				<h3>{{ html.iconType({'type': 'map-location'}) }} Location</h3><br>
+			</div>
+			{% include 'about-us/sections/location.twig' with {'page': aboutUs} %}
+		</div>
+		<div class="mb-3">
+			<div class="heading mb-1">
+				<h3>{{ html.iconType({'type': 'clock'}) }} Store Hours</h3><br>
+			</div>
+			{% include 'about-us/sections/store-hours.twig' with {'page': aboutUs} %}
+		</div>
+	</div>
+</div>

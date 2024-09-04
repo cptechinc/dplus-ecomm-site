@@ -1,0 +1,14 @@
+<div class="table-responsive">
+	<table class="table">
+		{% for phone in page.phonenumbers %}
+			<tr>
+				<th>{{ phone.title }}</th>
+				<td>
+					<a href="tel:{{ phone.phonenumber }}" class="link">
+						{{ sanitizer.emo(phone.phonenumber)|raw }}
+					</a>
+				</td>
+			</tr>
+		{% endfor %}
+	</table>
+</div>

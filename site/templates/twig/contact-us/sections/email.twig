@@ -1,0 +1,14 @@
+<div class="table-responsive">
+	<table class="table">
+		{% for email in page.emails %}
+			<tr>
+				<th>{{ email.title }}</th>
+				<td>
+					<a href="mailto:{{ email.email }}" class="link">
+						{{ sanitizer.emo(email.email)|raw }}
+					</a>
+				</td>
+			</tr>
+		{% endfor %}
+	</table>
+</div>
