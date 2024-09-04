@@ -19,6 +19,7 @@ class FieldsInstaller extends ParentInstaller {
 		Fields\DplusDescription::NAME => Fields\DplusDescription::class,
 		Fields\Dplusid::NAME          => Fields\Dplusid::class,
 		Fields\Itemid::NAME           => Fields\Itemid::class,
+		Fields\MapsEmbedUrl::NAME     => Fields\MapsEmbedUrl::class,
 		Fields\SiteIcon::NAME         => Fields\SiteIcon::class,
 		Fields\SiteIconImage::NAME    => Fields\SiteIconImage::class,
 		Fields\SiteLogoImage::NAME    => Fields\SiteLogoImage::class,
