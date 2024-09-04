@@ -9,6 +9,6 @@ use App\Pw\Templates\AbstractTemplate;
 class AboutUs extends AbstractTemplate {
 	const NAME  = 'about-us';
 	const LABEL = 'About Us';
-	const FIELDS = ['title', 'summary', 'streetaddress', 'body'];
+	const FIELDS = ['title', 'summary', 'streetaddress', 'body', 'mapsEmbedUrl', 'storehours'];
 	const IS_SINGLE_USE     = true;
 }
