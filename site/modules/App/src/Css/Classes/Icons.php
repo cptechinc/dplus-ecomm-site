@@ -13,6 +13,7 @@ class Icons extends AbstractCssLookup {
 		'box'		=> 'bi bi-box-seam',
 		'calendar'	=> 'fa fa-calendar',
 		'cart'		=> 'fa fa-shopping-cart',
+		'clock' 	=> 'bi bi-clock',
 		'close' 	=> 'fa fa-times',
 		'complete'	=> 'fa fa-check',
 		'confirm'	=> 'fa fa-check',
