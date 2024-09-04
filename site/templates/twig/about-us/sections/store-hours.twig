@@ -1,10 +1,12 @@
 {% if page.storehours.getNumberOfTimes() > 0 %}
 	{% set data = {
-		'wrappertag': 'table', 'wrapperclass': 'table', 
+		'wrappertag': 'table', 
+		'wrapperclass': 'table', 
 		'itemtag': 'tr',
 		'daytag': 'th',
 		'timetag': 'td',
-		'fulldayName': true, 'daytimeseparator':  ': ',
+		'fulldayName': true,
+		'daytimeseparator': ': ',
 		'timesuffix': ' h'
 	} %}
 	{{ page.storehours.renderCombinedDays(data)|raw }}
