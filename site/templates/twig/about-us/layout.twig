@@ -1,0 +1,22 @@
+{% import "util/macros/html.twig" as html %}
+
+<div class="row">
+	<div class="col-sm-8">
+		{{ page.body|raw }}
+	</div>
+	<div class="col-sm-4">
+		<div class="mb-3">
+			<div class="heading">
+				<h3>{{ html.iconType({'type': 'map-location'}) }}  Location</h3><br>
+			</div>
+			{% include 'about-us/sections/location.twig' %}
+		</div>
+
+		<div class="mb-3">
+			<div class="heading">
+				<h3>{{ html.iconType({'type': 'clock'}) }}  Store Hours</h3><br>
+			</div>
+			{% include 'about-us/sections/store-hours.twig' %}
+		</div>
+	</div>
+</div>
