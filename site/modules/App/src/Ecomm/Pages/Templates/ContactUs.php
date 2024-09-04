@@ -9,6 +9,6 @@ use App\Pw\Templates\AbstractTemplate;
 class ContactUs extends AbstractTemplate {
 	const NAME  = 'contact-us';
 	const LABEL = 'Contact Us';
-	const FIELDS = ['title', 'summary', 'emails', 'phonenumbers'];
+	const FIELDS = ['title', 'summary', 'body', 'emails', 'phonenumbers'];
 	const IS_SINGLE_USE     = true;
 }
