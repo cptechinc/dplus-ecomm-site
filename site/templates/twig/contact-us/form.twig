@@ -1,7 +1,7 @@
 {% import "util/macros/html.twig" as html %}
 
 <form action="./" method="POST" id="contactForm">
-	<input type="hidden" name="action" value="submit-contact-info">
+	<input type="hidden" name="action" value="contact-us">
 
 	{% if config.recaptcha.siteKey %}
 		<input type="hidden" name="recaptcha" id="recaptcha" value="">
