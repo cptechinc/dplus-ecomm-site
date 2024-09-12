@@ -2,5 +2,7 @@
 	<div class="heading">
 		<h2>{{ page.title }}</h2>
 	</div>
-	{% include 'contact-us/layout.twig' %}
+	{% block body %}
+		{% include 'contact-us/layout.twig' %}
+	{% endblock %}
 </section>

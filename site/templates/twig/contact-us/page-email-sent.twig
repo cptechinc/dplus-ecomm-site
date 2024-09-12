@@ -1,0 +1,9 @@
+{% extends 'contact-us/page.twig' %}
+
+{% import "util/macros/html.twig" as html %}
+
+{% block body %}
+	<div class="mb-3 col-sm-4 px-0">
+		{{ html.alert({'type': 'success', 'icon': {'type': 'email'}, 'title': 'Your message has been sent!', 'message': 'We will contact you ASAP'}) }}
+	</div>
+{% endblock %}
