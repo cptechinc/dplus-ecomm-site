@@ -1,0 +1,46 @@
+<mjml>
+  <mj-body background-color="#ffffff" font-size="13px">
+    <mj-section background-color="#ffffff" padding-bottom="0px" padding-top="0">
+      <mj-column vertical-align="top" width="100%">
+        <mj-image src="http://go.mailjet.com/tplimg/mtrq/b/ox8s/mg1rw.png" alt="" align="center" border="none" width="600px" padding-left="0px" padding-right="0px" padding-bottom="0px" padding-top="0"></mj-image>
+      </mj-column>
+    </mj-section>
+    <mj-section background-color="#009FE3" vertical-align="top" padding-bottom="0px" padding-top="0">
+      <mj-column vertical-align="top" width="100%">
+        <mj-text align="left" color="#ffffff" font-size="45px" font-weight="bold" font-family="open Sans Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px" padding-bottom="15px" padding-top="25px">Contact Us Submission</mj-text>
+        <mj-text align="left" color="#ffffff" font-size="15px" font-family="open Sans Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px">[[WebSite]]</mj-text>
+        </mj-table>
+      </mj-column>
+    </mj-section>
+    <mj-section background-color="#FFFFFF" vertical-align="top" padding-bottom="0px" padding-top="0">
+      <mj-column vertical-align="top" width="100%">
+         <mj-table>
+          <tr>
+            <th>Name</td>
+            <td>[[FirstName]] [[LastName]]</td>
+          </tr>
+          <tr>
+            <th>Phone</td>
+            <td>[[PhoneNumber]]</td>
+          </tr>
+          <tr>
+            <th>Email</td>
+            <td>[[Email]]</td>
+          </tr>
+        </mj-table>
+      </mj-column>
+    </mj-section>
+  <mj-section background-color="#D8E9E9" vertical-align="top" padding-bottom="0px" padding-top="0">
+      <mj-column vertical-align="top" width="100%">
+        <mj-text align="left" color="#000000" font-size="20px" font-weight="bold" font-family="open Sans Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px" padding-bottom="30px" padding-top="20px">[[Subject]]
+        </mj-text>
+        <mj-text align="left" color="#000000" font-size="15px" font-family="open Sans Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px">[[MessageBody]]</mj-text>
+      </mj-column>
+    </mj-section>
+    <mj-section background-color="#009fe3" padding-bottom="20px" padding-top="20">
+      <mj-column vertical-align="middle" width="100%">
+        <mj-text align="left" color="#ffffff" font-size="15px" font-family="open Sans Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px">Thanks, <br /> The [[CompanyName]] Team</mj-text>
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>
