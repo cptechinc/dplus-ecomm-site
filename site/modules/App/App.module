@@ -20,6 +20,7 @@ class App extends WireData implements Module {
 		
 		Ecomm\Pages\Hooks\PageProduct::addHooks();
 		Ecomm\Pages\Hooks\PageProductsItemGroup::addHooks();
+		Site\Pages\Hooks\Blog::addHooks();
 		Site\Pages\Hooks\BlogPost::addHooks();
 
 		$this->ecommDB = new WireData();
