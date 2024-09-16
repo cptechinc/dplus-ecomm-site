@@ -4,6 +4,7 @@ include_once(__DIR__.'/vendor/autoload.php');
 // App
 use App\Ecomm;
 use App\Pw\Hooks;
+use App\Site;
 
 /**
  * App
@@ -19,6 +20,7 @@ class App extends WireData implements Module {
 		
 		Ecomm\Pages\Hooks\PageProduct::addHooks();
 		Ecomm\Pages\Hooks\PageProductsItemGroup::addHooks();
+		Site\Pages\Hooks\BlogPost::addHooks();
 
 		$this->ecommDB = new WireData();
 		$this->ecommDB->states = Ecomm\Database\States::instance();
