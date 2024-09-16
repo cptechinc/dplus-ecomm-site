@@ -15,6 +15,7 @@ site/modules/Dpay/vendor/
 site/modules/Pauldro/Mvc/vendor/
 site/modules/Pauldro/Pauldro/vendor/
 site/modules/Pauldro/Twig/vendor/
+site/modules/ProcessBlog/
 site/templates/controllers/vendor/
 site/templates/init/config/
 
