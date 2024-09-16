@@ -1,0 +1,17 @@
+<div class="row bar">
+	<!-- LEFT COLUMN _________________________________________________________-->
+	<div id="blog-listing-small" class="col-lg-9">
+		<div>
+			{% include 'blog/page/list.twig' %}
+		</div>
+		
+		<ul class="pager list-unstyled d-flex align-items-center justify-content-between">
+			<li class="previous"><a href="#" class="btn btn-template-outlined">← Older</a></li>
+			<li class="next disabled"><a href="#" class="btn btn-template-outlined">Newer →</a></li>
+		</ul>
+	</div>
+	<!--  RIGHT COLUMN _________________________________________________________-->
+	<div class="col-lg-3">
+		{% include 'blog/page/sidebar.twig' %}
+	</div>
+</div>
