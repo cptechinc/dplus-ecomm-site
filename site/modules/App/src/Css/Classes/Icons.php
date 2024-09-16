@@ -34,6 +34,7 @@ class Icons extends AbstractCssLookup {
 		'info'	   => 'bi bi-info-circle',
 		'inventory' => 'fa fa-cubes',
 		'keyboard' => 'fa fa-keyboard-o',
+		'link'     => 'fa fa-chain',
 		'list'		=> 'fa fa-list',	
 		'list-dropdown' => 'fa fa-caret-down',
 		'lock'		=> 'fa fa-lock',
