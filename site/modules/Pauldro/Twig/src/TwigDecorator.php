@@ -79,7 +79,7 @@ class TwigDecorator extends AbstractStaticPwClass {
 	private static function addGlobalsPw(Environment $twig) {
 		$pw = self::pw('config');
 
-		foreach (['page', 'pages', 'config', 'user', 'languages', 'sanitizer', 'session', 'input', 'browseragent', 'urls'] as $variable) {
+		foreach (['page', 'pages', 'config', 'user', 'languages', 'sanitizer', 'session', 'input', 'browseragent', 'urls', 'users'] as $variable) {
 			$twig->addGlobal($variable, $pw->wire($variable));
 		};
 		$twig->addGlobal('homepage', $pw->wire('pages')->get('/'));
