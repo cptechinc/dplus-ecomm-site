@@ -20,7 +20,7 @@
 						<a href="{{ post.url }}">{{ post.title }}</a>
 					</h4>
 					<p class="author-category">
-						By <a href="#">{{ post.writer.name }}</a> in <a href="blog.html">{{ post.blog_categories.first().title }}</a>
+						By <a href="#">{{ post.writer.title }}</a> in <a href="blog.html">{{ post.blog_categories.first().title }}</a>
 					</p>
 					<p class="intro">{{ post.blog_body }}</p>
 					<a href="{{ post.url }}" class="btn btn-template-outlined">Continue Reading</a>
