@@ -1,20 +1,11 @@
 <ul class="list-unstyled footer-blog-list">
-	<li class="d-flex align-items-center">
-		<div class="image"><img src="{{ urls.files ~ 'test/' }}detailsquare.jpg" alt="..." class="img-fluid"></div>
-		<div class="text">
-		<h5 class="mb-0"> <a href="post.html">Blog post name</a></h5>
-		</div>
-	</li>
-	<li class="d-flex align-items-center">
-		<div class="image"><img src="{{ urls.files ~ 'test/' }}detailsquare.jpg" alt="..." class="img-fluid"></div>
-		<div class="text">
-		<h5 class="mb-0"> <a href="post.html">Blog post name</a></h5>
-		</div>
-	</li>
-	<li class="d-flex align-items-center">
-		<div class="image"><img src="{{ urls.files ~ 'test/' }}detailsquare.jpg" alt="..." class="img-fluid"></div>
-		<div class="text">
-		<h5 class="mb-0"> <a href="post.html">Very very long blog post name</a></h5>
-		</div>
-	</li>
+	{% for post in pages.get('template=blog').recent(3) %}
+		<li class="d-flex align-items-center">
+			<div class="image">	<img src="{{ urls.files ~ 'test/' }}detailsquare.jpg" alt="..." class="img-fluid">
+			</div>
+			<div class="text">
+				<h5 class="mb-0"> <a href="{{ post.url }}">{{ post.title }}</a></h5>
+			</div>
+		</li>
+	{% endfor %}
 </ul>
