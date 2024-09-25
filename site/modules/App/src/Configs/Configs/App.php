@@ -12,6 +12,7 @@ use App\Pw\Roles;
  * @property bool $useDpay                  Use Dpay?
  * @property bool $allowOrdering            Allow User to Order Items
  * @property bool $requireLoginToOrder      Require Login to Order Items
+ * @property bool $showOpenInvoices         Show Open Invoices
  */
 class App extends AbstractConfig {
 	public function __construct() {
@@ -19,5 +20,6 @@ class App extends AbstractConfig {
 		$this->useDpay       = false;
 		$this->allowOrdering = false;
 		$this->requireLoginToOrder = false;
+		$this->showOpenInvoices = true;
 	}
 }
