@@ -16,7 +16,6 @@ use Dplus\Docm\StaticDocumentQueryWrapper;
 class ArInvoice extends StaticDocumentQueryWrapper {
 	const TAG = 'AR';
 
-
 	/**
 	 * Add Query Condition for AR Invoice # for Ref1
 	 * @param  DocumentQuery $q     Query
