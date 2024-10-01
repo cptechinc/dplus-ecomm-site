@@ -28,6 +28,11 @@ $routes = [
 		['GET',  '{ordn:\d+}/documents/', Account\Orders\HistoryOrderDocuments::class, 'index'],
 		['GET',  'page{pagenbr:\d+}/', Account\Orders\HistoryList::class, 'index'],
 	],
+	'invoices' => [
+		'open' => [
+			['GET',  '', Account\Invoices\OpenInvoices::class, 'index'],
+		],
+	],
 	'register' => [
 		['GET',  '', Account\Register::class, 'index'],
 		['POST', '', Account\Register::class, 'process'],
