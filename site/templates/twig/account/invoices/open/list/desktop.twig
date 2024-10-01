@@ -52,7 +52,11 @@
 					<div class="col-2">{{ order.duedate|convertdate }}</div>
 					<div class="col-2 text-right">$ {{ order.total|currency }}</div>
 					<div class="col-2">
-						<a href="{# page.orderUrl(order.ordernumber) #}" class="btn btn-sm {{ CSS.colors.buttons.getClass('link') }}">View</a>
+						{% if page.orderExists(order.ordn) %}
+							<a href="{{ page.orderUrl(order.ordn) }}" class="btn btn-sm {{ CSS.colors.buttons.getClass('link') }}" target="_blank">
+								View
+							</a>
+						{% endif %}
 					</div>
 				</div>
 			</div>

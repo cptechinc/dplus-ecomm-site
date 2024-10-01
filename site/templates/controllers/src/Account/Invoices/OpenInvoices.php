@@ -9,7 +9,9 @@ use ProcessWire\Wire404Exception;
 use Dpay\Db\Tables\PaymentLinks;
 // Dplus
 use Dplus\Database\Tables\ArInvoice as InvoicesTable;
-
+use Dplus\Database\Tables\SalesHistory as OrderHistoryTable;
+// Controllers
+use Controllers\Account\Orders\HistoryOrder;
 
 /**
  * OpenInvoices
@@ -71,6 +73,15 @@ class OpenInvoices extends AbstractController {
 		}
 		throw new Wire404Exception();
 		return false;
+	}
+
+	/**
+	 * Return if Sales Order # exists
+	 * @param  int $ordn
+	 * @return bool
+	 */
+	private static function orderExists($ordn) {
+		return OrderHistoryTable::instance()->exists($ordn);
 	}
 
 /* =============================================================
@@ -141,15 +152,15 @@ class OpenInvoices extends AbstractController {
 	 */
 	public static function initPageHooks($tplname = '') {
 		$selector = static::getPageHooksTemplateSelector();
-		// $m = self::pw('modules')->get('App');
+		$m = self::pw('modules')->get('App');
 
-		// $m->addHook("$selector::listUrl", function($event) {
-		// 	$event->return = static::listUrl();
-		// });
+		$m->addHook("$selector::orderExists", function(HookEvent $event) {
+			$event->return = static::orderExists(intval($event->arguments(0)));
+		});
 
-		// $m->addHook("$selector::documentUrl", function(HookEvent $event) {
-		// 	$event->return = static::urlDocumentDownload($event->arguments(0), $event->arguments(1), $event->arguments(2));
-		// });
+		$m->addHook("$selector::orderUrl", function(HookEvent $event) {
+			$event->return = HistoryOrder::urlOrder($event->arguments(0));
+		});
 
 		// $m->addHook("$selector::countOrderDocuments", function(HookEvent $event) {
 		// 	$event->return = DOCM::count($event->arguments(0));
