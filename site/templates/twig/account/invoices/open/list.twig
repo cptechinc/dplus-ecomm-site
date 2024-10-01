@@ -1,0 +1,7 @@
+{% if browseragent.isMobile() == false %}
+	{% include 'account/invoices/open/list/desktop.twig' %}
+{% endif %}
+
+{% if browseragent.isMobile() %}
+	{% include 'account/invoices/open/list/mobile.twig' %}
+{% endif %}

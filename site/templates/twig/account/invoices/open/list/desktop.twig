@@ -1,0 +1,61 @@
+{% import "util/macros/html.twig" as html %}
+
+<div class="list-group">
+	<div class="list-group-item bg-light h4 mb-0">
+		{% block header %}
+			<div class="row">
+				<div class="col-2">
+					<a href="{{ input.sortUrl('invoicedate') }}" class="link sort">Invoice Date
+						{% if input.get.text('orderBy') == 'invoicedate'  %}
+							{{ html.iconTypeSort({'type': 'sort-numeric', 'direction' : input.get.text('sortDir')}) }}
+						{% endif %}
+					</a>
+				</div>
+				<div class="col-2">
+					<a href="{{ input.sortUrl('ordernumber') }}" class="link sort">Invoice # 
+						{% if input.get.text('orderBy') == 'ordernumber'  %}
+							{{ html.iconTypeSort({'type': 'sort-numeric', 'direction' : input.get.text('sortDir')}) }}
+						{% endif %}
+					</a>
+				</div>
+				<div class="col-2">
+					<a href="{{ input.sortUrl('duedate') }}" class="link sort">Due Date
+						{% if input.get.text('orderBy') == 'duedate'  %}
+							{{ html.iconTypeSort({'type': 'sort-numeric', 'direction' : input.get.text('sortDir')}) }}
+						{% endif %}
+					</a>
+				</div>
+				<div class="col-2 text-right">
+					<a href="{{ input.sortUrl('total_total') }}" class="link sort">Order Total
+						{% if input.get.text('orderBy') == 'total_total'  %}
+							{{ html.iconTypeSort({'type': 'sort-numeric', 'direction' : input.get.text('sortDir')}) }}
+						{% endif %}
+					</a>
+				</div>
+				<div class="col-2">Actions</div>
+			</div>
+		{% endblock %}
+	</div>
+	
+	{% block results %}
+		{% if results.count == 0 %}
+			<div class="list-group-item bg-light">
+				<div class="text-center">There are no results to display.</div>
+			</div>
+		{% endif %}
+		
+		{% for order in results %}
+			<div class="list-group-item py-1">
+				<div class="row">
+					<div class="col-2">{{ order.invoicedate|convertdate }}</div>
+					<div class="col-2">{{ order.invnbr }}</div>
+					<div class="col-2">{{ order.duedate|convertdate }}</div>
+					<div class="col-2 text-right">$ {{ order.total|currency }}</div>
+					<div class="col-2">
+						<a href="{# page.orderUrl(order.ordernumber) #}" class="btn btn-sm {{ CSS.colors.buttons.getClass('link') }}">View</a>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	{% endblock %}
+</div>
