@@ -66,7 +66,7 @@ abstract class AbstractOrderTable extends AbstractQueryWrapper {
 	 * @return Query
 	 */
 	public function queryOrdn($ordn) {
-		return $this->query()->filterByOrdernumber($ordn);
+		return $this->query()->filterByOrdernumber(static::padOrdernumber($ordn));
 	}
 	
 /* =============================================================
