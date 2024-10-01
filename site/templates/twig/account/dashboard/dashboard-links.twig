@@ -39,6 +39,20 @@
 			</a>
 		</div>
 	</div>
+	{% if config.app.showOpenInvoices %}
+		<div class="col-sm-3 col-6 mb-3">
+			<div class="card">
+				<a href="{{ page.openInvoicesUrl() }}" target="_self">
+					<div class="card-body">
+						<h1 class="text-center mb-1">
+							{{ html.iconType({'type': 'list', 'addclasses': ['fa-2x']}) }}
+						</h1>
+						<p class="card-text font-weight-bold text-center">Open Invoices</p>
+					</div>
+				</a>
+			</div>
+		</div>
+	{% endif %}
 	<div class="col-sm-3 col-6 mb-3">
 		<div class="card">
 			<a href="{{ page.changePasswordUrl() }}" target="_self">

@@ -83,7 +83,11 @@ class Dashboard extends AbstractController {
 		});
 
 		$m->addHook("$selector::historyUrl", function($event) {
-			$event->return = AccountController\Orders\History::url();
+			$event->return = AccountController\Orders\HistoryList::url();
+		});
+
+		$m->addHook("$selector::openInvoicesUrl", function($event) {
+			$event->return = AccountController\Invoices\OpenInvoices::url();
 		});
 	}
 }
