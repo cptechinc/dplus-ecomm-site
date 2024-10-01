@@ -31,6 +31,7 @@ $routes = [
 	'invoices' => [
 		'open' => [
 			['GET',  '', Account\Invoices\OpenInvoices::class, 'index'],
+			['GET',  'page{pagenbr:\d+}/', Account\Invoices\OpenInvoices::class, 'index'],
 		],
 	],
 	'register' => [
