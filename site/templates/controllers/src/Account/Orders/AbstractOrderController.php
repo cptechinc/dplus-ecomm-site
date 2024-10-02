@@ -7,10 +7,11 @@ use ProcessWire\WireData;
 // Dplus
 use Dplus\Database\Tables\AbstractOrderTable;
 use Dplus\Docm\Finders\SalesOrder as DOCM;
-// Controllers
-use Controllers\Abstracts\AbstractController;
 // App
 use App\Ecomm\Services\Dpay\PaymentLinks;
+// Controllers
+use Controllers\Abstracts\AbstractController;
+
 
 /**
  * AbstractOrderController
@@ -32,13 +33,21 @@ abstract class AbstractOrderController extends AbstractController {
 	 * @return string|bool
 	 */
 	public static function index(WireData $data) {
+		self::sanitizeParametersShort($data, ['ordn|int', 'action|text']);
 		if (static::init($data) === false) {
 			return false;
 		}
-		self::sanitizeParametersShort($data, ['ordn|int']);
+		if ($data->action) {
+			return static::process($data);
+		}
 		self::pw('page')->title = "Order #$data->ordn";
 		static::initHooks();
 		return static::order($data);
+	}
+
+	protected static function process(WireData $data) {
+		self::sanitizeParametersShort($data, ['ordn|int', 'action|text']);
+		self::pw('session')->redirect(self::urlOrder($data->ordn), $http301=false);
 	}
 
 	/**
@@ -132,6 +141,15 @@ abstract class AbstractOrderController extends AbstractController {
 	public static function urlDocumentDownload($ordn, $folder, $filename) {
 		return OrderDocuments::urlDownload($ordn, $folder, $filename);
 	}
+
+	/**
+	 * Return URL to create payment link for a single order
+	 * @param  int $ordn
+	 * @return string
+	 */
+	public static function urlCreatePaymentLink($ordn) {
+		return static::urlOrder($ordn) . '?' . http_build_query(['action' => 'create-paymentlink-single-order', 'ordn' => $ordn]);
+	}
 	
 /* =============================================================
 	5. Displays
@@ -190,6 +208,10 @@ abstract class AbstractOrderController extends AbstractController {
 
 		$m->addHook("$selector::fetchPaymentLink", function(HookEvent $event) {
 			$event->return = PaymentLinks::instance()->paymentLinkByOrdn($event->arguments(0));
+		});
+
+		$m->addHook("$selector::createOrderPaymentLink", function(HookEvent $event) {
+			$event->return = static::urlCreatePaymentLink($event->arguments(0));
 		});
 	}
 }
