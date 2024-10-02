@@ -1,4 +1,6 @@
 <?php namespace Dpay\Db\Tables;
+// Dpay
+use Dpay\Db\Tables\Data\PaymentLink as Record;
 
 /**
  * PaymentLinks
@@ -53,7 +55,7 @@ class PaymentLinks extends AbstractDatabaseTable {
 	/**
 	 * Return Record
 	 * @param  string $id Record ID
-	 * @return Model
+	 * @return Record
 	 */
 	public function record($id) {
 		$q = $this->query();
@@ -65,7 +67,7 @@ class PaymentLinks extends AbstractDatabaseTable {
 	/**
 	 * Return newest Record for Order #
 	 * @param  int $ordn
-	 * @return Model
+	 * @return Record
 	 */
 	public function recordByOrdn($ordn) {
 		$q = $this->query();
