@@ -12,7 +12,7 @@
 					</a>
 				</div>
 				<div class="col-4">
-					<a href="{{ input.sortUrl('invoicedate') }}" class="link sort">Order Date
+					<a href="{{ input.sortUrl('invoicedate') }}" class="link sort">Invoice Date
 						{% if input.get.text('orderBy') == 'invoicedate'  %}
 							{{ html.iconTypeSort({'type': 'sort-numeric', 'direction' : input.get.text('sortDir')}) }}
 						{% endif %}
