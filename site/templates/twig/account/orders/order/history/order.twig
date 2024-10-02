@@ -11,3 +11,26 @@
 {% block header %}
 	{% include 'account/orders/order/history/sections/header.twig' %}
 {% endblock %}
+
+{% block paymentlinks %}
+	{% if config.app.useDpay %}
+		<hr>
+		<div class="row">
+			<div class="col-sm-6">
+				<h3 class="text-uppercase">Payment Link</h3>
+			</div>
+			<div class="col-sm-6">
+				{% if page.hasPaymentLink(input.get.int('ordn')) %}
+					{% set link = page.fetchPaymentLink(input.get.int('ordn')) %}
+					<a href="{{ link.url }}" target="_blank" class="btn {{ CSS.colors.buttons.getClass('link') }}">
+						$ Pay
+					</a>
+				{% elseif config.dpay.allowCreatePaymentLinks %}
+					<a href="{{ page.createOrderPaymentLink(input.get.int('ordn')) }}" class="btn {{ CSS.colors.buttons.getClass('link') }}">
+						Create Payment Link
+					</a>
+				{% endif %}
+			</div>
+		</div>
+	{% endif %}
+{% endblock %}
