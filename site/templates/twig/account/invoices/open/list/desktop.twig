@@ -26,8 +26,8 @@
 					</a>
 				</div>
 				<div class="col-2 text-right">
-					<a href="{{ input.sortUrl('total_total') }}" class="link sort">Order Total
-						{% if input.get.text('orderBy') == 'total_total'  %}
+					<a href="{{ input.sortUrl('total') }}" class="link sort">Total
+						{% if input.get.text('orderBy') == 'total'  %}
 							{{ html.iconTypeSort({'type': 'sort-numeric', 'direction' : input.get.text('sortDir')}) }}
 						{% endif %}
 					</a>
