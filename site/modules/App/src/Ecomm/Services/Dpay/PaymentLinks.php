@@ -1,10 +1,12 @@
 <?php namespace App\Ecomm\Services\Dpay;
 // ProcessWire
-// use ProcessWire\WireData;
+use ProcessWire\WireData;
 use ProcessWire\WireInputData;
 // Dpay
 use Dpay\Db\Tables\PaymentLinks as PaymentLinksTable;
 use Dpay\Db\Tables\Data\PaymentLink as PaymentLinkRecord;
+// Dplus
+use Dplus\Database\Tables\SalesHistory as ShTable;
 // App
 use App\Ecomm\Abstracts\Services\AbstractEcommCrudService;
 
@@ -56,9 +58,38 @@ class PaymentLinks extends AbstractEcommCrudService {
 	 */
 	protected function processInput(WireInputData $input) {
 		switch ($input->text('action')) {
-			// case 'add-to-cart':
-			// 	return $this->processAddToCart($input);
-			// 	break;
+			case 'create-paymentlink-single-order':
+				return $this->processCreateSingleOrderLink($input);
+				break;
 		}
+	}
+
+	/**
+	 * Create Payment Link for single order
+	 * @param  WireInputData $input
+	 * @return bool
+	 */
+	private function processCreateSingleOrderLink(WireInputData $input) {
+		$data = new WireData();
+		$data->ordn = $input->int('ordn');
+
+		if (ShTable::instance()->exists($data->ordn) === false) {
+			return false;
+		}
+		$this->requestCreateSingleOrderLink($data);
+		return $this->existsByOrdn($data->ordn);
+	}
+
+/* =============================================================
+	Dplus Requests
+============================================================= */
+	/**
+	 * Request Create PaymentLink
+	 * @param  WireData $data
+	 * @return bool
+	 */
+	private function requestCreateSingleOrderLink(WireData $data) {
+		$rqst =  ['CREATEPAYMENTLINK', "ORDERNBR=$data->ordn"];
+		return $this->writeRqstUpdateDplus($rqst);
 	}
 }
