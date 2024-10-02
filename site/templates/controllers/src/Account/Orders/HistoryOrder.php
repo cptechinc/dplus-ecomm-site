@@ -5,6 +5,8 @@ use SalesHistory as ShRecord;
 use ProcessWire\WireData;
 // Dplus
 use Dplus\Database\Tables\SalesHistory as ShTable;
+// App
+use App\Ecomm\Services\Dpay\PaymentLinks;
 
 /**
  * HistoryOrder
@@ -16,6 +18,20 @@ class HistoryOrder extends AbstractOrderController {
 	const SESSION_NS = 'sales-order';
 	const TITLE         = 'Sales Order';
 	const PAGE_NAME     = 'history';
+
+/* =============================================================
+	1. Indexes
+============================================================= */
+	protected static function process(WireData $data) {
+		self::sanitizeParametersShort($data, ['ordn|int', 'action|text']);
+
+		switch ($data->action) {
+			case 'create-paymentlink-single-order':
+				PaymentLinks::instance()->process($data);
+				self::pw('session')->redirect(self::urlOrder($data->ordn), $http301=false);
+				break;
+		}
+	}
 
 /* =============================================================
 	4. URLs
