@@ -8,6 +8,8 @@ use Dpay\Db\Tables\Data\PaymentLink as PaymentLinkRecord;
 // Dplus
 use Dplus\Database\Tables\SalesHistory as ShTable;
 // App
+use App\Configs\Configs\App as ConfigApp;
+use App\Configs\Configs\Dpay as ConfigDpay;
 use App\Ecomm\Abstracts\Services\AbstractEcommCrudService;
 
 /**
@@ -72,6 +74,15 @@ class PaymentLinks extends AbstractEcommCrudService {
 	private function processCreateSingleOrderLink(WireInputData $input) {
 		$data = new WireData();
 		$data->ordn = $input->int('ordn');
+
+		/** @var ConfigDpay */
+		$config = $this->config->dpay;
+		/** @var ConfigApp */
+		$configApp = $this->config->app;
+
+		if ($configApp->useDpay === false || $config->dpay->allowCreatePaymentLinks === false) {
+			return false;
+		}
 
 		if (ShTable::instance()->exists($data->ordn) === false) {
 			return false;
