@@ -97,6 +97,10 @@ label.invalid-feedback {
 	margin-bottom: 0px;
 }
 
+.form-control-plaintext[readonly] {
+	background-color: transparent;
+}
+
 /*==============================================================
 	Fuelux Styles
 ==============================================================*/
