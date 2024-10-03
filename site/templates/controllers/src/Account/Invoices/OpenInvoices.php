@@ -39,6 +39,7 @@ class OpenInvoices extends AbstractController {
 		self::sanitizeParametersShort($data, ['ordn|int']);
 		self::pw('page')->title = self::TITLE;
 		static::initHooks();
+		self::appendJs($data);
 		return static::list($data);
 	}
 
@@ -140,7 +141,35 @@ class OpenInvoices extends AbstractController {
 /* =============================================================
 	7. Class / Module Getters
 ============================================================= */
-	
+	/**
+	 * Return List of Script filepaths to be appended
+	 * @param  WireData $data
+	 * @return array
+	 */
+	protected static function getJsScriptPaths(WireData $data) {
+		$jsPath = 'scripts/pages/' . self::getNamespaceClassNameAsPath();
+		$filenames = [
+			'create-multi-order-paymentlink/form.js',
+			'create-multi-order-paymentlink/events.js'
+		];
+		$scripts = [];
+
+		foreach ($filenames as $filename) {
+			$scripts[] = $jsPath . $filename;
+		}
+		return $scripts;
+	}
+
+	protected static function appendJs(WireData $data, $scripts = []) {
+		self::appendJsJqueryValiudate();
+
+		$scripts = self::getJsScriptPaths($data);
+		parent::appendJs($data, $scripts);
+	}
+
+/* =============================================================
+	8. Supplemental
+============================================================= */
 
 /* =============================================================
 	9. Hooks / Object Decorating
