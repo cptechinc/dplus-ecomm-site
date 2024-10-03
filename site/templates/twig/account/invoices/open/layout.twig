@@ -2,8 +2,24 @@
 
 <div>
 	<section class="bar pt-4">
-		{% include 'account/invoices/open/list.twig' %}
-		
-		{% include 'util/paginator/propel-model-pager.twig' with {'pager': results} %}
+		<div class="mb-3">
+			{% if config.app.useDpay and config.dpay.allowCreatePaymentLinks %}
+				<button type="button" class="btn {{ CSS.colors.buttons.getClass('edit') }}" data-toggle="collapse" data-target="#paymentLinkOrders" aria-expanded="false" aria-controls="paymentLinkOrders">
+					Create multi-order Payment Link
+				</button>
+			{% endif %}
+		</div>
+		<div class="form-row">
+			<div class="col-sm-9">
+				{% include 'account/invoices/open/list.twig' %}
+				{% include 'util/paginator/propel-model-pager.twig' with {'pager': results} %}
+			</div>
+			
+			{% if config.app.useDpay and config.dpay.allowCreatePaymentLinks %}
+				<div class="col-sm-3 collapse" id="paymentLinkOrders">
+					{% include 'account/invoices/open/create-multi-order-paymentlink/display.twig' %}
+				</div>
+			{% endif %}
+		</div>
 	</section>
 </div>

@@ -1,6 +1,6 @@
 {% import "util/macros/html.twig" as html %}
 
-<div class="list-group">
+<div class="list-group invoice-list">
 	<div class="list-group-item bg-light h4 mb-0">
 		{% block header %}
 			<div class="row">
@@ -45,19 +45,22 @@
 		{% endif %}
 		
 		{% for invoice in results %}
-			<div class="list-group-item py-1" id="">
+			<div class="list-group-item py-1 invoice" data-ordn="{{ invoice.ordn }}">
 				{% block result_layout %}
 					<div class="row">
 						<div class="col-2">{{ invoice.invoicedate|convertdate }}</div>
 						<div class="col-2">{{ invoice.invnbr }}</div>
 						<div class="col-2">{{ invoice.duedate|convertdate }}</div>
 						<div class="col-2 text-right">$ {{ invoice.total|currency }}</div>
-						<div class="col-2">
+						<div class="col-4">
 							{% if page.orderExists(invoice.ordn) %}
 								<a href="{{ page.orderUrl(invoice.ordn) }}" class="btn btn-sm {{ CSS.colors.buttons.getClass('link') }}" target="_blank">
 									View Order
 								</a>
 							{% endif %}
+							<button type="button" class="btn btn-sm {{ CSS.colors.buttons.getClass('add') }} collapse add-invoice" data-invnbr="{{ invoice.invnbr }}">
+								{{ html.iconType({'type': 'add'}) }} Add
+							</button>
 						</div>
 					</div>
 				{% endblock %}

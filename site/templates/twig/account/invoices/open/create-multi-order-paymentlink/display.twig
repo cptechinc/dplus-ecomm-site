@@ -1,0 +1,32 @@
+{% import "util/macros/html.twig" as html %}
+
+<form action="{{ input.paginateUrl(1)}}" method="POST" id="multiOrderPaymentLinkForm">
+	<input type="hidden" name="action" value="create-multi-order-paymentlink">
+
+
+	<div class="list-group">
+		<div class="list-group-item px-2 bg-light h4 mb-0">
+			<h4 class="mb-0">Selected Invoices</h4>
+		</div>
+		<div class="selected-invoices-list">
+			<div class="list-group-item px-2 invoice-container example collapse">
+				<div class="row">
+					<div class="col-7 invoice-nbr">
+						<input type="text" class="form-control form-control-sm form-control-plaintext" name="invnbr[]" value="" readonly>
+					</div>
+					<div class="col-5">
+						<button type="button" class="btn btn-sm {{ CSS.colors.buttons.getClass('delete') }} remove-invoice">
+							{{ html.iconType({'type': 'delete'}) }} Delete
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="list-group-item px-2 mb-0">
+			<button type="submit" class="btn btn-sm {{ CSS.colors.buttons.getClass('submit') }}">
+				Create Payment Link
+			</button>
+		</div>
+	</div>
+</form>
+
