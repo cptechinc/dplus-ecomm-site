@@ -2,7 +2,6 @@
 
 {% extends 'account/invoices/open/list/desktop.twig' %}
 
-
 {% block header %}
 	<div class="form-row">
 		<div class="col-4">
@@ -41,19 +40,19 @@
 
 {% block result_layout %}
 	<div class="form-row">
-		<div class="col-4">{{ order.invoicedate|convertdate }}</div>
-		<div class="col-4">{{ order.duedate|convertdate }}</div>
-		<div class="col-4 text-right text-bold">$ {{ order.total|currency }}</div>
+		<div class="col-4">{{ invoice.invoicedate|convertdate }}</div>
+		<div class="col-4">{{ invoice.duedate|convertdate }}</div>
+		<div class="col-4 text-right text-bold">$ {{ invoice.total|currency }}</div>
 	</div>
 	<div class="-form-row">
 		<div class="col-1"></div>
-		<div class="col-3">{{ order.invnbr }}</div>
+		<div class="col-3">{{ invoice.invnbr }}</div>
 	</div>
 	<div class="form-row">
 	<div class="col-1"></div>
 		<div class="col-3">
-			{% if page.orderExists(order.ordn) %}
-				<a href="{{ page.orderUrl(order.ordn) }}" class="btn btn-sm {{ CSS.colors.buttons.getClass('link') }}" target="_blank">
+			{% if page.orderExists(invoice.ordn) %}
+				<a href="{{ page.orderUrl(invoice.ordn) }}" class="btn btn-sm {{ CSS.colors.buttons.getClass('link') }}" target="_blank">
 					View Order
 				</a>
 			{% endif %}

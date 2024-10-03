@@ -44,17 +44,17 @@
 			</div>
 		{% endif %}
 		
-		{% for order in results %}
-			<div class="list-group-item py-1">
+		{% for invoice in results %}
+			<div class="list-group-item py-1" id="">
 				{% block result_layout %}
 					<div class="row">
-						<div class="col-2">{{ order.invoicedate|convertdate }}</div>
-						<div class="col-2">{{ order.invnbr }}</div>
-						<div class="col-2">{{ order.duedate|convertdate }}</div>
-						<div class="col-2 text-right">$ {{ order.total|currency }}</div>
+						<div class="col-2">{{ invoice.invoicedate|convertdate }}</div>
+						<div class="col-2">{{ invoice.invnbr }}</div>
+						<div class="col-2">{{ invoice.duedate|convertdate }}</div>
+						<div class="col-2 text-right">$ {{ invoice.total|currency }}</div>
 						<div class="col-2">
-							{% if page.orderExists(order.ordn) %}
-								<a href="{{ page.orderUrl(order.ordn) }}" class="btn btn-sm {{ CSS.colors.buttons.getClass('link') }}" target="_blank">
+							{% if page.orderExists(invoice.ordn) %}
+								<a href="{{ page.orderUrl(invoice.ordn) }}" class="btn btn-sm {{ CSS.colors.buttons.getClass('link') }}" target="_blank">
 									View Order
 								</a>
 							{% endif %}
