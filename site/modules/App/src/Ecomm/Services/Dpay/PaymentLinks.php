@@ -5,6 +5,7 @@ use ProcessWire\WireInputData;
 // Dpay
 use Dpay\Db\Tables\PaymentLinks as PaymentLinksTable;
 use Dpay\Db\Tables\PaymentLinks\Record as PaymentLinkRecord;
+use Dpay\Db\Tables\PaymentLinks\FilterData;
 // Dplus
 use Dplus\Database\Tables\SalesHistory as ShTable;
 // App
@@ -48,6 +49,24 @@ class PaymentLinks extends AbstractEcommCrudService {
 	 */
 	public function paymentLinkByOrdn($ordn) {
 		return $this->table->recordByOrdn($ordn);
+	}
+
+	/**
+	 * Return list of payment links filtered
+	 * @param  FilterData $data
+	 * @return array(PaymentLinkRecord)
+	 */
+	public function find(FilterData $data) {
+		return $this->table->findPaged($data);
+	}
+
+	/**
+	 * Return the number of payment links
+	 * @param  FilterData $data
+	 * @return int
+	 */
+	public function count(FilterData $data) {
+		return $this->table->count($data);
 	}
 
 /* =============================================================
