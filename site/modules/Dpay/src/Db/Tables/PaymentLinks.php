@@ -28,9 +28,7 @@ class PaymentLinks extends AbstractDatabaseTable {
 	public function queryFilteredByFilterData(AbstractFilterData $data) {
 		$q = $this->query();
 		$q->select('*');
-		$q->where('custid=:custid', [':id' => $data->custid]);
-		$q->orderby("$data->sortby $data->sortdir");
-		$q->limit("$data->limit," . $data->offset());
+		$q->where('custid=:id', [':id' => $data->custid]);
 		return $q;
 	}
 
@@ -104,6 +102,19 @@ class PaymentLinks extends AbstractDatabaseTable {
 	 */
 	public function findPaged(AbstractFilterData $data) {
 		$q = $this->queryFilteredByFilterData($data);
-		return $q->execute()->fetchAll(static::MODEL_CLASS);
+		$q->orderby("$data->sortby $data->sortdir");
+		$q->limit($data->offset() . ",$data->limit");
+		return $q->execute()->fetchAll(\PDO::FETCH_CLASS, static::MODEL_CLASS);
+	}
+
+	/**
+	 * Count Records that match filter
+	 * @param  FilterData $data
+	 * @return int
+	 */
+	public function count(AbstractFilterData $data) {
+		$q = $this->queryFilteredByFilterData($data);
+		$q->select('COUNT(*)');
+		return intval($q->execute()->fetchColumn());
 	}
 }
