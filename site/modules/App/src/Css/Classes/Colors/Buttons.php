@@ -13,6 +13,7 @@ class Buttons extends AbstractCssLookup {
 		'save'   => 'btn-success',
 		'submit' => 'btn-success',
 		'link'   => 'btn-template-outlined',
+		'link-light' => 'btn-template-outlined-white',
 		'edit'   => 'btn-warning',
 		'exit'   => 'btn-warning',
 		'delete' => 'btn-danger',
