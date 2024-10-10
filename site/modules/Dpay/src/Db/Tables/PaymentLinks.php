@@ -1,6 +1,10 @@
 <?php namespace Dpay\Db\Tables;
 // Dpay
+use Dpay\Abstracts\AbstractFilterData;
+use Dpay\Db\QuerySelect as Query;
+use Dpay\Db\Tables\PaymentLinks\FilterData;
 use Dpay\Db\Tables\PaymentLinks\Record;
+
 
 /**
  * PaymentLinks
@@ -12,6 +16,23 @@ class PaymentLinks extends AbstractDatabaseTable {
 
 	/** @var static */
 	protected static $instance;
+
+/* =============================================================
+	Query Functions
+============================================================= */
+	/**
+	 * Return Query Filtered By Filter Data
+	 * @param  FilterData $data
+	 * @return Query
+	 */
+	public function queryFilteredByFilterData(AbstractFilterData $data) {
+		$q = $this->query();
+		$q->select('*');
+		$q->where('custid=:custid', [':id' => $data->custid]);
+		$q->orderby("$data->sortby $data->sortdir");
+		$q->limit("$data->limit," . $data->offset());
+		return $q;
+	}
 
 /* =============================================================
 	Read Functions
@@ -74,5 +95,15 @@ class PaymentLinks extends AbstractDatabaseTable {
 		$q->select('*');
 		$q->where('ordn=:ordn', [':ordn' => $ordn]);
 		return $q->execute()->fetchObject(static::MODEL_CLASS);
+	}
+
+	/**
+	 * Return list of records
+	 * @param  FilterData $data
+	 * @return array(Record)
+	 */
+	public function findPaged(AbstractFilterData $data) {
+		$q = $this->queryFilteredByFilterData($data);
+		return $q->execute()->fetchAll(static::MODEL_CLASS);
 	}
 }
