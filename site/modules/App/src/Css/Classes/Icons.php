@@ -70,6 +70,7 @@ class Icons extends AbstractCssLookup {
 		'sort-numeric-asc'	=> 'fa fa-sort-numeric-asc',
 		'sort-numeric-desc' => 'fa fa-sort-numeric-desc',
 		'table' 	 => 'fa fa-table', 
+		'tags' 	     => 'fa fa-tags', 
 		'twitter'	 => 'bi bi-twitter', 
 		'undo'		 => 'fa fa-undo',
 		'upload'	 => 'fa fa-cloud-upload',
