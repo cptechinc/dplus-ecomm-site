@@ -89,5 +89,9 @@ class Dashboard extends AbstractController {
 		$m->addHook("$selector::openInvoicesUrl", function($event) {
 			$event->return = AccountController\Invoices\OpenInvoices::url();
 		});
+
+		$m->addHook("$selector::paymentLinksUrl", function($event) {
+			$event->return = AccountController\Invoices\PaymentLinks::url();
+		});
 	}
 }
