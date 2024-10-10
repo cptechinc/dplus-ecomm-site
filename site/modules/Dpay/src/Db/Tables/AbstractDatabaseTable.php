@@ -6,6 +6,7 @@ use ProcessWire\WireData;
 // Pauldro ProcessWire
 use Pauldro\ProcessWire\DatabaseTables\Record;
 // Dpay
+use Dpay\Abstracts\AbstractFilterData;
 use Dpay\Db\QuerySelect;
 
 /**
@@ -36,6 +37,16 @@ abstract class AbstractDatabaseTable extends WireData {
 	public function init() {
 		
 	}
+
+	/**
+	 * Return instance of Record
+	 * @return Record
+	 */
+	public function new() {
+		$class = static::MODEL_CLASS;
+		return new $class();
+	}
+
 
 /* =============================================================
 	Query Functions
@@ -83,14 +94,17 @@ abstract class AbstractDatabaseTable extends WireData {
 		$q->where($where, $params);
 		return $q;
 	}
-
+	
+/* =============================================================
+	Query Functions
+============================================================= */
 	/**
-	 * Return instance of Record
-	 * @return Record
+	 * Return Query Filtered By Filter Data
+	 * @param  AbstractFilterData $data
+	 * @return Query
 	 */
-	public function new() {
-		$class = static::MODEL_CLASS;
-		return new $class();
+	public function queryFilteredByFilterData(AbstractFilterData $data) {
+		return $this->query();
 	}
 
 /* =============================================================
