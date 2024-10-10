@@ -5,8 +5,6 @@ use Propel\Runtime\Util\PropelModelPager;
 use ProcessWire\HookEvent;
 use ProcessWire\WireData;
 use ProcessWire\Wire404Exception;
-// Dpay
-use Dpay\Db\Tables\PaymentLinks;
 // Dplus
 use Dplus\Database\Tables\ArInvoice as InvoicesTable;
 use Dplus\Database\Tables\SalesHistory as OrderHistoryTable;

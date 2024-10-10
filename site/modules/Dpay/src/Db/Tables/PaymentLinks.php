@@ -1,6 +1,6 @@
 <?php namespace Dpay\Db\Tables;
 // Dpay
-use Dpay\Db\Tables\Data\PaymentLink as Record;
+use Dpay\Db\Tables\PaymentLinks\Record;
 
 /**
  * PaymentLinks
@@ -8,7 +8,7 @@ use Dpay\Db\Tables\Data\PaymentLink as Record;
  */
 class PaymentLinks extends AbstractDatabaseTable {
 	const TABLE = 'app_paymentlinks';
-	const MODEL_CLASS = '\\Dpay\\Db\\Tables\\Data\\PaymentLink';
+	const MODEL_CLASS = '\\Dpay\\Db\\Tables\\PaymentLinks\\Record';
 
 	/** @var static */
 	protected static $instance;

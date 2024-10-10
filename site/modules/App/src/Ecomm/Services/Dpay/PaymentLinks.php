@@ -4,7 +4,7 @@ use ProcessWire\WireData;
 use ProcessWire\WireInputData;
 // Dpay
 use Dpay\Db\Tables\PaymentLinks as PaymentLinksTable;
-use Dpay\Db\Tables\Data\PaymentLink as PaymentLinkRecord;
+use Dpay\Db\Tables\PaymentLinks\Record as PaymentLinkRecord;
 // Dplus
 use Dplus\Database\Tables\SalesHistory as ShTable;
 // App

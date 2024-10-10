@@ -1,6 +1,6 @@
-<?php namespace Dpay\Db\Tables\Data;
+<?php namespace Dpay\Db\Tables\PaymentLinks;
 // Pauldro ProcessWire
-use Pauldro\ProcessWire\DatabaseTables\Record;
+use Pauldro\ProcessWire\DatabaseTables\Record as AbstractRecord;
 
 /**
  * Payment Link
@@ -12,6 +12,6 @@ use Pauldro\ProcessWire\DatabaseTables\Record;
  * @property string  $linkid     Link ID (not used)
  * @property string  $url        URL
  */
-class PaymentLink extends Record {
+class Record extends AbstractRecord {
 	
 }
