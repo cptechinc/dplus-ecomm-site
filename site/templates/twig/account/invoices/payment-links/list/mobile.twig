@@ -1,0 +1,46 @@
+{% import "util/macros/html.twig" as html %}
+
+{% extends 'account/invoices/payment-links/list/desktop.twig' %}
+
+{% block header %}
+	<div class="form-row">
+		<div class="col-4">
+			<a href="{{ input.sortUrl('timestamp') }}" class="link sort">Date
+				{% if input.get.text('orderBy') == 'timestamp'  %}
+					{{ html.iconTypeSort({'type': 'sort-numeric', 'direction' : input.get.text('sortDir')}) }}
+				{% endif %}
+			</a>
+		</div>
+		<div class="col-4">Time</div>
+		<div class="col-4 text-right">
+			<a href="{{ input.sortUrl('ordn') }}" class="link sort">Invoice # 
+				{% if input.get.text('orderBy') == 'ordn'  %}
+					{{ html.iconTypeSort({'type': 'sort-numeric', 'direction' : input.get.text('sortDir')}) }}
+				{% endif %}
+			</a>
+		</div>
+	</div>
+{% endblock %}
+
+{% block result_layout %}
+	<div class="form-row mb-2">
+		<div class="col-4">{{ link.timestamp|convertdate }}</div>
+		<div class="col-4">{{ link.timestamp|convertdate('h:i A') }}</div>
+		<div class="col-4 text-right text-bold">{{ link.ordn }}</div>
+	</div>
+	<div class="form-row">
+		<div class="col-1"></div>
+		<div class="col-10">
+			<a href="{{ link.url }}" target="_blank" class="btn {{ CSS.colors.buttons.getClass('link') }}">
+				$ Pay
+			</a>
+			&nbsp; &nbsp;
+			{% if page.orderExists(link.ordn) %}
+				<a href="{{ page.orderUrl(link.ordn) }}" class="btn {{ CSS.colors.buttons.getClass('link') }}" target="_blank">
+					View Order
+				</a>
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}
+

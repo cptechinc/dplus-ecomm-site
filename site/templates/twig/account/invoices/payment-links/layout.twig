@@ -1,0 +1,10 @@
+{% import "util/macros/html.twig" as html %}
+
+<div>
+	<section class="bar pt-4">
+		<div>
+			{% include 'account/invoices/payment-links/list.twig' %}
+			{% include 'util/paginator/PaginatedArray.twig' %}
+		</div>
+	</section>
+</div>

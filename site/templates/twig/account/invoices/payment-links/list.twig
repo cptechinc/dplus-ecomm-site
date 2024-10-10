@@ -1,0 +1,7 @@
+{% if browseragent.isMobile() == false %}
+	{% include 'account/invoices/payment-links/list/desktop.twig' %}
+{% endif %}
+
+{% if browseragent.isMobile() %}
+	{% include 'account/invoices/payment-links/list/mobile.twig' %}
+{% endif %}

@@ -33,6 +33,10 @@ $routes = [
 			['GET',  '', Account\Invoices\OpenInvoices::class, 'index'],
 			['GET',  'page{pagenbr:\d+}/', Account\Invoices\OpenInvoices::class, 'index'],
 		],
+		'payment-links' => [
+			['GET',  '', Account\Invoices\PaymentLinks::class, 'index'],
+			['GET',  'page{pagenbr:\d+}/', Account\Invoices\PaymentLinks::class, 'index'],
+		],
 	],
 	'register' => [
 		['GET',  '', Account\Register::class, 'index'],
