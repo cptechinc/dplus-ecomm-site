@@ -22,7 +22,7 @@
 					<p class="author-category">
 						By <a href="#">{{ post.writer.title }}</a> in <a href="blog.html">{{ post.blog_categories.first().title }}</a>
 					</p>
-					<p class="intro">{{ post.blog_body }}</p>
+					<p class="intro">{{ post.blog_body|striptags }}</p>
 					<a href="{{ post.url }}" class="btn btn-template-outlined">Continue Reading</a>
 				</div>
 			</div>
