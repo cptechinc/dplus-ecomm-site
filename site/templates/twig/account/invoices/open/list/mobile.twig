@@ -44,19 +44,35 @@
 		<div class="col-4">{{ invoice.duedate|convertdate }}</div>
 		<div class="col-4 text-right text-bold">$ {{ invoice.total|currency }}</div>
 	</div>
-	<div class="-form-row">
+	<div class="form-row mb-2">
 		<div class="col-1"></div>
 		<div class="col-3">{{ invoice.invnbr }}</div>
 	</div>
 	<div class="form-row">
-	<div class="col-1"></div>
-		<div class="col-3">
+		<div class="col-1"></div>
+		<div class="col-6">
 			{% if page.orderExists(invoice.ordn) %}
-				<a href="{{ page.orderUrl(invoice.ordn) }}" class="btn btn-sm {{ CSS.colors.buttons.getClass('link') }}" target="_blank">
+				<a href="{{ page.orderUrl(invoice.ordn) }}" class="btn {{ CSS.colors.buttons.getClass('link') }}" target="_blank">
 					View Order
 				</a>
 			{% endif %}
 		</div>
+
+		{% if config.app.useDpay %}
+			<div class="col-4">
+				{% if page.hasPaymentLink(invoice.invnbr) %}
+					{% set link = page.fetchPaymentLink(invoice.invnbr) %}
+					
+					<a href="{{ link.url }}" target="_blank" class="btn {{ CSS.colors.buttons.getClass('link') }}">
+						$ Pay
+					</a>
+				{% else %}
+					<button type="button" class="btn {{ CSS.colors.buttons.getClass('add') }} collapse add-invoice" data-invnbr="{{ invoice.invnbr }}">
+						{{ html.iconType({'type': 'add'}) }} Add
+					</button>
+				{% endif %}
+			</div>
+		{% endif %}
 	</div>
 {% endblock %}
 

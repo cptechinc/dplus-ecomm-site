@@ -8,6 +8,8 @@ use ProcessWire\Wire404Exception;
 // Dplus
 use Dplus\Database\Tables\ArInvoice as InvoicesTable;
 use Dplus\Database\Tables\SalesHistory as OrderHistoryTable;
+// App
+use App\Ecomm\Services\Dpay\PaymentLinks;
 // Controllers
 use Controllers\Account\Orders\HistoryOrder;
 
@@ -189,20 +191,12 @@ class OpenInvoices extends AbstractController {
 			$event->return = HistoryOrder::urlOrder($event->arguments(0));
 		});
 
-		// $m->addHook("$selector::countOrderDocuments", function(HookEvent $event) {
-		// 	$event->return = DOCM::count($event->arguments(0));
-		// });
+		$m->addHook("$selector::hasPaymentLink", function(HookEvent $event) {
+			$event->return = PaymentLinks::instance()->existsByOrdn(intval($event->arguments(0)));
+		});
 
-		// $m->addHook("$selector::findOrderDocuments", function(HookEvent $event) {
-		// 	$event->return = DOCM::find($event->arguments(0));
-		// });
-
-		// $m->addHook("$selector::hasPaymentLink", function(HookEvent $event) {
-		// 	$event->return = PaymentLinks::instance()->existsByOrdn($event->arguments(0));
-		// });
-
-		// $m->addHook("$selector::fetchPaymentLink", function(HookEvent $event) {
-		// 	$event->return = PaymentLinks::instance()->recordByOrdn($event->arguments(0));
-		// });
+		$m->addHook("$selector::fetchPaymentLink", function(HookEvent $event) {
+			$event->return = PaymentLinks::instance()->paymentLinkByOrdn(intval($event->arguments(0)));
+		});
 	}
 }

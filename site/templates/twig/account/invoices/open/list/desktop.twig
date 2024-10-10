@@ -45,7 +45,7 @@
 		{% endif %}
 		
 		{% for invoice in results %}
-			<div class="list-group-item py-1 invoice" data-ordn="{{ invoice.ordn }}">
+			<div class="list-group-item {{ browseragent.isMobile() ? 'py-2' : 'py-1' }} invoice" data-ordn="{{ invoice.ordn }}">
 				{% block result_layout %}
 					<div class="row">
 						<div class="col-2">{{ invoice.invoicedate|convertdate }}</div>
@@ -53,14 +53,30 @@
 						<div class="col-2">{{ invoice.duedate|convertdate }}</div>
 						<div class="col-2 text-right">$ {{ invoice.total|currency }}</div>
 						<div class="col-4">
-							{% if page.orderExists(invoice.ordn) %}
-								<a href="{{ page.orderUrl(invoice.ordn) }}" class="btn btn-sm {{ CSS.colors.buttons.getClass('link') }}" target="_blank">
-									View Order
-								</a>
-							{% endif %}
-							<button type="button" class="btn btn-sm {{ CSS.colors.buttons.getClass('add') }} collapse add-invoice" data-invnbr="{{ invoice.invnbr }}">
-								{{ html.iconType({'type': 'add'}) }} Add
-							</button>
+							<div class="form-row">
+								{% if config.app.useDpay %}
+									<div class="col-4">
+										{% if page.hasPaymentLink(invoice.invnbr) %}
+											{% set link = page.fetchPaymentLink(invoice.invnbr) %}
+											
+											<a href="{{ link.url }}" target="_blank" class="btn btn-sm {{ CSS.colors.buttons.getClass('link') }}">
+												$ Pay
+											</a>
+										{% else %}
+											<button type="button" class="btn btn-sm {{ CSS.colors.buttons.getClass('add') }} collapse add-invoice" data-invnbr="{{ invoice.invnbr }}">
+												{{ html.iconType({'type': 'add'}) }} Add
+											</button>
+										{% endif %}
+									</div>
+								{% endif %}
+								<div class="col-6">
+									{% if page.orderExists(invoice.ordn) %}
+										<a href="{{ page.orderUrl(invoice.ordn) }}" class="btn btn-sm {{ CSS.colors.buttons.getClass('link') }}" target="_blank">
+											View Order
+										</a>
+									{% endif %}
+								</div>
+							</div>
 						</div>
 					</div>
 				{% endblock %}
