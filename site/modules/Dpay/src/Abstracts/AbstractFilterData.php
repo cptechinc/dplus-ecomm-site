@@ -64,9 +64,9 @@ abstract class AbstractFilterData extends WireData {
 	 * @param  WireInputData $input
 	 * @return static
 	 */
-	public static function fromWireData(WireData $this) {
+	public static function fromWireData(WireData $data) {
 		$input = new WireInputData();
-		$input->setArray($this->data);
+		$input->setArray($data->data);
 		return static::fromWireInputData($input);
 	}
 }
