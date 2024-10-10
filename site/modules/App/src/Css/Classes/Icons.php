@@ -8,6 +8,7 @@
 class Icons extends AbstractCssLookup {
 	const MAP = [
 		'add'		=> 'fa fa-plus',
+		'align-justify' => 'fa fa-align-justify',
 		'arrow-left'  => 'fa fa-chevron-left',
 		'arrow-right' => 'fa fa-chevron-right',
 		'box'		=> 'bi bi-box-seam',
@@ -17,6 +18,7 @@ class Icons extends AbstractCssLookup {
 		'close' 	=> 'fa fa-times',
 		'complete'	=> 'fa fa-check',
 		'confirm'	=> 'fa fa-check',
+		'copy'      => 'fa fa-copy',
 		'edit'		=> 'fa fa-pencil',
 		'email' 	=> 'fa fa-envelope',
 		'error' 	=> 'fa fa-warning',
@@ -28,6 +30,7 @@ class Icons extends AbstractCssLookup {
 		'file'		=> 'fa fa-file-o',
 		'filter'	=> 'fa fa-filter',
 		'follow-link' => 'fa fa-sign-in',
+		'font'        => 'fa fa-font',
 		'function'	=> 'fa fa-microchip',
 		'home'	 => 'fa fa-home',
 		'hotkey'   => 'bi bi-command',
@@ -77,6 +80,7 @@ class Icons extends AbstractCssLookup {
 		'use'		 => 'fa fa-pencil',
 		'user-account' => 'bi bi-person-lines-fill',
 		'user-dashboard' => 'fa fa-address-card',
+		'users'          => 'fa fa-users',
 		'warning'	=> 'fa fa-warning',
 
 		// Social
