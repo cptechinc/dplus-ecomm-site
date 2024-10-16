@@ -1,0 +1,11 @@
+{% import "util/macros/html.twig" as html %}
+
+<ul class="tag-cloud list-inline">
+	{% for tag in pages.find('template=blog-tag') %}
+		<li class="list-inline-item">
+			<a href="{{ tag.url() }}">
+				{{ html.iconType({'type': 'tags'}) }} {{ tag.title }}
+			</a>
+		</li>
+	{% endfor %}
+</ul>

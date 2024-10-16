@@ -1,0 +1,11 @@
+{% import "util/macros/html.twig" as html %}
+
+{% import 'blog/macros.twig' as htmlBlog %}
+
+<div class="row">
+	{% for post in pages.get('template=blog').recent(3) %}
+		<div class="col-lg-4 col-md-6">
+			{{ htmlBlog.postListItem(post) }}
+		</div>
+	{% endfor %}
+</div>
