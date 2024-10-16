@@ -18,6 +18,7 @@ class BlogTags extends AbstractController {
 	public static function index(WireData $data) {
 		self::initPageHooks();
 		self::getPwPage()->tabtitle = 'Blog Tags';
+		self::getPwPage()->tabposttitle = 'Blog';
 		return self::display($data);
 	}
 
