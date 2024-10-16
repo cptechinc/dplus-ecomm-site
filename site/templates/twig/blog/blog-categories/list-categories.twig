@@ -1,0 +1,20 @@
+{#
+	var                    Description / Instance of
+	-------------------------------------------------
+	page                   ProcessWire\Page(template=blog-tag)
+	categories             ProcessWire\WireArray => WireArray(template=blog-posts)
+#}
+
+{% import "util/macros/html.twig" as html %}
+
+{% for key, sublist in categories %}
+	<div class="mb-3" id="{{ key }}">
+		<ul class="nav nav-pills flex-column text-sm">
+			{% for category in sublist %}
+				<li class="nav-item">
+					<a href="{{ category.url }}" class="nav-link">{{ category.title }}</a>
+				</li>
+			{% endfor %}
+		</ul>
+	</div>
+{% endfor %}

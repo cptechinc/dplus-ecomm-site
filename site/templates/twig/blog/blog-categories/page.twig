@@ -1,0 +1,12 @@
+{#
+	var                    Description / Instance of
+	-------------------------------------------------
+	page                   ProcessWire\Page(template=blog-tag)
+	categories             ProcessWire\WireArray => WireArray(template=blog-posts)
+#}
+
+{% extends 'util/templates/page/default.twig' %}
+
+{% block body %}
+	{% include 'blog/blog-categories/layout.twig' %}
+{% endblock %}
