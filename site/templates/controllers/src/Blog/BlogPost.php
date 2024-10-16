@@ -32,7 +32,7 @@ class BlogPost extends AbstractController {
 	4. URLs
 ============================================================= */
 	public static function urlPost($name) {
-		return self::pw('pages')->get("template=blog,name=$name")->url;
+		return self::pw('pages')->get("template=blog-post,name=$name")->url;
 	}
 
 /* =============================================================
