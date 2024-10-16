@@ -1,0 +1,16 @@
+{#
+	var                    Description / Instance of
+	-------------------------------------------------
+	page                   ProcessWire\Page(template=blog-category)
+	posts                  ProcessWire\PageArray(template=blog-posts)
+#}
+
+{% import 'blog/macros.twig' as htmlBlog %}
+
+<div class="row">
+	{% for post in posts %}
+		<div class="col-lg-4 col-md-6">
+			{{ htmlBlog.postListItem(post) }}
+		</div>
+	{% endfor %}
+</div>
