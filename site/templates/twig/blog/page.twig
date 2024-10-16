@@ -1,6 +1,5 @@
-<section class="bar pt-4">
-	<div class="heading">
-		<h2>{{ page.title }}</h2>
-	</div>
+{% extends 'util/templates/page/default.twig' %}
+
+{% block body %}
 	{% include 'blog/page/layout.twig' %}
-</section>
+{% endblock %}
