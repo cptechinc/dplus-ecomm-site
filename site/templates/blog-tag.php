@@ -3,6 +3,7 @@ use Controllers\Blog\BlogTag;
 
 $routes = [
 	['GET',  '', BlogTag::class, 'index'],
+	['GET',  'page{pagenbr:\d+}', BlogTag::class, 'index'],
 ];
 $router = new Mvc\Routers\Router();
 $router->setRoutes($routes);
