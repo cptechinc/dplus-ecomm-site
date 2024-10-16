@@ -6,7 +6,9 @@ use Twig\Environment as Twig;
 use Twig\Loader\FilesystemLoader as TwigLoader;
 // ProcessWire
 use ProcessWire\Config as PwConfig;
+use ProcessWire\Input;
 use ProcessWire\Page;
+use ProcessWire\Pages;
 use ProcessWire\Session;
 use ProcessWire\User;
 use ProcessWire\WireData;
@@ -28,6 +30,7 @@ abstract class AbstractController extends ParentController {
 	const TEMPLATE = '';
 	const TITLE = '';
 	const ALLOWED_PWROLES  = ['superuser', 'site-admin'];
+	const LIMIT_ON_PAGE = 10;
 
 /* =============================================================
 	1. Indexes
@@ -161,10 +164,26 @@ abstract class AbstractController extends ParentController {
 
 	/**
 	 * Return ProcessWire Session
+	 * @return Input
+	 */
+	protected static function getPwInput() {
+		return self::pw('input');
+	}
+
+	/**
+	 * Return ProcessWire Session
 	 * @return Page
 	 */
 	protected static function getPwPage() {
 		return self::pw('page');
+	}
+
+	/**
+	 * Return ProcessWire Session
+	 * @return Pages
+	 */
+	protected static function getPwPages() {
+		return self::pw('pages');
 	}
 
 	/**
@@ -265,6 +284,36 @@ abstract class AbstractController extends ParentController {
 				$config->scripts->append($fh->getHashUrl($file));
 			}
 		}
+	}
+
+	/**
+	 * Return Page number based off offset and show on Page
+	 * @param  int      $offset
+	 * @param  int|null $limit
+	 * @return int
+	 */
+	public static function getPagenbrFromOffset(int $offset, int $limit = null) {
+		if (empty($limit)) {
+			$limit = 1;
+		}
+		$pagenbr = ceil($offset / $limit);
+		return $pagenbr;
+	}
+
+	/**
+	 * Return Offset based from Page Number
+	 * @param  int      $offset
+	 * @param  int $limit
+	 * @return int
+	 */
+	public static function getOffsetFromPagenbr(int $pagenbr, int $limit = 0) {
+		if (empty($limit)) {
+			$limit = 1;
+		}
+		if ($pagenbr == 1) {
+			return 0;
+		}
+		return ($pagenbr * $limit) - $limit;
 	}
 
 /* =============================================================
