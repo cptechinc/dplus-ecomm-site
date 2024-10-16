@@ -1,31 +1,10 @@
 {% import "util/macros/html.twig" as html %}
+{% import 'blog/macros.twig' as htmlBlog %}
 
 <div class="row">
 	{% for post in pages.find('template=blog-post') %}
 		<div class="col-lg-4 col-md-6">
-			<div class="home-blog-post">
-				<div class="image">
-					{% if post.blog_images.count() %}
-						{% set img = post.blog_images.first() %}
-						<img src="{{ img.url }}" alt="..." class="img-fluid">
-					{% endif %}
-					<div class="overlay d-flex align-items-center justify-content-center">
-						<a href="{{ post.url }}" class="btn btn-template-outlined-white">
-							{{ html.iconType({'type': 'link'}) }} Read More
-						</a>
-					</div>
-				</div>
-				<div class="text">
-					<h4>
-						<a href="{{ post.url }}">{{ post.title }}</a>
-					</h4>
-					<p class="author-category">
-						By <a href="#">{{ post.writer.title }}</a> in <a href="blog.html">{{ post.blog_categories.first().title }}</a>
-					</p>
-					<p class="intro">{{ post.blog_body|striptags }}</p>
-					<a href="{{ post.url }}" class="btn btn-template-outlined">Continue Reading</a>
-				</div>
-			</div>
+			{{ htmlBlog.postListItem(post) }}
 		</div>
 	{% endfor %}
 </div>
