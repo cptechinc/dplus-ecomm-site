@@ -8,7 +8,7 @@ use Controllers\Abstracts\AbstractController;
 
 /**
  * BlogCategory
- * Handles BlogCategory Page
+ * Handles blog-category Page
  */
 class BlogCategory extends AbstractController {
 	const SESSION_NS = 'blog-category';
