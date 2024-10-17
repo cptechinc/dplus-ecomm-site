@@ -5,7 +5,29 @@
 	posts                  ProcessWire\PageArray(template=blog-posts)
 #}
 
+{% set categories = categories ? categories : pages.find('template=blog-category') %}
+{% set tags = tags ? tags : pages.find('template=blog-tag') %}
+{% set showSearch = showSearch ? showSearch : false %}
+
 {% import "util/macros/html.twig" as html %}
+
+{% if showSearch %}
+	<div class="panel panel-default sidebar-menu">
+		<div class="panel-heading">
+			<h4 class="panel-title pb-1">Search</h4>
+		</div>
+		<div class="panel-body">
+			<form role="search">
+				<div class="input-group">
+					<input type="text" placeholder="Search" class="form-control">
+					<span class="input-group-btn">
+						<button type="submit" class="btn {{ CSS.colors.buttons.getClass('submit') }}">{{ html.iconType({'type': 'search'}) }}</button>
+					</span>
+				</div>
+			</form>
+		</div>
+	</div>
+{% endif %}
 
 <div class="panel panel-default sidebar-menu">
 	<div class="panel-heading">
@@ -13,7 +35,7 @@
 	</div>
 	<div class="panel-body">
 		<ul class="nav nav-pills flex-column text-sm">
-			{% for category in pages.find('template=blog-category') %}
+			{% for category in categories %}
 				<li class="nav-item">
 					<a href="{{ category.url }}" class="nav-link pl-1">{{ category.title }}</a>
 				</li>
@@ -27,7 +49,7 @@
 	</div>
 	<div class="panel-body">
 		<ul class="tag-cloud list-inline">
-			{% for tag in pages.find('template=blog-tag') %}
+			{% for tag in tags %}
 				<li class="list-inline-item">
 					<a href="{{ tag.url() }}">
 						{{ html.iconType({'type': 'tags'}) }} {{ tag.title }}
@@ -35,20 +57,5 @@
 				</li>
 			{% endfor %}
 		</ul>
-	</div>
-</div>
-<div class="panel panel-default sidebar-menu">
-	<div class="panel-heading">
-		<h4 class="panel-title pb-1">Search</h4>
-	</div>
-	<div class="panel-body">
-		<form role="search">
-			<div class="input-group">
-				<input type="text" placeholder="Search" class="form-control">
-				<span class="input-group-btn">
-					<button type="submit" class="btn {{ CSS.colors.buttons.getClass('submit') }}">{{ html.iconType({'type': 'search'}) }}</button>
-				</span>
-			</div>
-		</form>
 	</div>
 </div>

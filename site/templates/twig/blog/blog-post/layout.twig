@@ -27,7 +27,7 @@
 			</div>
 		</div>
 		<div class="col-md-3">
-			{% include 'blog/blog-post/sidebar.twig' %}
+			{% include 'blog/sidebar.twig' with {'categories': page.blog_categories, 'tags': page.blog_tags } %}
 		</div>
 	</div>
 
