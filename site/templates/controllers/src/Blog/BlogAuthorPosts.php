@@ -1,5 +1,6 @@
 <?php namespace Controllers\Blog;
 // ProcessWire
+use ProcessWire\HookEvent;
 use ProcessWire\User;
 use ProcessWire\WireData;
 
@@ -75,4 +76,17 @@ class BlogAuthorPosts extends BlogAuthor {
 /* =============================================================
 	9. Hooks / Object Decorating
 ============================================================= */
+	/**
+	 * Initialze Page Hooks
+	 * @param  string $tplname
+	 * @return bool
+	 */
+	public static function initPageHooks($tplname = '') {
+		$selector = static::getPageHooksTemplateSelector();
+		$m = self::pw('modules')->get('App');
+
+		$m->addHook("$selector::authorUrl", function(HookEvent $event) {
+			$event->return = self::urlAuthor($event->arguments(0));
+		});
+	}
 }

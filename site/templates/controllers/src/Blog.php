@@ -1,7 +1,9 @@
 <?php namespace Controllers;
 // ProcessWire
+use ProcessWire\HookEvent;
 use ProcessWire\PageArray;
 use ProcessWire\WireData;
+// App
 use App\Blog\Util\PwSelectors\BlogPost as PostSelectors;
 // Controllers
 use Controllers\Abstracts\AbstractController;
@@ -89,4 +91,18 @@ class Blog extends AbstractController {
 /* =============================================================
 	9. Hooks / Object Decorating
 ============================================================= */
+	/**
+	 * Initialze Page Hooks
+	 * @param  string $tplname
+	 * @return bool
+	 */
+	public static function initPageHooks($tplname = '') {
+		$selector = static::getPageHooksTemplateSelector();
+		$m = self::pw('modules')->get('App');
+
+		$m->addHook("$selector::authorUrl", function(HookEvent $event) {
+			$event->return = Blog\BlogAuthor::urlAuthor($event->arguments(0));
+		});
+	}
+
 }

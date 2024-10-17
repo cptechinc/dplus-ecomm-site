@@ -147,6 +147,9 @@ class BlogAuthor extends AbstractController {
 		$m->addHook("$selector::authorPostsUrl", function(HookEvent $event) {
 			$event->return = self::urlAuthorPosts($event->arguments(0));
 		});
-	}
 
+		$m->addHook("$selector::authorUrl", function(HookEvent $event) {
+			$event->return = self::urlAuthor($event->arguments(0));
+		});
+	}
 }
