@@ -6,7 +6,9 @@
 	author.posts           ProcessWire\PageArray(template=blog-post)
 #}
 
-<div class="mb-3">
+{% extends 'blog/layout.twig' %}
+
+{% block body %}
 	<div class="row mb-4">
 		<div class="col-8">
 			{{ author.blog_body|raw }}
@@ -30,6 +32,4 @@
 			</a>
 		{% endif %}
 	</div>
-	<hr>
-	<a href="{{ pages.get('template=blog').url }}" class="btn {{ CSS.colors.buttons.getClass('link') }}">Blog</a>
-</div>
+{% endblock %}

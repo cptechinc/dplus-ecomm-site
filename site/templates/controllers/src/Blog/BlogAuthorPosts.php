@@ -1,12 +1,7 @@
 <?php namespace Controllers\Blog;
 // ProcessWire
-use ProcessWire\HookEvent;
-use ProcessWire\PageArray;
 use ProcessWire\User;
 use ProcessWire\WireData;
-use ProcessWire\WireArray;
-// Controllers
-use Controllers\Abstracts\AbstractController;
 
 
 /**

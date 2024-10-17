@@ -6,7 +6,9 @@
 	author.posts           ProcessWire\PageArray(template=blog-post)
 #}
 
-<div class="mb-3">
+{% extends 'blog/layout.twig' %}
+
+{% block body %}
 	<div>
 		<div class="mb-2">
 			{% include 'blog/blog-author/list-posts.twig' %}
@@ -14,6 +16,4 @@
 
 		{% include 'util/paginator/PaginatedArray.twig' with {'results': author.posts} %}
 	</div>
-	<hr>
-	<a href="{{ pages.get('template=blog').url }}" class="btn {{ CSS.colors.buttons.getClass('link') }}">Blog</a>
-</div>
+{% endblock %}
