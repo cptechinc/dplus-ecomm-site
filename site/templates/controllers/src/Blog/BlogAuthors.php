@@ -4,6 +4,8 @@ use ProcessWire\HookEvent;
 use ProcessWire\PageArray;
 use ProcessWire\WireData;
 use ProcessWire\WireArray;
+// App
+use App\Blog\Util\PwSelectors\BlogAuthor as AuthorSelector;
 // Controllers
 use Controllers\Abstracts\AbstractController;
 
@@ -41,11 +43,8 @@ class BlogAuthors extends AbstractController {
 	 */
 	private static function fetchAuthors(WireData $data) {
 		$users = self::getPwUsers();
-		$authorRole = self::getPwRoles()->get('blog-author');
-		$data->pagenbr = $data->pagenbr ? $data->pagenbr : self::getPwInput()->pageNum();
-		$data->limit = self::LIMIT_ON_PAGE;
-		$data->start = self::getOffsetFromPagenbr($data->pagenbr, self::LIMIT_ON_PAGE);
-		return $users->find("roles=$authorRole,sort=title,start=$data->start,limit=$data->limit");
+		$selectors = self::generateBlogAuthorsSelectors($data);
+		return $users->find(implode(',', array_values($selectors)));
 	}
 
 /* =============================================================
@@ -80,6 +79,21 @@ class BlogAuthors extends AbstractController {
 /* =============================================================
 	8. Supplemental
 ============================================================= */
+	/**
+	 * Return Selectors array
+	 * @param  WireData $data
+	 * @return array
+	 */
+	private static function generateBlogAuthorsSelectors(WireData $data) {
+		$data->pagenbr = $data->pagenbr ? $data->pagenbr : self::getPwInput()->pageNum();
+		$data->limit = self::LIMIT_ON_PAGE;
+		$selectors = [
+			'role'       => AuthorSelector::role(),
+			'pagination' => AuthorSelector::pagination($data->pagenbr, $data->limit),
+			'sort'       => AuthorSelector::sort(AuthorSelector::DEFAULT_SORT)
+		];
+		return $selectors;
+	}
 
 /* =============================================================
 	9. Hooks / Object Decorating
