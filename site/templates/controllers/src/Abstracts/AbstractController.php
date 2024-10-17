@@ -232,36 +232,6 @@ abstract class AbstractController extends ParentController {
 		}
 	}
 
-	/**
-	 * Return Page number based off offset and show on Page
-	 * @param  int      $offset
-	 * @param  int|null $limit
-	 * @return int
-	 */
-	public static function getPagenbrFromOffset(int $offset, int $limit = null) {
-		if (empty($limit)) {
-			$limit = 1;
-		}
-		$pagenbr = ceil($offset / $limit);
-		return $pagenbr;
-	}
-
-	/**
-	 * Return Offset based from Page Number
-	 * @param  int      $offset
-	 * @param  int $limit
-	 * @return int
-	 */
-	public static function getOffsetFromPagenbr(int $pagenbr, int $limit = 0) {
-		if (empty($limit)) {
-			$limit = 1;
-		}
-		if ($pagenbr == 1) {
-			return 0;
-		}
-		return ($pagenbr * $limit) - $limit;
-	}
-
 /* =============================================================
 	9. Hooks / Object Decorating
 ============================================================= */
