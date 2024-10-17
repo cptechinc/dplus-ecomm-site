@@ -9,13 +9,13 @@
 
 <div class="panel panel-default sidebar-menu">
 	<div class="panel-heading">
-		<h3 class="h4 panel-title">Categories</h3>
+		<h4 class="panel-title pb-1">Categories</h4>
 	</div>
 	<div class="panel-body">
 		<ul class="nav nav-pills flex-column text-sm">
 			{% for category in pages.find('template=blog-category') %}
 				<li class="nav-item">
-					<a href="{{ category.url }}" class="nav-link">{{ category.title }}</a>
+					<a href="{{ category.url }}" class="nav-link pl-1">{{ category.title }}</a>
 				</li>
 			{% endfor %}
 		</ul>
@@ -23,7 +23,7 @@
 </div>
 <div class="panel sidebar-menu">
 	<div class="panel-heading">
-		<h3 class="h4 panel-title">Tags</h3>
+		<h4 class="panel-title pb-1">Tags</h4>
 	</div>
 	<div class="panel-body">
 		<ul class="tag-cloud list-inline">
@@ -39,7 +39,7 @@
 </div>
 <div class="panel panel-default sidebar-menu">
 	<div class="panel-heading">
-		<h3 class="h4 panel-title">Search</h3>
+		<h4 class="panel-title pb-1">Search</h4>
 	</div>
 	<div class="panel-body">
 		<form role="search">
