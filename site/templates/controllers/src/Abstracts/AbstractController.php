@@ -5,12 +5,6 @@ use ReflectionClass;
 use Twig\Environment as Twig;
 use Twig\Loader\FilesystemLoader as TwigLoader;
 // ProcessWire
-use ProcessWire\Config as PwConfig;
-use ProcessWire\Input;
-use ProcessWire\Page;
-use ProcessWire\Pages;
-use ProcessWire\Session;
-use ProcessWire\User;
 use ProcessWire\WireData;
 // App
 use App\Configs\Configs\App as AppConfig;
@@ -152,54 +146,6 @@ abstract class AbstractController extends ParentController {
 	 */
 	protected static function getTwigLoader() {
 		return self::pw('modules')->get('Twig')->loader;
-	}
-
-	/**
-	 * Return ProcessWire Config
-	 * @return PwConfig
-	 */
-	protected static function getPwConfig() {
-		return self::pw('config');
-	}
-
-	/**
-	 * Return ProcessWire Session
-	 * @return Input
-	 */
-	protected static function getPwInput() {
-		return self::pw('input');
-	}
-
-	/**
-	 * Return ProcessWire Session
-	 * @return Page
-	 */
-	protected static function getPwPage() {
-		return self::pw('page');
-	}
-
-	/**
-	 * Return ProcessWire Session
-	 * @return Pages
-	 */
-	protected static function getPwPages() {
-		return self::pw('pages');
-	}
-
-	/**
-	 * Return ProcessWire Current User
-	 * @return User
-	 */
-	protected static function getPwUser() {
-		return self::pw('user');
-	}
-
-	/**
-	 * Return ProcessWire Session
-	 * @return Session
-	 */
-	protected static function getPwSession() {
-		return self::pw('session');
 	}
 
 	/**
