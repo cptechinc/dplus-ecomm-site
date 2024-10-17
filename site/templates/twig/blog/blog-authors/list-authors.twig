@@ -1,0 +1,33 @@
+{#
+	var                    Description / Instance of
+	-------------------------------------------------
+	page                   ProcessWire\Page(template=blog-tag)
+	authors                ProcessWire\WireArray => WireArray(User)
+#}
+
+{% import "util/macros/html.twig" as html %}
+
+<div class="list-group">
+	{% for key, sublist in authors %}
+		<div class="testimonial mb-3" id="{{ key }}">
+			{% for author in sublist %}
+				<div class="row">
+					<div class="col-2">
+						{% if author.blog_images.count() %}
+							{% set image = author.blog_images.first() %}
+							<a href="{{ page.authorUrl(author.name) }}">
+								<img alt="{{ image.description }}" src="{{ image.width(100).url }}" class="img-fluid">
+							</a>
+						{% endif %}
+					</div>
+					<div class="col-6">
+						<a href="{{ page.authorUrl(author.name) }}">
+							<h5 class="mb-0">{{ author.title }}</h5>
+						</a>
+						<div>{{ author.blog_body|raw }}</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	{% endfor %}
+</div>
