@@ -1,0 +1,35 @@
+{#
+	var                    Description / Instance of
+	-------------------------------------------------
+	page                   ProcessWire\Page(template=blog-authors)
+	author                 ProcessWire\User
+	author.posts           ProcessWire\PageArray(template=blog-post)
+#}
+
+<div class="mb-3">
+	<div class="row mb-4">
+		<div class="col-8">
+			{{ author.blog_body|raw }}
+		</div>
+		<div class="col-4">
+			{% if author.blog_images.count() %}
+				{% set image = author.blog_images.first() %}
+				<img alt="{{ image.description }}" src="{{ image.width(150).url }}" class="img-fluid rounded-circle">
+			{% endif %}
+		</div>
+	</div>
+	<div>
+		<h3>{{ author.title }}'s Posts</h3>
+		<div class="mb-2">
+			{% include 'blog/blog-author/list-posts.twig' %}
+		</div>
+
+		{% if posts.hasNextPagination() == false %}
+			<a href="{{ page.authorPostsUrl(author.name) }}" class="btn {{ CSS.colors.buttons.getClass('link') }}">
+				More By {{ author.title }}
+			</a>
+		{% endif %}
+	</div>
+	<hr>
+	<a href="{{ pages.get('template=blog').url }}" class="btn {{ CSS.colors.buttons.getClass('link') }}">Blog</a>
+</div>
