@@ -12,7 +12,7 @@ use Controllers\Abstracts\AbstractController;
 
 /**
  * BlogAuthors
- * Handles BlogAuthors Page
+ * Handles blog-authors, blog author Page
  */
 class BlogAuthors extends AbstractController {
 	const SESSION_NS = 'blog-authors';
@@ -26,7 +26,7 @@ class BlogAuthors extends AbstractController {
 		self::getPwPage()->tabtitle = 'Blog Authors';
 
 		$authors = self::fetchAuthorsGroupedByFirstLetter($data);
-		return self::display($data, $authors);
+		return self::displayList($data, $authors);
 	}
 
 /* =============================================================
@@ -41,7 +41,7 @@ class BlogAuthors extends AbstractController {
 	 * @param  WireData $data
 	 * @return PageArray
 	 */
-	public static function fetchAuthors(WireData $data) {
+	private static function fetchAuthors(WireData $data) {
 		$users = self::getPwUsers();
 		$authorRole = self::getPwRoles()->get('blog-author');
 		return $users->find("roles=$authorRole, sort=title");
@@ -52,7 +52,7 @@ class BlogAuthors extends AbstractController {
 	 * @param  WireData $data
 	 * @return WireArray
 	 */
-	public static function fetchAuthorsGroupedByFirstLetter(WireData $data) {
+	private static function fetchAuthorsGroupedByFirstLetter(WireData $data) {
 		$all = self::fetchAuthors($data);
 		$list = new WireArray();
 
@@ -87,14 +87,14 @@ class BlogAuthors extends AbstractController {
 /* =============================================================
 	5. Displays
 ============================================================= */
-	private static function display(WireData $data, WireArray $list) {
-		return self::render($data, $list);
+	private static function displayList(WireData $data, WireArray $list) {
+		return self::renderList($data, $list);
 	}
 
 /* =============================================================
 	6. HTML Rendering
 ============================================================= */
-	private static function render(WireData $data, WireArray $list) {
+	private static function renderList(WireData $data, WireArray $list) {
 		return self::getTwig()->render('blog/blog-authors/page.twig', ['authors' => $list]);
 	}
 
