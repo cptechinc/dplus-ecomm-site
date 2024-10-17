@@ -1,6 +1,9 @@
 <?php namespace Controllers;
 // ProcessWire
+use ProcessWire\HookEvent;
 use ProcessWire\WireData;
+// App
+use App\Blog\Util\PwSelectors\BlogPost as PostSelectors;
 // Controllers
 use Controllers\Abstracts\AbstractController;
 
@@ -66,16 +69,20 @@ class Home extends AbstractController {
 	 * @return bool
 	 */
 	public static function initPageHooks($tplname = '') {
-		// $selector = static::getPageHooksTemplateSelector();
-		// $m = self::pw('modules')->get('App');
-	}
+		$selector = static::getPageHooksTemplateSelector();
+		$m = self::pw('modules')->get('App');
 
-	/**
-	 * Add Hooks to Pages
-	 * @param  string $tplname
-	 * @return bool
-	 */
-	public static function initPagesHooks() {
-		// $m = self::pw('modules')->get('App');
+		$m->addHook("$selector::authorUrl", function(HookEvent $event) {
+			$event->return = Blog\BlogAuthor::urlAuthor($event->arguments(0));
+		});
+
+		$m->addHook("$selector::recentBlogPosts", function(HookEvent $event) {
+			$selectors = [
+				'template'   => PostSelectors::template(), 
+				'pagination' => PostSelectors::pagination(1, 4), 
+				'sort'       => PostSelectors::sort(PostSelectors::DEFAULT_SORT)
+			];
+			$event->return = self::getPwPages()->find(implode(',', array_values($selectors)));
+		});
 	}
 }

@@ -1,3 +1,5 @@
+{% import 'blog/macros.twig' as htmlBlog %}
+
 <section class="bar background-white no-mb">
 	<div class="container">
 		<div class="col-md-12">
@@ -6,31 +8,9 @@
 			</div>
 			<p class="lead">Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. <a href="blog.html">Check our blog!</a></p>
 			<div class="row">
-				{% for post in pages.find('template=blog-post,limit=4') %}
+				{% for post in page.recentBlogPosts() %}
 					<div class="col-lg-3">
-						<div class="home-blog-post">
-							<div class="image">
-								{% if post.blog_images.count() %}
-									{% set img = post.blog_images.first() %}
-									<img src="{{ img.url }}" alt="..." class="img-fluid">
-								{% endif %}
-								<div class="overlay d-flex align-items-center justify-content-center">
-									<a href="{{ post.url }}" class="btn btn-template-outlined-white">
-										{{ html.iconType({'type': 'link'}) }} Read More
-									</a>
-								</div>
-							</div>
-							<div class="text">
-								<h4>
-									<a href="{{ post.url }}">{{ post.title }}</a>
-								</h4>
-								<p class="author-category">
-									By <a href="#">{{ post.writer.title }}</a> in <a href="blog.html">{{ post.blog_categories.first().title }}</a>
-								</p>
-								<p class="intro">{{ post.blog_body|striptags }}</p>
-								<a href="{{ post.url }}" class="btn btn-template-outlined">Continue Reading</a>
-							</div>
-						</div>
+						{{ htmlBlog.postListItem(post) }}
 					</div>
 				{% endfor %}
 			</div>
