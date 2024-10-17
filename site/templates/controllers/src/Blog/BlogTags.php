@@ -8,7 +8,7 @@ use Controllers\Abstracts\AbstractController;
 
 /**
  * BlogTags
- * Handles BlogTags Page
+ * Handles blog-tags Page
  */
 class BlogTags extends AbstractController {
 	const SESSION_NS = 'blog-tags';
