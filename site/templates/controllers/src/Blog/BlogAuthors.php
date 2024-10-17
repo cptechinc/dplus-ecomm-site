@@ -2,17 +2,14 @@
 // ProcessWire
 use ProcessWire\HookEvent;
 use ProcessWire\PageArray;
-use ProcessWire\Roles;
-use ProcessWire\Users;
 use ProcessWire\WireData;
 use ProcessWire\WireArray;
 // Controllers
 use Controllers\Abstracts\AbstractController;
 
-
 /**
  * BlogAuthors
- * Handles blog-authors, blog author Page
+ * Handles blog-authors page
  */
 class BlogAuthors extends AbstractController {
 	const SESSION_NS = 'blog-authors';
@@ -24,15 +21,15 @@ class BlogAuthors extends AbstractController {
 	public static function index(WireData $data) {
 		self::initPageHooks();
 		self::getPwPage()->tabtitle = 'Blog Authors';
-
+		
 		$authors = self::fetchAuthorsGroupedByFirstLetter($data);
-		return self::displayList($data, $authors);
+		return self::display($data, $authors);
 	}
 
 /* =============================================================
 	2. Validations / Permissions / Initializations
 ============================================================= */
-
+	
 /* =============================================================
 	3. Data Fetching / Requests / Retrieval
 ============================================================= */
@@ -80,21 +77,20 @@ class BlogAuthors extends AbstractController {
 	}
 
 	public static function urlAuthor($slug) {
-		$name = self::getPwSanitizer()->pageName($slug);
-		return self::url() . "$name/";
+		return BlogAuthor::urlAuthor($slug);
 	}
 
 /* =============================================================
 	5. Displays
 ============================================================= */
-	private static function displayList(WireData $data, WireArray $list) {
-		return self::renderList($data, $list);
+	private static function display(WireData $data, WireArray $list) {
+		return self::render($data, $list);
 	}
 
 /* =============================================================
 	6. HTML Rendering
 ============================================================= */
-	private static function renderList(WireData $data, WireArray $list) {
+	private static function render(WireData $data, WireArray $list) {
 		return self::getTwig()->render('blog/blog-authors/page.twig', ['authors' => $list]);
 	}
 
