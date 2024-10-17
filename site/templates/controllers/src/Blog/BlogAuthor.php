@@ -74,7 +74,7 @@ class BlogAuthor extends AbstractController {
 		$data->limit = self::LIMIT_ON_PAGE;
 		$data->start = self::getOffsetFromPagenbr(self::getPwInput()->pageNum(), self::LIMIT_ON_PAGE);
 		$pages = self::getPwPages();
-		return $pages->find("template=blog-post,start=$data->start,limit=$data->limit,created_users_id=$user->id,sort=-created");
+		return $pages->find("template=blog-post,start=$data->start,limit=$data->limit,created_users_id=$user->id,sort=-blog_date");
 	}
 
 /* =============================================================
