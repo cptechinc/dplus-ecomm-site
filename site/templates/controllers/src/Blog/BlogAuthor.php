@@ -10,7 +10,7 @@ use Controllers\Abstracts\AbstractController;
 
 
 /**
- * BlogAuthors
+ * BlogAuthor
  * Handles blog author Page
  */
 class BlogAuthor extends AbstractController {
@@ -57,7 +57,7 @@ class BlogAuthor extends AbstractController {
 	 * @param  WireData $data
 	 * @return User|false
 	 */
-	private static function fetchAuthor(WireData $data) {
+	protected static function fetchAuthor(WireData $data) {
 		$users = self::getPwUsers();
 		$authorRole = self::getPwRoles()->get('blog-author');
 		$user = $users->get("roles=$authorRole,name=$data->name");
@@ -70,7 +70,7 @@ class BlogAuthor extends AbstractController {
 	 * @param  User      $user
 	 * @return PageArray(template=blog-post)
 	 */
-	private static function fetchPosts(WireData $data, User $user) {
+	protected static function fetchPosts(WireData $data, User $user) {
 		$data->limit = self::LIMIT_ON_PAGE;
 		$data->start = self::getOffsetFromPagenbr(self::getPwInput()->pageNum(), self::LIMIT_ON_PAGE);
 		$pages = self::getPwPages();
@@ -96,14 +96,14 @@ class BlogAuthor extends AbstractController {
 /* =============================================================
 	5. Displays
 ============================================================= */
-	private static function display(WireData $data, User $author) {
-		return self::render($data, $author);
+	protected static function display(WireData $data, User $author) {
+		return static::render($data, $author);
 	}
 
 /* =============================================================
 	6. HTML Rendering
 ============================================================= */
-	private static function render(WireData $data, User $author) {
+	protected static function render(WireData $data, User $author) {
 		return self::getTwig()->render('blog/blog-author/page.twig', ['author' => $author]);
 	}
 
