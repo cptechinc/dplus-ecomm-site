@@ -72,7 +72,7 @@ class BlogCategories extends AbstractController {
 	4. URLs
 ============================================================= */
 	public static function url() {
-		return self::pw('pages')->get('template=blog')->url . 'categories/';
+		return self::pw('pages')->get('template=blog-categories')->url;
 	}
 
 /* =============================================================
