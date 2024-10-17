@@ -34,8 +34,8 @@ class BlogTag extends AbstractController {
 ============================================================= */
 	/**
 	 * Return Posts that have this tag
-	 * @param  Page|null $page
 	 * @param  WireData  $data
+	 * @param  Page|null $page
 	 * @return PageArray(template=blog-post)
 	 */
 	public static function fetchPosts(WireData $data, Page $page = null) {
