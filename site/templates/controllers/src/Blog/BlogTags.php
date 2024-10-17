@@ -34,7 +34,7 @@ class BlogTags extends AbstractController {
 	4. URLs
 ============================================================= */
 	public static function url() {
-		return self::pw('pages')->get('template=blog')->url . 'tags/';
+		return self::pw('pages')->get('template=blog-tags')->url;
 	}
 
 /* =============================================================
