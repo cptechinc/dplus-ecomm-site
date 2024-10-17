@@ -1,0 +1,12 @@
+{#
+	var                    Description / Instance of
+	-------------------------------------------------
+	page                   ProcessWire\Page(template=blog-authors)
+	author                 ProcessWire\User
+	author.posts           ProcessWire\PageArray(template=blog-post)
+#}
+{% extends 'util/templates/page/default.twig' %}
+
+{% block body %}
+	{% include 'blog/blog-author-posts/layout.twig' %}
+{% endblock %}
