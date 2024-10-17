@@ -2,6 +2,7 @@
 // ProcessWire
 use ProcessWire\PageArray;
 use ProcessWire\WireData;
+use App\Blog\Util\PwSelectors\BlogPost as PostSelectors;
 // Controllers
 use Controllers\Abstracts\AbstractController;
 
@@ -36,11 +37,9 @@ class Blog extends AbstractController {
 	 * @return PageArray(template=blog-post)
 	 */
 	public static function fetchPosts(WireData $data) {
-		$data->pagenbr = $data->pagenbr ? $data->pagenbr : self::getPwInput()->pageNum();
-		$data->limit = self::LIMIT_ON_PAGE;
-		$data->start = self::getOffsetFromPagenbr($data->pagenbr, self::LIMIT_ON_PAGE);
+		$selectors = self::generateBlogPostsSelectors($data);
 		$pages = self::getPwPages();
-		return $pages->find("template=blog-post,start=$data->start,limit=$data->limit,sort=-blog_date");
+		return $pages->find(implode(',', array_values($selectors)));
 	}
 
 /* =============================================================
@@ -61,7 +60,7 @@ class Blog extends AbstractController {
 	6. HTML Rendering
 ============================================================= */
 	private static function render(WireData $data, PageArray $posts) {
-		return self::getTwig()->render('blog/page.twig',['posts' => $posts]);
+		return self::getTwig()->render('blog/page.twig', ['posts' => $posts]);
 	}
 
 /* =============================================================
@@ -71,6 +70,21 @@ class Blog extends AbstractController {
 /* =============================================================
 	8. Supplemental
 ============================================================= */
+	/**
+	 * Return Selectors array
+	 * @param  WireData $data
+	 * @return array
+	 */
+	private static function generateBlogPostsSelectors(WireData $data) {
+		$data->pagenbr = $data->pagenbr ? $data->pagenbr : self::getPwInput()->pageNum();
+		$data->limit = self::LIMIT_ON_PAGE;
+		$selectors = [
+			'template'   => PostSelectors::template(), 
+			'pagination' => PostSelectors::pagination($data->pagenbr, $data->limit), 
+			'sort'       => PostSelectors::sort(PostSelectors::DEFAULT_SORT)
+		];
+		return $selectors;
+	}
 
 /* =============================================================
 	9. Hooks / Object Decorating

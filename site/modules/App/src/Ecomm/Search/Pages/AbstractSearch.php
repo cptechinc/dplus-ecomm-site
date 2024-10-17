@@ -15,6 +15,7 @@ abstract class AbstractSearch extends WireData {
 	public function __construct() {
 		$this->keyword = '';
 	}
+	
 /* =============================================================
 	Public
 ============================================================= */

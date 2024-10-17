@@ -4,7 +4,8 @@ use ProcessWire\HookEvent;
 use ProcessWire\PageArray;
 use ProcessWire\User;
 use ProcessWire\WireData;
-use ProcessWire\WireArray;
+// App
+use App\Blog\Util\PwSelectors\BlogPost as PostSelectors;
 // Controllers
 use Controllers\Abstracts\AbstractController;
 
@@ -71,10 +72,9 @@ class BlogAuthor extends AbstractController {
 	 * @return PageArray(template=blog-post)
 	 */
 	protected static function fetchPosts(WireData $data, User $user) {
-		$data->limit = self::LIMIT_ON_PAGE;
-		$data->start = self::getOffsetFromPagenbr(self::getPwInput()->pageNum(), self::LIMIT_ON_PAGE);
+		$selectors = self::generateBlogPostsSelectors($data, $user);
 		$pages = self::getPwPages();
-		return $pages->find("template=blog-post,start=$data->start,limit=$data->limit,created_users_id=$user->id,sort=-blog_date");
+		return $pages->find(implode(',', array_values($selectors)));
 	}
 
 /* =============================================================
@@ -114,6 +114,23 @@ class BlogAuthor extends AbstractController {
 /* =============================================================
 	8. Supplemental
 ============================================================= */
+	/**
+	 * Return Selectors array
+	 * @param  WireData $data
+	 * @param  User     $user
+	 * @return array
+	 */
+	private static function generateBlogPostsSelectors(WireData $data, User $user) {
+		$data->pagenbr = $data->pagenbr ? $data->pagenbr : self::getPwInput()->pageNum();
+		$data->limit = self::LIMIT_ON_PAGE;
+		$selectors = [
+			'template'   => PostSelectors::template(), 
+			'author'     => PostSelectors::blogAuthor($user->id),
+			'pagination' => PostSelectors::pagination($data->pagenbr, $data->limit), 
+			'sort'       => PostSelectors::sort(PostSelectors::DEFAULT_SORT)
+		];
+		return $selectors;
+	}
 
 /* =============================================================
 	9. Hooks / Object Decorating
@@ -132,12 +149,4 @@ class BlogAuthor extends AbstractController {
 		});
 	}
 
-	/**
-	 * Add Hooks to Pages
-	 * @param  string $tplname
-	 * @return bool
-	 */
-	public static function initPagesHooks() {
-		// $m = self::pw('modules')->get('App');
-	}
 }

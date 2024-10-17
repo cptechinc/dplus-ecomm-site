@@ -3,6 +3,8 @@
 use ProcessWire\Page;
 use ProcessWire\PageArray;
 use ProcessWire\WireData;
+// App
+use App\Blog\Util\PwSelectors\BlogPost as PostSelectors;
 // Controllers
 use Controllers\Abstracts\AbstractController;
 
@@ -42,10 +44,9 @@ class BlogTag extends AbstractController {
 		if (empty($page)) {
 			$page = self::getPwPage();
 		}
-		$data->limit = self::LIMIT_ON_PAGE;
-		$data->start = self::getOffsetFromPagenbr(self::getPwInput()->pageNum(), self::LIMIT_ON_PAGE);
 		$pages = self::getPwPages();
-		return $pages->find("template=blog-post,start=$data->start,limit=$data->limit,blog_tags=[name=$page->name]");
+		$selectors = self::generateBlogPostsSelectors($data, $page);
+		return $pages->find(implode(',', array_values($selectors)));
 	}
 
 /* =============================================================
@@ -76,6 +77,22 @@ class BlogTag extends AbstractController {
 /* =============================================================
 	8. Supplemental
 ============================================================= */
+	/**
+	 * Return Selectors array
+	 * @param  WireData $data
+	 * @return array
+	 */
+	private static function generateBlogPostsSelectors(WireData $data, Page $page) {
+		$data->pagenbr = $data->pagenbr ? $data->pagenbr : self::getPwInput()->pageNum();
+		$data->limit = self::LIMIT_ON_PAGE;
+		$selectors = [
+			'template'   => PostSelectors::template(), 
+			'tag'        => PostSelectors::blogTag($page->name), 
+			'pagination' => PostSelectors::pagination($data->pagenbr, $data->limit), 
+			'sort'       => PostSelectors::sort(PostSelectors::DEFAULT_SORT)
+		];
+		return $selectors;
+	}
 
 /* =============================================================
 	9. Hooks / Object Decorating
