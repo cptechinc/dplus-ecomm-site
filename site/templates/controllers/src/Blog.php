@@ -75,22 +75,4 @@ class Blog extends AbstractController {
 /* =============================================================
 	9. Hooks / Object Decorating
 ============================================================= */
-	/**
-	 * Initialze Page Hooks
-	 * @param  string $tplname
-	 * @return bool
-	 */
-	public static function initPageHooks($tplname = '') {
-		// $selector = static::getPageHooksTemplateSelector();
-		// $m = self::pw('modules')->get('App');
-	}
-
-	/**
-	 * Add Hooks to Pages
-	 * @param  string $tplname
-	 * @return bool
-	 */
-	public static function initPagesHooks() {
-		// $m = self::pw('modules')->get('App');
-	}
 }
