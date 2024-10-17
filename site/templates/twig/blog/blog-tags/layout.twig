@@ -1,8 +1,15 @@
-<div class="mb-3">
+{#
+	var                    Description / Instance of
+	-------------------------------------------------
+	page                   ProcessWire\Page(template=blog-tags)
+	tags                   ProcessWire\PageArray(template=blog-tag)
+#}
+
+{% extends 'blog/layout.twig' %}
+
+{% block body %}
 	{% include 'blog/blog-tags/list-tags.twig' %}
 	<hr>
 	<h3>Recent Posts</h3>
 	{% include 'blog/blog-tags/list-posts.twig' %}
-	<hr>
-	<a href="{{ pages.get('template=blog').url }}" class="btn {{ CSS.colors.buttons.getClass('link') }}">Blog</a>
-</div>
+{% endblock %}

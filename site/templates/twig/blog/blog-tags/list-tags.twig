@@ -1,7 +1,13 @@
+{#
+	var                    Description / Instance of
+	-------------------------------------------------
+	page                   ProcessWire\Page(template=blog-tags)
+	tags                   ProcessWire\PageArray(template=blog-tag)
+#}
 {% import "util/macros/html.twig" as html %}
 
 <ul class="tag-cloud list-inline">
-	{% for tag in pages.find('template=blog-tag') %}
+	{% for tag in tags %}
 		<li class="list-inline-item">
 			<a href="{{ tag.url() }}">
 				{{ html.iconType({'type': 'tags'}) }} {{ tag.title }}
