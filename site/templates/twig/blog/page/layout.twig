@@ -5,26 +5,34 @@
 	posts                  ProcessWire\PageArray(template=blog-posts)
 #}
 
-<div class="row bar">
-	<div id="blog-listing-small" class="col-lg-9">
-		<div>
-			{% include 'blog/page/list.twig' %}
+{% extends 'blog/layout.twig' %}
+
+{% block body %}
+	<div class="row">
+		<div class="col-md-9">
+			<div>
+				{% include 'blog/page/list.twig' %}
+			</div>
+			
+			<ul class="pager list-unstyled d-flex align-items-center justify-content-between">
+				<li class="previous {{ posts.hasNextPagination() == false ? 'disabled' : '' }}">
+					<a href="{{ input.paginateUrl(input.pageNum + 1, {'includeQueryString': true}) }}" class="btn {{ CSS.colors.buttons.getClass('link') }}">
+						← Older
+					</a>
+				</li>
+				<li class="next {{ input.pageNum == 1 ? 'disabled' : '' }}">
+					<a href="{{ input.paginateUrl(input.pageNum - 1, {'includeQueryString': true}) }}" class="btn {{ CSS.colors.buttons.getClass('link') }}">
+						Newer →
+					</a>
+				</li>
+			</ul>
 		</div>
-		
-		<ul class="pager list-unstyled d-flex align-items-center justify-content-between">
-			<li class="previous {{ posts.hasNextPagination() == false ? 'disabled' : '' }}">
-				<a href="{{ input.paginateUrl(input.pageNum + 1, {'includeQueryString': true}) }}" class="btn {{ CSS.colors.buttons.getClass('link') }}">
-					← Older
-				</a>
-			</li>
-			<li class="next {{ input.pageNum == 1 ? 'disabled' : '' }}">
-				<a href="{{ input.paginateUrl(input.pageNum - 1, {'includeQueryString': true}) }}" class="btn {{ CSS.colors.buttons.getClass('link') }}">
-					Newer →
-				</a>
-			</li>
-		</ul>
+		<div class="col-md-3">
+			{% include 'blog/page/sidebar.twig' %}
+		</div>
 	</div>
-	<div class="col-lg-3">
-		{% include 'blog/page/sidebar.twig' %}
-	</div>
-</div>
+{% endblock %}
+
+{% block footer %}
+
+{% endblock %}
