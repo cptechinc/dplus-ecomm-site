@@ -1,33 +1,43 @@
 {#
 	var                    Description / Instance of
 	-------------------------------------------------
-	page                   ProcessWire\Page(template=blog-tag)
-	authors                ProcessWire\WireArray => WireArray(User)
+	page                   ProcessWire\Page(template=blog-authors)
+	authors                ProcessWire\PagedArray(ProcessWire\User)
 #}
 
 {% import "util/macros/html.twig" as html %}
 
-<div class="list-group">
-	{% for key, sublist in authors %}
-		<div class="testimonial mb-3" id="{{ key }}">
-			{% for author in sublist %}
-				<div class="row">
-					<div class="col-2">
-						{% if author.blog_images.count() %}
-							{% set image = author.blog_images.first() %}
-							<a href="{{ page.authorUrl(author.name) }}">
-								<img alt="{{ image.description }}" src="{{ image.width(100).url }}" class="img-fluid">
-							</a>
-						{% endif %}
-					</div>
-					<div class="col-6">
+<div class="row text-center">
+	{% for author in authors %}
+		<div class="col-md-3 mb-3">
+			<div data-animate="fadeInUp" class="team-member">
+				<div class="image">
+					{% if author.blog_images.count() %}
+						{% set image = author.blog_images.first() %}
 						<a href="{{ page.authorUrl(author.name) }}">
-							<h5 class="mb-0">{{ author.title }}</h5>
+							<img alt="{{ image.description }}" src="{{ image.width(100).url }}" class="img-fluid rounded-circle">
 						</a>
-						<div>{{ author.blog_body|raw }}</div>
-					</div>
+					{% endif %}
 				</div>
-			{% endfor %}
+				<h3>
+					<a href="{{ page.authorUrl(author.name) }}">{{ author.title }}</a>
+				</h3>
+				<ul class="social list-inline">
+					<li class="list-inline-item">
+						<a href="#" class="external facebook">{{ html.iconType({'type': 'facebook'}) }}</a>
+					</li>
+					<li class="list-inline-item">
+						<a href="#" class="external twitter">{{ html.iconType({'type': 'twitter'}) }}</a>
+					</li>
+					<li class="list-inline-item">
+						<a href="#" class="email">{{ html.iconType({'type': 'email'}) }}</a>
+					</li>
+				</ul>
+				<div class="text">
+					{{ author.blog_body|raw }}
+				</div>
+			</div>
 		</div>
 	{% endfor %}
 </div>
+

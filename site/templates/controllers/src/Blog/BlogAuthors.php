@@ -14,6 +14,7 @@ use Controllers\Abstracts\AbstractController;
 class BlogAuthors extends AbstractController {
 	const SESSION_NS = 'blog-authors';
 	const TEMPLATE   = 'blog-authors';
+	const LIMIT_ON_PAGE = 25;
 
 /* =============================================================
 	1. Indexes
@@ -22,7 +23,7 @@ class BlogAuthors extends AbstractController {
 		self::initPageHooks();
 		self::getPwPage()->tabtitle = 'Blog Authors';
 		
-		$authors = self::fetchAuthorsGroupedByFirstLetter($data);
+		$authors = self::fetchAuthors($data);
 		return self::display($data, $authors);
 	}
 
@@ -41,32 +42,10 @@ class BlogAuthors extends AbstractController {
 	private static function fetchAuthors(WireData $data) {
 		$users = self::getPwUsers();
 		$authorRole = self::getPwRoles()->get('blog-author');
-		return $users->find("roles=$authorRole, sort=title");
-	}
-
-	/**
-	 * Return List of Authors grouped by first Letter
-	 * @param  WireData $data
-	 * @return WireArray
-	 */
-	private static function fetchAuthorsGroupedByFirstLetter(WireData $data) {
-		$all = self::fetchAuthors($data);
-		$list = new WireArray();
-
-		foreach ($all as $category) {
-			$first = substr($category->title, 0, 1);
-
-			if ($list->has($first)) {
-				/** @var WireArray */
-				$sublist = $list->get($first);
-				$sublist->add($category);
-				continue;
-			}
-			$sublist = new WireArray();
-			$sublist->add($category);
-			$list->set($first, $sublist);
-		}
-		return $list;
+		$data->pagenbr = $data->pagenbr ? $data->pagenbr : self::getPwInput()->pageNum();
+		$data->limit = self::LIMIT_ON_PAGE;
+		$data->start = self::getOffsetFromPagenbr($data->pagenbr, self::LIMIT_ON_PAGE);
+		return $users->find("roles=$authorRole,sort=title,start=$data->start,limit=$data->limit");
 	}
 
 /* =============================================================
@@ -117,14 +96,5 @@ class BlogAuthors extends AbstractController {
 		$m->addHook("$selector::authorUrl", function(HookEvent $event) {
 			$event->return = self::urlAuthor($event->arguments(0));
 		});
-	}
-
-	/**
-	 * Add Hooks to Pages
-	 * @param  string $tplname
-	 * @return bool
-	 */
-	public static function initPagesHooks() {
-		// $m = self::pw('modules')->get('App');
 	}
 }
