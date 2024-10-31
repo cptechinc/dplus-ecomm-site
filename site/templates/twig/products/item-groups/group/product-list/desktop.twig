@@ -2,32 +2,32 @@
 <div class="products-big">
 	<div class="row products">
 		{% for product in products %}
-		<div class="col-3">
-			<div class="product">
-				{% if 100 == 1 %}
-				<div class="image">
-					<a href="{{ product.url }}">
-						<img src="img/product1.jpg" alt="" class="img-fluid image1">
-					</a>
-				</div>
-				{% endif %}
-				<div class="text text-left">
-					<h3 class="h5 mb-1">
-						<a href="{{ product.url }}">{{ product.itemid }}</a>
-					</h3>
-					<div class="description">
-						{{ product.itemdescription }}
+			<div class="col-3">
+				<div class="product">
+					{% if 100 == 1 %}
+					<div class="image">
+						<a href="{{ product.url }}">
+							<img src="img/product1.jpg" alt="" class="img-fluid image1">
+						</a>
 					</div>
-					<p class="price text-right">${{ product.sellprice|currency }}</p>
-					
-					{% if config.app.allowOrdering %}
-						<div>
-							{% include 'products/search/results/form-add-to-cart.twig' with {'itemID': product.itemid} %}
-						</div>
 					{% endif %}
+					<div class="text text-left">
+						<h3 class="h5 mb-1">
+							<a href="{{ product.url }}">{{ product.itemid }}</a>
+						</h3>
+						<div class="description">
+							{{ product.itemdescription }}
+						</div>
+						<p class="price text-right">${{ product.sellprice|currency }}</p>
+						
+						{% if config.app.allowOrdering %}
+							<div>
+								{% include 'products/search/results/form-add-to-cart.twig' with {'itemID': product.itemid} %}
+							</div>
+						{% endif %}
+					</div>
 				</div>
 			</div>
-		</div>
-	{% endfor %}
+		{% endfor %}
 	</div>
 </div>
