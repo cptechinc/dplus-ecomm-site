@@ -25,17 +25,23 @@
 							{% endif %}
 							<li>
 								<div class="row">
-									<div class="col-lg-3 col-md-6">
+									<div class="col-md-9">
 										<h5>Item Groups</h5>
-										<ul class="list-unstyled mb-3">
-											{% for group in pages.find('template=products-item-group') %}
-												<li class="nav-item">
-													<a href="{{ group.url }}" class="nav-link">{{ group.dplusdescription }}</a>
-												</li>
+										<div class="row">
+											{% for list in pages.find('template=products-item-group')|batch(15) %}
+												<div class="col-md-4">
+													<ul class="list-unstyled mb-3">
+														{% for group in list %}
+															<li class="nav-item">
+																<a href="{{ group.url }}" class="nav-link">{{ group.dplusdescription }}</a>
+															</li>
+														{% endfor %}
+													</ul>
+												</div>
 											{% endfor %}
-										</ul>
+										</div>
 									</div>
-									<div class="col-lg-3 col-md-6">
+									<div class="col-lg-3 col-md-3">
 										<h5>Search</h5>
 										{% include 'products/search/form.twig' %}
 									</div>
