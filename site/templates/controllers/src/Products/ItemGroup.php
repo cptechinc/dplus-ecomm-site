@@ -16,7 +16,7 @@ use Controllers\Abstracts\AbstractController;
  */
 class ItemGroup extends AbstractController {
 	const SESSION_NS = 'products-item-group';
-	const TEMPLATE   = 'products-item-group';
+	const TEMPLATE	 = 'products-item-group';
 	const RESULTS_PERPAGE = 25;
 
 /* =============================================================
@@ -51,12 +51,15 @@ class ItemGroup extends AbstractController {
 	/**
 	 * Return Product Pages assoicated with ItemGroup
 	 * @param  WireData $data
-	 * @param  array    $itemIDs
+	 * @param  array	$itemIDs
 	 * @return PageArray[Page]
 	 */
 	private static function findProductPages(WireData $data) {
 		$PAGES = new PagesSearcher();
 		$PAGES->itemIDs = self::findItemids($data);
+		if (empty($PAGES->itemIDs)) {
+			return new PageArray();
+		}
 		return $PAGES->paginate(self::pw('input')->pageNum, self::RESULTS_PERPAGE);
 	}
 
@@ -121,11 +124,11 @@ class ItemGroup extends AbstractController {
 		$m = self::pw('modules')->get('App');
 
 		// $m->addHook("$selector::forgotPasswordUrl", function($event) {
-		// 	$event->return = AccountController\ForgotPassword::url();
+		//	$event->return = AccountController\ForgotPassword::url();
 		// });
 
 		// $m->addHook("$selector::registerUrl", function($event) {
-		// 	$event->return = AccountController\Register::url();
+		//	$event->return = AccountController\Register::url();
 		// });
 	}
 
@@ -138,7 +141,7 @@ class ItemGroup extends AbstractController {
 		$m = self::pw('modules')->get('App');
 
 		// $m->addHook("Pages::logoutUrl", function($event) {
-		// 	$event->return = self::logoutUrl($event->arguments(0));
+		//	$event->return = self::logoutUrl($event->arguments(0));
 		// });
 	}
 }
