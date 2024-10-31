@@ -66,4 +66,12 @@ abstract class AbstractCacheWireCache extends WireData {
 	public function delete($id) {
 		return $this->cacher->deleteFor($this->namespace, $id);
 	}
+
+	/**
+	 * Delete All Cache
+	 * @return bool
+	 */
+	public function deleteAll() {
+		return $this->cacher->deleteFor(static::NAMESPACE);
+	}
 }
