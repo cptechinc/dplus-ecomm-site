@@ -55,7 +55,7 @@ class Checkout extends AbstractOrderingController {
 		switch($data->action) {
 			case 'submit-order':
 				if ($data->success) {
-					$url = self::url() . 'confirmation/';
+					$url = self::successUrl();
 				}
 				break;
 		}
@@ -171,6 +171,10 @@ class Checkout extends AbstractOrderingController {
 ============================================================= */
 	public static function url() {
 		return self::pw('pages')->get('template=checkout')->url;
+	}
+
+	public static function successUrl() {
+		return self::url() . 'success/';
 	}
 
 /* =============================================================
