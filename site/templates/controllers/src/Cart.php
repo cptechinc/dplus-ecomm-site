@@ -125,6 +125,10 @@ class Cart extends AbstractOrderingController {
 		$selector = static::getPageHooksTemplateSelector($tplname);
 		$m = self::pw('modules')->get('App');
 
+		$m->addHook("$selector::checkoutUrl", function(HookEvent $event) {
+			$event->return = Checkout::url();
+		});
+
 		$m->addHook("$selector::removeItemFromCartUrl", function(HookEvent $event) {
 			$event->return = self::removeItemFromCartUrl($event->arguments(0));
 		});

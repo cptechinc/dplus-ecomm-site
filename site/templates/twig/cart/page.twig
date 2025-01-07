@@ -9,7 +9,7 @@
 		{% include 'cart/cart.twig' %}
 	</div>
 
-	<a href="#" class="btn btn-block {{ CSS.colors.buttons.getClass('submit') }} text-white">
+	<a href="{{ page.checkoutUrl() }}" class="btn btn-block {{ CSS.colors.buttons.getClass('submit') }} text-white">
 		{{ html.iconType({'type': 'cart'}) }} Checkout
 	</a>
 </section>
