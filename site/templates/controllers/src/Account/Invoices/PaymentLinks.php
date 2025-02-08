@@ -45,7 +45,7 @@ class PaymentLinks extends AbstractController {
 	/**
 	 * Handle Display of Order Page
 	 * @param  WireData $data
-	 * @return bool
+	 * @return string
 	 */
 	protected static function list(WireData $data) {
 		$list = self::fetchList($data);

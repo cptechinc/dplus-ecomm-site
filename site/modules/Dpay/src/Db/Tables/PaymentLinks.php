@@ -61,13 +61,13 @@ class PaymentLinks extends AbstractDatabaseTable {
 
 	/**
 	 * Return if Record with Order # exists
-	 * @param  int $ordn
+	 * @param  int $ordernbr
 	 * @return bool
 	 */
-	public function existsByOrdn($ordn) {
+	public function existsByOrdn($ordernbr) {
 		$q = $this->query();
 		$q->select('COUNT(*)');
-		$q->where('ordn=:ordn', [':ordn' => $ordn]);
+		$q->where('ordernbr=:ordernbr', [':ordernbr' => $ordernbr]);
 		return boolval($q->execute()->fetchColumn());
 	}
 
@@ -85,13 +85,13 @@ class PaymentLinks extends AbstractDatabaseTable {
 
 	/**
 	 * Return newest Record for Order #
-	 * @param  int $ordn
+	 * @param  int $ordernbr
 	 * @return Record
 	 */
-	public function recordByOrdn($ordn) {
+	public function recordByOrdn($ordernbr) {
 		$q = $this->query();
 		$q->select('*');
-		$q->where('ordn=:ordn', [':ordn' => $ordn]);
+		$q->where('ordernbr=:ordernbr', [':ordernbr' => $ordernbr]);
 		return $q->execute()->fetchObject(static::MODEL_CLASS);
 	}
 

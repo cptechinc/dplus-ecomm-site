@@ -8,7 +8,7 @@ use Pauldro\ProcessWire\DatabaseTables\Record as AbstractRecord;
  * 
  * @property int     $id         Record ID
  * @property string  $timestamp  Timestamp
- * @property int     $ordn       Order Number
+ * @property int     $ordernbr   Order Number
  * @property string  $custid     Customer ID
  * @property string  $linkid     Link ID (not used)
  * @property string  $url        URL
