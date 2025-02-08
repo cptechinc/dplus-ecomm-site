@@ -9,6 +9,7 @@ use Dpay\Db\Tables\PaymentLinks\Record;
 /**
  * PaymentLinks
  * Handles Reading from PaymentLinks table
+ * @property int $conbr
  */
 class PaymentLinks extends AbstractDatabaseTable {
 	const TABLE = 'app_paymentlinks';
@@ -16,6 +17,10 @@ class PaymentLinks extends AbstractDatabaseTable {
 
 	/** @var static */
 	protected static $instance;
+
+	public function init() {
+		$this->conbr = $this->wire('config')->companyNbr;
+	}
 
 /* =============================================================
 	Query Functions
@@ -28,7 +33,7 @@ class PaymentLinks extends AbstractDatabaseTable {
 	public function queryFilteredByFilterData(AbstractFilterData $data) {
 		$q = $this->query();
 		$q->select('*');
-		$q->where('custid=:id', [':id' => $data->custid]);
+		$q->where('conbr=:conbr AND custid=:custid', [':conbr' => $this->conbr, ':custid' => $data->custid]);
 		return $q;
 	}
 
@@ -37,13 +42,13 @@ class PaymentLinks extends AbstractDatabaseTable {
 ============================================================= */
 	/**
 	 * Return if Record Exists
-	 * @param  string $key
+	 * @param  string $id
 	 * @return bool
 	 */
-	public function exists($key) {
+	public function exists($id) {
 		$q = $this->query();
 		$q->select('COUNT(*)');
-		$q->where('id=:id', [':id' => $key]);
+		$q->where('conbr=:conbr AND id=:id', [':conbr' => $this->conbr, ':id' => $id]);
 		return boolval($q->execute()->fetchColumn());
 	}
 
@@ -55,7 +60,7 @@ class PaymentLinks extends AbstractDatabaseTable {
 	public function existsArray(array $record) {
 		$q = $this->query();
 		$q->select('COUNT(*)');
-		$q->where('id=:id', [':id' => $record['id']]);
+		$q->where('conbr=:conbr AND id=:id', [':conbr' => $this->conbr, ':id' => $record['id']]);
 		return boolval($q->execute()->fetchColumn());
 	}
 
@@ -64,10 +69,10 @@ class PaymentLinks extends AbstractDatabaseTable {
 	 * @param  int $ordernbr
 	 * @return bool
 	 */
-	public function existsByOrdn($ordernbr) {
+	public function existsByOrdernbr($ordernbr) {
 		$q = $this->query();
 		$q->select('COUNT(*)');
-		$q->where('ordernbr=:ordernbr', [':ordernbr' => $ordernbr]);
+		$q->where('conbr=:conbr AND ordernbr=:ordernbr', [':conbr' => $this->conbr, ':ordernbr' => $ordernbr]);
 		return boolval($q->execute()->fetchColumn());
 	}
 
@@ -79,7 +84,7 @@ class PaymentLinks extends AbstractDatabaseTable {
 	public function record($id) {
 		$q = $this->query();
 		$q->select('*');
-		$q->where('id=:id', [':id' => $id]);
+		$q->where('conbr=:conbr AND id=:id', [':conbr' => $this->conbr, ':id' => $id]);
 		return $q->execute()->fetch(static::MODEL_CLASS);
 	}
 
@@ -88,10 +93,10 @@ class PaymentLinks extends AbstractDatabaseTable {
 	 * @param  int $ordernbr
 	 * @return Record
 	 */
-	public function recordByOrdn($ordernbr) {
+	public function recordByOrdernbr($ordernbr) {
 		$q = $this->query();
 		$q->select('*');
-		$q->where('ordernbr=:ordernbr', [':ordernbr' => $ordernbr]);
+		$q->where('conbr=:conbr AND ordernbr=:ordernbr', [':conbr' => $this->conbr, ':ordernbr' => $ordernbr]);
 		return $q->execute()->fetchObject(static::MODEL_CLASS);
 	}
 

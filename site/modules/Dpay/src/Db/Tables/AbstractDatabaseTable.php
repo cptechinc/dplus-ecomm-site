@@ -29,6 +29,7 @@ abstract class AbstractDatabaseTable extends WireData {
 	public static function instance() {
 		if (empty(static::$instance)) {
 			$instance = new static();
+			$instance->init();
 			static::$instance = $instance;
 		}
 		return static::$instance;

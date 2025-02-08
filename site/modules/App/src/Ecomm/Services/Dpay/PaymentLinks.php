@@ -39,7 +39,7 @@ class PaymentLinks extends AbstractEcommCrudService {
 	 * @return bool
 	 */
 	public function existsByOrdn($ordn) {
-		return $this->table->existsByOrdn($ordn);
+		return $this->table->existsByOrdernbr($ordn);
 	}
 
 	/**
@@ -48,7 +48,7 @@ class PaymentLinks extends AbstractEcommCrudService {
 	 * @return PaymentLinkRecord
 	 */
 	public function paymentLinkByOrdn($ordn) {
-		return $this->table->recordByOrdn($ordn);
+		return $this->table->recordByOrdernbr($ordn);
 	}
 
 	/**
