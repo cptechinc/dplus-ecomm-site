@@ -1,11 +1,14 @@
 # Processwire Directories
 wire
+/wire*
 site/assets
+site/modules/FieldtypeStreetAddress
 site/modules/InputfieldCKEditor
 site/modules/README.txt
 
 # Project Configurations
 site/config.php
+site/config*.php
 /vendor
 test.php
 .env
