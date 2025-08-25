@@ -8,6 +8,8 @@ InitConfigs\Dpay::instance()->init();
 InitConfigs\Register::instance()->init();
 InitConfigs\Site::instance()->init();
 
+App\Util\InitConfig::init();
+
 // Load Company Config Values
 if (file_exists("./init/config/$config->companyid.php")) {
 	include("./init/config/$config->companyid.php");
