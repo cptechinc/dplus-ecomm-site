@@ -16,6 +16,7 @@ class Icons extends AbstractCssLookup {
 		'cart'		=> 'fa fa-shopping-cart',
 		'clock' 	=> 'bi bi-clock',
 		'close' 	=> 'fa fa-times',
+		'collection'=> 'bi bi-collection',
 		'complete'	=> 'fa fa-check',
 		'confirm'	=> 'fa fa-check',
 		'copy'      => 'fa fa-copy',
