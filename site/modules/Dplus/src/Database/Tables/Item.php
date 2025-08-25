@@ -1,4 +1,4 @@
-<?php namespace  Dplus\Database\Tables;
+<?php namespace Dplus\Database\Tables;
 // Propel ORM Library
 use Propel\Runtime\Collection\ObjectCollection;
 	// use Propel\Runtime\ActiveQuery\ModelCriteria as AbstractQuery;
