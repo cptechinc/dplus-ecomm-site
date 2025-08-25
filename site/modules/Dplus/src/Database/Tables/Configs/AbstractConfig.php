@@ -26,7 +26,7 @@ abstract class AbstractConfig extends AbstractQueryWrapper {
 	 * @return Model
 	 */
 	public static function fetchConfig() {
-		return static::query()->findOne();
+		return static::instance()->query()->findOne();
 	}
 
 	/**
