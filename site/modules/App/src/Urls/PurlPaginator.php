@@ -18,10 +18,11 @@ class PurlPaginator extends WireData {
 	 */
 	public static function paginate(Purl $url, $segment, $pagenbr = 1) {
 		$path = $url->getPath();
-		$path = rtrim($path, '/').'/';
+		$path = rtrim($path, '/') . '/';
 
-		if (strpos($path, 'page') !== false) {
-			$regex = "((page)\d{1,3})";
+		$regex = "((page)\d{1,3})";
+
+		if (strpos($path, 'page/') !== false || preg_match($regex, $path)) {
 			$replace = ($pagenbr > 1) ? "page".$pagenbr : "";
 			$path  = preg_replace($regex, $replace, $path);
 			$doubleRegex = "/((page)\d{1,3})\/((page)\d{1,3})\//";
