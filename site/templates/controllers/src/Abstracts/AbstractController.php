@@ -282,7 +282,7 @@ abstract class AbstractController extends ParentController {
 	/**
 	 * Set Session Variable
 	 * @param  string $key
-	 * @param  string $value
+	 * @param  mixed  $value
 	 * @return bool
 	 */
 	public static function setSessionVar($key = '', $value) {
