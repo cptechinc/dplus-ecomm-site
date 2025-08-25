@@ -55,14 +55,6 @@ class Item extends AbstractQueryWrapper {
 	}
 
 	/**
-	 * Return the number of records in table
-	 * @return int
-	 */
-	public function countAll() {
-		return $this->query()->count();
-	}
-
-	/**
 	 * Return Item
 	 * @param  int $itemID
 	 * @return Record

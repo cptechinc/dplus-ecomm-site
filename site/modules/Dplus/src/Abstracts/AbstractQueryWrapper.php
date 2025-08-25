@@ -13,10 +13,10 @@ use ProcessWire\WireData;
  * Template for querying records from database
  */
 abstract class AbstractQueryWrapper extends WireData {
-	const MODEL              = '';
-	const MODEL_KEY          = '';
-	const MODEL_TABLE        = '';
-	const DESCRIPTION        = '';
+	const MODEL 			 = '';
+	const MODEL_KEY 		 = '';
+	const MODEL_TABLE		 = '';
+	const DESCRIPTION		 = '';
 	const SORT_OPTIONS = ['ASC', 'DESC'];
 	const WILDCARD_CHAR = '%';
 	const COLUMNS_SEARCH = [
@@ -106,7 +106,7 @@ abstract class AbstractQueryWrapper extends WireData {
 
 	/**
 	 * Apply Order By Clause to Query
-	 * @param  Query              $q
+	 * @param  Query			  $q
 	 * @param  AbstractFilterData $data
 	 * @return bool
 	 */
@@ -128,7 +128,7 @@ abstract class AbstractQueryWrapper extends WireData {
 
 	/**
 	 * Return Query with LIKE conditions
-	 * @param  string  $query         Search String
+	 * @param  string  $query		  Search String
 	 * @param  bool    $useUpperCase
 	 * @return Query
 	 */
@@ -194,6 +194,10 @@ abstract class AbstractQueryWrapper extends WireData {
 		return $q->paginate($data->pagenbr, $data->limit);
 	}
 
+	public function countAll() : int {
+		return $this->query()->count();
+	}
+
 /* =============================================================
 	Supplemental
 ============================================================= */
@@ -208,7 +212,7 @@ abstract class AbstractQueryWrapper extends WireData {
 
 	/**
 	 * Return Key Value Array of Columns to their Table Map Equivalent
-	 * @param  Query   $q     Query
+	 * @param  Query   $q	  Query
 	 * @param  Record  $class Record Class
 	 * @return array
 	 */
