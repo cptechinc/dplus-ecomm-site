@@ -9,12 +9,14 @@ use ProcessWire\WireInputData;
 // App
 use App\Ecomm\Abstracts\Services\AbstractEcommCrudService;
 use App\Ecomm\Database\Cart as CartTable;
+use App\Ecomm\Services\InputQtyParser;
 
 /**
  * Cart
  * Provides Cart Services
  * 
  * @property CartTable $table
+ * @property InputQtyParser\AbstractStrategy $qtyParser
  */
 class Cart extends AbstractEcommCrudService {
 	protected static $instance;
@@ -25,6 +27,12 @@ class Cart extends AbstractEcommCrudService {
 	public function __construct() {
 		parent::__construct();
 		$this->table = CartTable::instance();
+		$this->qtyParser = new InputQtyParser\DefaultStrategy();
+
+		if ($this->config->get('useUomPriceByWeight') === true) {
+			$this->qtyParser = new InputQtyParser\UomPriceByWeight();
+		}
+		$this->qtyParser->setDecimalPrecision($this->config->decimalPrecisionQty);
 	}
 
 /* =============================================================
@@ -135,13 +143,12 @@ class Cart extends AbstractEcommCrudService {
 		switch ($input->text('action')) {
 			case 'add-to-cart':
 				return $this->processAddToCart($input);
-				break;
 			case 'remove-from-cart':
 				return $this->processRemoveFromCart($input);
-				break;
 			case 'update-item-qty':
 				return $this->processUpdateItemQty($input);
-				break;
+			default:
+				return false;
 		}
 	}
 
@@ -153,7 +160,8 @@ class Cart extends AbstractEcommCrudService {
 	private function processAddToCart(WireInputData $input) {
 		$data = new WireData();
 		$data->itemID = $input->string('itemID');
-		$data->qty    = $input->int('qty', ['min' => 1]);
+		$data->qty    = $this->qtyParser->parse($input);
+
 		$beforeQty = $this->itemidQty($data->itemID);
 		$data->qty += $beforeQty;
 		$this->requestAddToCart($data);
@@ -181,7 +189,7 @@ class Cart extends AbstractEcommCrudService {
 	private function processUpdateItemQty(WireInputData $input) {
 		$data = new WireData();
 		$data->itemID = $input->string('itemID');
-		$data->qty    = $input->int('qty', ['min' => 1]);
+		$data->qty    = $this->qtyParser->parse($input);
 		$this->requestUpdateItemQty($data);
 		$afterQty = $this->itemidQty($data->itemID);
 		return $afterQty == $data->qty;
