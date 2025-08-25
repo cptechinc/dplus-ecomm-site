@@ -1,27 +1,25 @@
-<?php namespace Controllers;
+<?php namespace Controllers\Admin\Pages;
 // ProcessWire
-use ProcessWire\Wire404Exception;
 use ProcessWire\WireData;
 // Controllers
 use Controllers\Abstracts\AbstractController;
+use Controllers\Admin as AdminController;
 
 /**
  * AdminSite
  * Handles AdminSite Pages
  */
-class Admin extends AbstractController {
+class Menu extends AbstractController {
 	const SESSION_NS = 'admin';
 	const TEMPLATE = 'admin-site';
-	const ALLOWED_PWROLES  = ['superuser', 'site-admin'];
 
 /* =============================================================
 	1. Indexes
 ============================================================= */
 	public static function index(WireData $data) {
-		if (self::validatePwRole() === false) {
-			throw new Wire404Exception("Not Logged In");
-		}
-		self::pw('page')->title = 'Site Admin';
+		$fields = ['action|text', 'logout|bool'];
+		self::sanitizeParametersShort($data, $fields);
+
 		self::initPageHooks();
 		return self::display($data);
 	}
@@ -38,7 +36,7 @@ class Admin extends AbstractController {
 	4. URLs
 ============================================================= */
 	public static function url(){
-		return self::pw('pages')->get('template=admin-site')->url;
+		return AdminController::url() . 'pages/';
 	}
 
 /* =============================================================
@@ -52,7 +50,7 @@ class Admin extends AbstractController {
 	6. HTML Rendering
 ============================================================= */
 	private static function render(WireData $data) {
-		return self::getTwig()->render('admin/page.twig');
+		return self::getTwig()->render('admin/pages/menu/page.twig');
 	}
 
 /* =============================================================
@@ -75,8 +73,12 @@ class Admin extends AbstractController {
 		$selector = static::getPageHooksTemplateSelector();
 		$m = self::pw('modules')->get('App');
 
-		$m->addHook("$selector::adminPagesUrl", function($event) {
-			$event->return = Admin\Pages\Menu::url();
+		$m->addHook("$selector::productItemGroupsUrl", function($event) {
+			$event->return = ProductsItemGroups::url();
+		});
+
+		$m->addHook("$selector::productsUrl", function($event) {
+			$event->return = Products::url();
 		});
 	}
 }

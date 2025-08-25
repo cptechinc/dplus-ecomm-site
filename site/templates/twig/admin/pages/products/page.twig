@@ -1,0 +1,28 @@
+{% import "util/macros/html.twig" as html %}
+
+<section class="bar pt-4">
+	<div class="heading">
+		<h2>{{ page.title }}</h2>
+	</div>
+
+	{% if session.getFor('admin-products', 'last-deleted') %}
+		{% set id = session.getFor('admin-products', 'last-deleted') %}
+
+		<div class="mb-3 col-sm-4 px-0">
+			{{ html.alert({'type': 'success', 'title': 'Deleted page(s) for ' ~ id|keys|join(', ') })}}
+		</div>
+	{% endif %}
+
+	{% include 'admin/pages/products/list.twig' %}
+	{% include 'util/paginator/PaginatedArray.twig' with {'results': list} %}
+</section>
+
+<div class="d-flex justify-content-between mt-3">
+	<div></div>
+
+	<div>
+		<a href="{{ page.menuUrl() }}" class="btn {{ CSS.colors.buttons.getClass('exit') }}">
+			{{ html.iconType({'type': 'exit'}) }} Exit
+		</a>
+	</div>
+</div>

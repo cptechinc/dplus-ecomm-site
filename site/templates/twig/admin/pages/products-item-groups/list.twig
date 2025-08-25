@@ -1,0 +1,39 @@
+{% import "util/macros/html.twig" as html %}
+
+<div class="card">
+    <div class="card-header bg-dark text-light">
+        <div class="d-flex justify-content-between">
+            <span class="h5 mb-0">{{ list.getTotal()}} Item Group Pages</span>
+
+            <a href="{{ page.installAllUrl() }}" class="btn btn-sm btn-light">
+                {{ html.iconType({'type': 'add'}) }} Install All
+            </a>
+
+            <a href="{{ page.deleteAllUrl() }}" class="btn btn-sm {{ CSS.colors.buttons.getClass('delete') }} text-white">
+                {{ html.iconType({'type': 'delete'}) }} Delete All
+            </a>
+        </div>
+    </div>
+    <table class="table table-sm table-striped">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>ID</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for group in list %}
+                <tr>
+                    <td>{{ group.dplusdescription }}</td>
+                    <td>{{ group.dplusid }}</td>
+                    <td>
+                        <a href="{{ page.deleteUrl(group.dplusid) }}" class="btn btn-sm {{ CSS.colors.buttons.getClass('delete') }}">
+                            {{ html.iconType({'type': 'delete'}) }} Delete
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
