@@ -1,4 +1,5 @@
 		<?= $TWIG->render('util/ajax-modal.twig'); ?>
+		<?= $TWIG->render('util/loading-modal.twig'); ?>
 
 		<?php foreach($config->scripts->unique() as $script) : ?>
 			<script src="<?= $script; ?>"></script>
