@@ -3,6 +3,7 @@
 use ProcessWire\NullPage;
 use ProcessWire\Page;
 use ProcessWire\WireData;
+use App\Ecomm\Search\Products\XrefKeyTable;
 // App
 use App\Util\Data\JsonResultData as ResultData;
 use App\Ecomm\Search\Pages\Product as PagesSearcher;
@@ -11,6 +12,7 @@ use Controllers\Abstracts\AbstractJsonController;
 
 /**
  * Products
+ * 
  * Handles Products AJAX Requests
  */
 class Products extends AbstractJsonController {
@@ -61,6 +63,29 @@ class Products extends AbstractJsonController {
 		$pData = self::parsePageData($page);
 		$result->product = $pData->data;
 		return $result->data;
+	}
+
+	public static function getProductByXrefKey(WireData $data) {
+		$fields = ['q|string', 'jqv|bool'];
+		self::sanitizeParametersShort($data, $fields);
+
+		$result = self::createResultData($data);
+
+		if (empty($data->q)) {
+			self::setResultFailure($result, "Search was not provided");
+			return $result->data;
+		}
+		$TABLE = XrefKeyTable::instance();
+		$itemids = $TABLE->itemidsByWildcardSearchPaginated($data->q, 1, 1);
+
+		if ($itemids->getNbResults()) {
+			if (empty($data->q)) {
+				self::setResultFailure($result, "Not found");
+				return $result->data;
+			}
+		}
+		$data->itemID =  $itemids->toArray()[0];
+		return self::getProductByItemid($data);
 	}
 
 /* =============================================================

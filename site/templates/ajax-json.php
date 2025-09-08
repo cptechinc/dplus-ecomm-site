@@ -15,6 +15,9 @@ $routes = [
 		['POST', '', Checkout::class, 'process'],
 	],
 	'products' => [
+		'search' => [
+			['GET', 'xrefkey', Products::class, 'getProductByXrefKey'],
+		],
 		'product' => [
 			['GET', 'itemid', Products::class, 'getProductByItemid'],
 		],

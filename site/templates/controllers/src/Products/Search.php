@@ -3,8 +3,8 @@
 use ProcessWire\WireData;
 use ProcessWire\PaginatedArray;
 // App
-use Dplus\Search\Itemids\Xrefs as ItemidSearcher;
 use App\Ecomm\Search\Pages\Product as PagesSearcher;
+use App\Ecomm\Search\Products\XrefKeyTable;
 use App\Ecomm\Services\Product\Pricing;
 // Controllers
 use Controllers\Abstracts\AbstractController;
@@ -16,7 +16,7 @@ use Controllers\Abstracts\AbstractController;
 class Search extends AbstractController {
 	const SESSION_NS = 'products-search';
 	const TEMPLATE   = 'products-search';
-	const RESULTS_PERPAGE = 25;
+	const RESULTS_PERPAGE = 24;
 
 /* =============================================================
 	1. Indexes
@@ -52,22 +52,34 @@ class Search extends AbstractController {
 		if (empty($data->q)) {
 			return new PaginatedArray();
 		}
+		$itemids = self::findItemids($data);
 		$PAGES = new PagesSearcher();
-		$PAGES->itemIDs = self::findItemids($data);
-		$PAGES->keyword = $data->q;
-		self::requestPricing($PAGES->itemIDs);
-		return $PAGES->paginate(self::pw('input')->pageNum, self::RESULTS_PERPAGE);
+		$PAGES->itemIDs = $itemids->getArray();
+
+		$results = new PaginatedArray();
+		$results->setArray($PAGES->find());
+		$results->setTotal($itemids->getTotal());
+		$results->setLimit($itemids->getLimit());
+		return $results;
 	}
 
 	/**
 	 * Return Item IDs that match query
 	 * @param  WireData $data
-	 * @return array
+	 * @return PaginatedArray
 	 */
 	private static function findItemids(WireData $data) {
-		$TABLE = ItemidSearcher::instance();
-		$TABLE->query = $data->q;
-		return $TABLE->find();
+		$TABLE = XrefKeyTable::instance();
+		$results = $TABLE->itemidsByWildcardSearchPaginated($data->q, self::getPwInput()->inputNum, self::RESULTS_PERPAGE);
+		$page  = self::getPwInput()->pageNum;
+		$limit = self::RESULTS_PERPAGE;
+
+		$list = new PaginatedArray();
+        $list->setStart($page == 1 ? 0 : ($page * $limit) - $limit);
+        $list->setLimit($limit);
+        $list->setTotal($results->getNbResults());
+        $list->setArray($results->toArray());
+		return $list;
 	}
 
 	private static function requestPricing(array $itemIDs) {
