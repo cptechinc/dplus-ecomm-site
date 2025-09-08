@@ -55,6 +55,7 @@ class Search extends AbstractController {
 		$PAGES = new PagesSearcher();
 		$PAGES->itemIDs = self::findItemids($data);
 		$PAGES->keyword = $data->q;
+		self::requestPricing($PAGES->itemIDs);
 		return $PAGES->paginate(self::pw('input')->pageNum, self::RESULTS_PERPAGE);
 	}
 
@@ -67,6 +68,11 @@ class Search extends AbstractController {
 		$TABLE = ItemidSearcher::instance();
 		$TABLE->query = $data->q;
 		return $TABLE->find();
+	}
+
+	private static function requestPricing(array $itemIDs) {
+		$PRICING = Pricing::instance();
+		$PRICING->sendRequestForMultiple($itemIDs);
 	}
 
 /* =============================================================

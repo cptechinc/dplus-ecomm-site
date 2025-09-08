@@ -2,6 +2,7 @@
 // ProcessWire
 use ProcessWire\HookEvent;
 use ProcessWire\Page;
+use ProcessWire\WireData;
 // Dplus
 use Dplus\Database\Tables\Item as ItemTable;
 // App
@@ -42,7 +43,9 @@ class PageProduct extends AbstractStaticHooksAdder {
 				$event->return = $page->aPricing;
 				return true;
 			}
-			$SERVICE->sendRequestForOne($page->itemid);
+			if ($SERVICE->exists($page->itemid) === false) {
+				$SERVICE->sendRequestForOne($page->itemid);
+			}
 			$page->aPricing = $SERVICE->pricing($page->itemid);
 			$event->return  = $page->aPricing;
 		});
@@ -96,7 +99,7 @@ class PageProduct extends AbstractStaticHooksAdder {
 				$event->return = $page->aQtyInStock;
 				return true;
 			}
-			$page->aQtyInStock = $page->pricing->qty;
+			$page->aQtyInStock = $page->pricing ? $page->pricing->qty : 0;
 			$event->return = $page->aQtyInStock;
 		});
 
@@ -136,5 +139,22 @@ class PageProduct extends AbstractStaticHooksAdder {
 			$event->return = empty($page->pricebreaks) === false;
 		});
 
+		$m->addHookProperty("Page(template=$tpl)::productData", function(HookEvent $event) {
+			/** @var Page */
+			$page = $event->object;
+
+			$pData = new WireData();
+			$pData->itemid = $page->itemid;
+			$pData->description = $page->itemdescription;
+			$pData->itemdescription = $page->itemdescription;
+			$pData->listprice       = $page->listprice;
+			$pData->sellprice       = $page->sellprice;
+			$pData->qtyInStock      = $page->qtyInStock;
+			$pData->pricebreaks     = $page->pricebreaks;
+			$pData->weight          = $page->itm->weight;
+			$pData->uom             = $page->itm->unitofmsale->code;
+			$pData->isStockedByCaseWeight = $page->itm->unitofmsale->isStockedByCaseWeight();
+			$event->return = $pData;
+		});
 	}
 }

@@ -7,6 +7,7 @@ use ProcessWire\WireData;
 use Dplus\Database\Tables\Item as ItemTable;
 // App
 use App\Ecomm\Search\Pages\Product as PagesSearcher;
+use App\Ecomm\Services\Product\Pricing;
 // Controllers
 use Controllers\Abstracts\AbstractController;
 
@@ -17,7 +18,7 @@ use Controllers\Abstracts\AbstractController;
 class ItemGroup extends AbstractController {
 	const SESSION_NS = 'products-item-group';
 	const TEMPLATE	 = 'products-item-group';
-	const RESULTS_PERPAGE = 25;
+	const RESULTS_PERPAGE = 24;
 
 /* =============================================================
 	1. Indexes
@@ -60,7 +61,13 @@ class ItemGroup extends AbstractController {
 		if (empty($PAGES->itemIDs)) {
 			return new PageArray();
 		}
+		self::requestPricing($PAGES->itemIDs);
 		return $PAGES->paginate(self::pw('input')->pageNum, self::RESULTS_PERPAGE);
+	}
+
+	private static function requestPricing(array $itemIDs) {
+		$PRICING = Pricing::instance();
+		$PRICING->sendRequestForMultiple($itemIDs);
 	}
 
 /* =============================================================
