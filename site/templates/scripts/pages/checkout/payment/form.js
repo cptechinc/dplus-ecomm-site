@@ -14,6 +14,17 @@ $(function() {
 			$('img[data-type="'+type+'"]').addClass('show');
 		}
 	});
+
+	$("body").on('change', 'select[name=paymentmethod]', function(e) {
+		let input = $(this);
+		let ccFields = input.closest('form').find('.credit-card-fields');
+
+		ccFields.removeClass('show');
+
+		if (input.val() == 'cc') {
+			ccFields.addClass('show');
+		}
+	});
 	
 /*==============================================================
 	Jquery Validate Methods
