@@ -1,6 +1,8 @@
 <?php
 use Controllers\Account;
 
+/** @var ProcessWire\WireInput $input */
+
 $routes = [
 	['GET',  '', Account::class, 'index'],
 	'change-password' => [
@@ -47,5 +49,10 @@ $router = new Mvc\Routers\Router();
 $router->setRoutes($routes);
 $router->setRoutePrefix($page->url);
 $page->html = $router->route();
+
+if (in_array($input->urlSegmentLast(), ['register', 'forgot-password'])) {
+	include __DIR__ . "/basic-blank-page.php";
+	return;
+}
 
 include __DIR__ . "/basic-page.php";

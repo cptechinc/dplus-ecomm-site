@@ -9,6 +9,7 @@ use App\Ecomm\Services\Login as LoginService;
 
 
 /** @var ProcessWire\Config $config */
+/** @var ProcessWire\Page   $page */
 /** @var ProcessWire\WireInput $input */
 
 $connectedDatax  = DplusDbConnectors\Dplus::instance()->connect();
@@ -26,7 +27,7 @@ include_once($modules->get('Mvc')->controllersPath().'vendor/autoload.php');
 /** @var AppConfig */
 $configApp = $this->config->app;
 
-if ($configApp->requireLogin && $page->template->name != 'login') {
+if ($configApp->requireLogin && in_array($page->template->name, ['login', 'account', 'contact-us']) === false) {
 	if (LoginService::instance()->isLoggedIn() === false) {
 		$session->redirect($pages->get('template=login')->url, $http301=false);
 		return true;

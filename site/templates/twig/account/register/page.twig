@@ -1,6 +1,6 @@
 {% import "util/macros/html.twig" as html %}
 
-<div>
+<div class="offset-1 col-10 offset-sm-2 col-sm-8 px-0">
 	<section class="bar pt-4">
 		<div class="heading">
 			<h2>Register for an Account</h2>
@@ -12,6 +12,21 @@
 			</div>
 		{% else %}
 			{% include 'account/register/form.twig' %}
+			<hr>
+
+			<div class="row">
+				<div class="col-6 col-sm-4 mb-3">
+					<a href="{{ pages.get('template=login').url }}" class="btn btn-block {{ CSS.colors.buttons.getClass('link') }}">
+						{{ html.iconType({'type': 'lock'}) }} Login
+					</a>
+				</div>
+
+				<div class="col-6 col-sm-4 mb-2">
+					<a href="{{ pages.get('template=contact-us').url }}" class="btn btn-block {{ CSS.colors.buttons.getClass('link') }}">
+						Contact Us
+					</a>
+				</div>
+			</div>
 		{% endif %}
 	</section>
 </div>

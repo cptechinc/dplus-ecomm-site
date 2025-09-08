@@ -66,7 +66,15 @@ class Register extends AbstractServiceController {
 /* =============================================================
 	2. Validations / Permissions / Initializations
 ============================================================= */
-
+	/**
+	 * Return if Login is required for this Controller
+	 * @param  WireData|null $data
+	 * @return bool
+	 */
+	public static function isLoginRequired(WireData $data = null) {
+		return static::REQUIRE_LOGIN;
+	}
+	
 /* =============================================================
 	3. Data Fetching / Requests / Retrieval
 ============================================================= */
