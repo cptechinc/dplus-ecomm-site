@@ -81,9 +81,9 @@ class Sanitizer extends AbstractStaticHooksAdder {
 	/**
 	 * Return Card Date as object
 	 * @param  string $str
-	 * @return WireData
+	 * @return string|false
 	 */
-	public function cardDate($str) {
+	public static function cardDate($str) {
 		$str = str_replace(' ', '', $str);
 
 		if (strpos($str, '/') === 0) {
