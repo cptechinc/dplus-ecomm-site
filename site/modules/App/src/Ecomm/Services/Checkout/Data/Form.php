@@ -3,7 +3,6 @@
 use Billing;
 // ProcessWire
 use ProcessWire\WireData;
-use ProcessWire\WireInputData;
 
 /**
  * Form
@@ -21,7 +20,7 @@ use ProcessWire\WireInputData;
  * // Ship-To
  * @property string $shiptoid       Ship-To ID
  * @property string $shiptoname     Ship-To Name
- * @property string $shiptocompany  Ship-To Company
+ * @property string $shiptocontact  Ship-To Contact
  * @property string $shiptoaddress1 Ship-To Address Line 1
  * @property string $shiptoaddress2 Ship-To Address Line 2
  * @property string $shiptocity     Ship-To Address City
@@ -61,7 +60,8 @@ class Form extends WireData {
 	];
 	const BILLING_KEYMAP = [
 		'errormsg'       => 'ermes',
-		'billtoname'     => 'billtoname',
+		'billtoname'     => 'bconame',
+		'billtocontact'  => 'bname',
 		'billtocompany'  => 'billtocompany',
 		'billtoaddress1' => 'billtoaddress1',
 		'billtoaddress2' => 'billtoaddress2',
@@ -69,7 +69,8 @@ class Form extends WireData {
 		'billtostate'    => 'billtostate',
 		'billtozip'      => 'billtozip',
 		'shiptoid'       => 'shiptoid',
-		'shiptoname'     => 'shiptoname',
+		'shiptoname'     => 'sconame',
+		'shiptocontact'  => 'sname',
 		'shiptocompany'  => 'shiptocompany',
 		'shiptoaddress1' => 'shiptoaddress1',
 		'shiptoaddress2' => 'shiptoaddress2',
@@ -132,10 +133,10 @@ class Form extends WireData {
 			}
 			$this->$thisField = $b->$bField;
 		}
-		$this->error = $b->error == 'Y';
+		$this->error = $b->getError() == 'Y';
 
 		if ($this->paymentmethod == '') {
-			$this->paymentmethod = self::DEFAULT_PAYMENTMETHOD;
+			$this->paymentmethod = $b->getTermtype() == 'STD' ? 'bill' : self::DEFAULT_PAYMENTMETHOD;
 		}
 		$this->ordn = intval($this->ordn);
 		$this->setPaymentFieldsFromBilling($b);
@@ -198,5 +199,4 @@ class Form extends WireData {
 	public function hasCreditCard() {
 		return $this->cclast4 != '';
 	}
-	
 }
