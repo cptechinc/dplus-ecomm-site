@@ -6,8 +6,10 @@ use Pauldro\ProcessWire\AbstractStaticPwClass;
 
 class InitConfig extends AbstractStaticPwClass {
     const CONFIGS = [
-        'useUomPriceByWeight' => false,
-        'decimalPrecisionQty'    => 0
+        'decimalPrecisionQty' => 0,
+        'docmOnlyShowNewest'  => false,
+        'docmUseLowercaseFolders' => false,
+        'useUomPriceByWeight'     => false,
     ];
 
     public static function init() {

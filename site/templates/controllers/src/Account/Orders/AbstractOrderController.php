@@ -9,9 +9,11 @@ use Dplus\Database\Tables\AbstractOrderTable;
 use Dplus\Docm\Finders\SalesOrder as DOCM;
 // App
 use App\Ecomm\Services\Dpay\PaymentLinks;
+use Dpay\Db\Database as DpayDatabase;
 // Controllers
 use Controllers\Abstracts\AbstractController;
-
+// App
+use App\Ecomm\Services\Account\SalesOrderDocumentsFetcher as DocsFetcher;
 
 /**
  * AbstractOrderController
@@ -75,6 +77,11 @@ abstract class AbstractOrderController extends AbstractController {
 		if (static::getOrdersTable()->isForCustid($data->ordn, self::getEcUser()->custid) === false) {
 			self::pw('session')->redirect(static::listUrl(), $http301=false);
 			return false;
+		}
+		if (self::getPwConfig()->app->useDpay) {
+			if (DpayDatabase::connect() === false) {
+				throw new Exception("Unable to connect to dpay");
+			}
 		}
 		self::pw('input')->get->ordn = $data->ordn;
 		self::pw('page')->ordn       = $data->ordn;
@@ -199,7 +206,7 @@ abstract class AbstractOrderController extends AbstractController {
 		});
 
 		$m->addHook("$selector::findOrderDocuments", function(HookEvent $event) {
-			$event->return = DOCM::find($event->arguments(0));
+			$event->return = (new DocsFetcher($event->arguments(0)))->fetch();
 		});
 
 		$m->addHook("$selector::hasPaymentLink", function(HookEvent $event) {

@@ -1,6 +1,6 @@
 <?php namespace Dplus\Docm\Finders;
 // Propel ORM Library
-	// use Propel\Runtime\ActiveQuery\Criteria;
+use Propel\Runtime\ActiveQuery\Criteria;
 use Propel\Runtime\Collection\ObjectCollection;
 // Dplus Model
 use DocumentQuery as Query, Document as Record;
@@ -38,6 +38,31 @@ class SalesOrder extends StaticDocumentQueryWrapper {
 		$q = self::query();
 		self::filterSales($q, SoTable::padOrdernumber($ordn));
 		return $q->count();
+	}
+
+
+	public static function findLastArInvoice($ordn) {
+		$q = self::query();
+		QueryDecorators\ArInvoice::filterQueryArInvFolder($q, $ordn);
+		$q->orderByDocidate(Criteria::DESC);
+		$q->orderByDocitime(Criteria::DESC);
+		return $q->findOne();
+	}
+
+	public static function findLastSoPack($ordn) {
+		$q = self::query();
+		QueryDecorators\ArInvoice::filterQuerySoPackFolder($q, $ordn);
+		$q->orderByDocidate(Criteria::DESC);
+		$q->orderByDocitime(Criteria::DESC);
+		return $q->findOne();
+	}
+
+	public static function findLastSoAck($ordn) {
+		$q = self::query();
+		QueryDecorators\ArInvoice::filterQuerySoAckFolder($q, $ordn);
+		$q->orderByDocidate(Criteria::DESC);
+		$q->orderByDocitime(Criteria::DESC);
+		return $q->findOne();
 	}
 
 /* =============================================================

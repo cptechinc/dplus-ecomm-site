@@ -16,9 +16,24 @@ use Dplus\Docm\StaticDocumentQueryWrapper;
 class ArInvoice extends StaticDocumentQueryWrapper {
 	const TAG = 'AR';
 
+	public static function filterQueryArInvFolder(Query $q, $ordn) {
+		$q->filterByDoccfolder(self::transformFoldername('ARINV'));
+		$q->filterByDocifld1($ordn);
+	}
+
+	public static function filterQuerySoPackFolder(Query $q, $ordn) {
+		$q->filterByDoccfolder(self::transformFoldername('SOPACK'));
+		$q->filterByDocifld1($ordn);
+	}
+
+	public static function filterQuerySoAckFolder(Query $q, $ordn) {
+		$q->filterByDoccfolder(self::transformFoldername('SOACK'));
+		$q->filterByDocifld1($ordn);
+	}
+
 	/**
 	 * Add Query Condition for AR Invoice # for Ref1
-	 * @param  DocumentQuery $q     Query
+	 * @param  Query         $q     Query
 	 * @param  string        $ordn  Sales Order #
 	 * @param  string        $name  Condition Name
 	 * @return string

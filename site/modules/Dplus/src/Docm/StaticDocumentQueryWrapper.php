@@ -4,11 +4,13 @@ use Document;
 use DocumentQuery as Query;
 // ProcessWire
 use ProcessWire\WireData;
+// Pauldro ProcessWire
+use Pauldro\ProcessWire\AbstractStaticPwClass;
 
 /**
  * Base QueryWrapper
  */
-class StaticDocumentQueryWrapper {
+class StaticDocumentQueryWrapper extends AbstractStaticPwClass {
 	protected static $columns;
 
 /* =============================================================
@@ -96,5 +98,19 @@ class StaticDocumentQueryWrapper {
 			return '';
 		}
 		return rtrim($file->directory->directory, '/') . '/' . $file->filename;
+	}
+
+	public static function transformFoldername(string $folder) {
+		if (self::pwConfig()->docmUseLowercaseFolders) {
+			return strtolower($folder);
+		}
+		return strtoupper($folder);
+	}
+
+	/**
+	 * @return Config
+	 */
+	public static function pwConfig() {
+		return self::pw('config');
 	}
 }

@@ -10,6 +10,8 @@ use ProcessWire\WireHttp;
 use Pauldro\ProcessWire\Logs\PwLogger;
 // Dplus
 use Dplus\Docm\Finders\SalesOrder as DOCM;
+// App
+use App\Ecomm\Services\Account\SalesOrderDocumentsFetcher as DocsFetcher;
 
 
 /**
@@ -24,6 +26,7 @@ abstract class AbstractOrderDocumentsController extends AbstractOrderController 
 	const PAGE_NAME     = 'order';
 	const ERRORLOG_NAME = 'error-so-documents';
 	const ERRORLOG_LOG_OPTIONS = ['showUser' => false, 'showURL' => true];
+	const ALLOW_AJAX = true;
 
 /* =============================================================
 	1. Indexes
@@ -75,6 +78,7 @@ abstract class AbstractOrderDocumentsController extends AbstractOrderController 
 			self::pw('session')->redirect(static::urlOrder($data->ordn), $http301=false);
 			return false;
 		}
+		return true;
 	}
 
 	/**
@@ -100,7 +104,8 @@ abstract class AbstractOrderDocumentsController extends AbstractOrderController 
 	 * @return ObjectCollection
 	 */
 	protected static function fetchDocuments(WireData $data) {
-		return DOCM::find($data->ordn);
+		$fetcher = new DocsFetcher($data->ordn);
+		return $fetcher->fetch();
 	}
 
 /* =============================================================
